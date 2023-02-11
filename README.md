@@ -9,18 +9,24 @@ In the project directory, you can run: `npm start`
 ## Stuff learn'd
 
 - HTML
-- Rendering
-- HTML/JS contexts
-	- `{}` for JS
-	- `<>` for HTML
-- Sequence abstractions
-	- map
-	- filter
-- State
-	- `useState`
-	- set____
-	- `onClick`
-	- spread operater
+- JS
+	- Sequence abstractions
+		- map
+		- filter
+	- spread operater (append to list/array)
 		- `[...list, newElement]`
-- Debugging Tools
-	- `console.log`
+	- equality (never use ==)
+		- `5 === 5`
+	- Debugging Tools
+		- `console.log`
+- React
+	- Rendering
+		- HTML/JS contexts
+			- `{}` for JS
+			- `<>` for HTML
+		- Component
+			- function in another file, imported and rendered
+	- State
+		- `useState`
+		- set____
+		- `onClick`

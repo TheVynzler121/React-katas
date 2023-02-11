@@ -13,7 +13,18 @@
   color: white;
 }
 
-.horse {
+.add {
+  color: black;
+  background-color: green;
+  margin: 1rem;
+}
+
+.sub {
   color: black;
   background-color: red;
+  margin: 1rem;
+}
+
+.dice {
+  
 }
