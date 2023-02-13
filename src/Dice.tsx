@@ -4,6 +4,7 @@ function Dice() {
   const [dice, setDice] = useState([] as number[]);
   const [diceTypeResult, setDiceTypeResult] = useState(20);
   const [numberOfDice, setNumberOfDice] = useState(1);
+  const sumOfDice = dice.reduce((sum, rollResult) => sum + rollResult, 0);
 
   console.log("dice", dice);
   console.log("diceTypeResult", diceTypeResult);
@@ -38,8 +39,11 @@ function Dice() {
   return (
     <>
 	<p>
-      Roll result: {JSON.stringify(dice)}
+      Roll result: {JSON.stringify(dice)} 
 	</p>
+  <p>
+      Roll sum: {sumOfDice}
+  </p>
 	<p>
       Rolling {numberOfDice}: d{diceTypeResult}
 	</p>
