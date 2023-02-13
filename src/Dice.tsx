@@ -20,7 +20,7 @@ function Dice() {
   const rollHandler = () => {
     console.log("Rolled the Dice!");
     let rolls = [] as number[];
-    for (var x = 0; x < numberOfDice; x++){
+    for (var x = 0; x < numberOfDice; x++) {
       rolls.push(rollDice(diceTypeResult));
     }
     setDice(rolls);
@@ -38,15 +38,15 @@ function Dice() {
 
   return (
     <>
-	<p>
-      Roll result: {JSON.stringify(dice)} 
-	</p>
-  <p>
-      Roll sum: {sumOfDice}
-  </p>
-	<p>
-      Rolling {numberOfDice}: d{diceTypeResult}
-	</p>
+      <p>
+        Roll result: {JSON.stringify(dice)}
+      </p>
+      <p>
+        Roll sum: {sumOfDice}
+      </p>
+      <p>
+        Rolling {numberOfDice}: d{diceTypeResult}
+      </p>
       <p>
         <select value={numberOfDice} onChange={(e) => numberOfDiceHandler(e.target.value)}>
           {numberofDiceList.map(dice => <option value={dice}>{dice}</option>)}
