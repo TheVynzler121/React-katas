@@ -1,32 +1,19 @@
 import React, { useState } from 'react';
+import { rollDice } from './DiceHelpers.ts';
 
 function Dice() {
   const [dice, setDice] = useState([] as number[]);
   const [diceTypeResult, setDiceTypeResult] = useState(20);
   const [numberOfDice, setNumberOfDice] = useState(1);
   const sumOfDice = dice.reduce((sum, rollResult) => sum + rollResult, 0);
-  const [str, setStr] = useState(0);
-
+  
   console.log("dice", dice);
   console.log("diceTypeResult", diceTypeResult);
 
   const diceTypes = [2, 4, 6, 8, 10, 12, 20, 100];
   const numberofDiceList = [1, 2, 3, 4];
 
-  const add = () => {
-    console.log("clicked plus!");
-    setStr(str + 1);
-  };
-
-  const sub = () => {
-    console.log("clicked minus!");
-    setStr(str - 1);
-  };
-
-
-  const rollDice = (sides: number) => {
-    return 1 + Math.floor(Math.random() * sides);
-  };
+// [[3,6],[4,2],[3]] TODO: save roll results
 
   const rollHandler = () => {
     console.log("Rolled the Dice!");
@@ -49,9 +36,6 @@ function Dice() {
 
   return (
     <>
-      <p>
-        Strength: {str} <button onClick={() => add()}>+</button><button onClick={() => sub()}>-</button>
-      </p>
       <p>
         Roll result: {JSON.stringify(dice)}
       </p>
