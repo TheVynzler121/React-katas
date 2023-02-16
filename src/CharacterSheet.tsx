@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { rollDice } from './DiceHelpers.ts';
-import { calculateBaseModifier } from './DndHelpers.ts';
+import { rollDice } from './DiceHelpers.tsx';
+import { calculateBaseModifier } from './DndHelpers.tsx';
 
 function CharacterSheet() {
   

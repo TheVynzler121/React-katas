@@ -1,5 +1,15 @@
 import {calculateBaseModifier} from './DndHelpers.ts';
 
+test('calculates base modifier for -2', () => {
+  expect(calculateBaseModifier(6)).toBe(-2);
+  expect(calculateBaseModifier(7)).toBe(-2);
+});
+
+test('calculates base modifier for -1', () => {
+  expect(calculateBaseModifier(8)).toBe(-1);
+  expect(calculateBaseModifier(9)).toBe(-1);
+});
+
 test('calculates base modifier for +0', () => {
   expect(calculateBaseModifier(10)).toBe(0);
   expect(calculateBaseModifier(11)).toBe(0);
