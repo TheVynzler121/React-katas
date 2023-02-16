@@ -19,6 +19,9 @@ In the project directory, you can run: `npm start`
 		- `5 === 5`
 	- Debugging Tools
 		- `console.log`
+  	- ternary operator(s)/expression
+  		- XXX ? YYYY : ZZZ
+  		- `let x = predicate ? consequent : alternative`
 - React
 	- Rendering
 		- HTML/JS contexts

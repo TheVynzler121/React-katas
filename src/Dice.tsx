@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { rollDice } from './DiceHelpers.ts';
+import { rollDice } from './DiceHelpers';
 
 function Dice() {
   const [dice, setDice] = useState([] as number[]);

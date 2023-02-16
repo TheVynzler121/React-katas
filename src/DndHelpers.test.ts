@@ -1,4 +1,4 @@
-import {calculateBaseModifier} from './DndHelpers.ts';
+import {calculateBaseModifier} from './DndHelpers';
 
 test('calculates base modifier for -2', () => {
   expect(calculateBaseModifier(6)).toBe(-2);
