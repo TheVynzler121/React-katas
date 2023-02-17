@@ -4,32 +4,85 @@ import { rollDice } from './DiceHelpers';
 // import { rollHandler } from './DiceHelpers';
 import { calculateBaseModifier } from './DndHelpers';
 
+  // change total mod (+5)
+  // Roll 
+  //    Roll Result: (+5) + (15) = 20
+  // Roll 
+  //    Roll Result: (+5) + (5) = 10
+  //    Roll Result: (+5) + (15) = 20
+  // Roll 
+  //    Roll Result: (+5) + (12) = 17
+  //    Roll Result: (+5) + (5) = 10
+  //    Roll Result: (+5) + (15) = 20
+  // change total mod (+6)
+  //    Roll Result: (+5) + (12) = 17
+  //    Roll Result: (+5) + (5) = 10
+  //    Roll Result: (+5) + (15) = 20
+  // Roll 
+  //    Roll Result: 6 + 2 = 8
+  //    Roll Result: 5 + 12 = 17
+  //    Roll Result: 5 + 5 = 10
+  //    Roll Result: 5 + 15 = 20
+
+
+  /*
+  [
+    "Roll Result: 6 + 2 = 8"
+    "Roll Result: 5 + 12 = 17", 
+    "Roll Result: 5 + 5 = 10", 
+    "Roll Result: 5 + 15 = 20", 
+  ]
+
+  [
+    [6, 2, 8],
+    [5, 12, 17],
+    [5, 5, 10],
+    [5, 15, 20],
+  ]
+
+  [
+    {totalMod: 6, roll: 2, sum: 8},
+    {totalMod: 5, roll: 12, sum: 17},
+    {totalMod: 5, roll: 20, sum: 25},
+  ]
+  */
+
+interface RollResult {
+  totalModifier: number,
+  roll: number,
+  rollPlusModifier: number
+}
+
 function CharacterSheet() {
-  
+
   const [ablityScore, setAbilityScore] = useState(10);
   const [bonusMod, setBonusMod] = useState(0);
   const baseMod = calculateBaseModifier(ablityScore);
   const totalMod = baseMod + bonusMod;
 
-  const [dice, setDice] = useState([] as number[]);
-  const [diceTypeResult, setDiceTypeResult] = useState(20);
-  const [numberOfDice, setNumberOfDice] = useState(1);
-  const sumOfDice = dice.reduce((sum, rollResult) => sum + rollResult, totalMod);
-  
-  const diceTypes = [2, 4, 6, 8, 10, 12, 20, 100];
-  const numberofDiceList = [1, 2, 3, 4];
-  
+  // const [dice, setDice] = useState(0);
+  // const sumOfDice = dice + totalMod;
+
+  const [rollResults, setRollResults] = useState([] as RollResult[]);
+
   const rollHandler = () => {
-      console.log("Rolled the Dice!");
-      let rolls = [] as number[];
-      for (var x = 0; x < numberOfDice; x++) {
-          rolls.push(rollDice(diceTypeResult));
-      }
-      setDice(rolls);
+    console.log("Rolled the Dice!");
+
+    let roll = rollDice(20);
+    let rollResult: RollResult = {
+      totalModifier: totalMod,
+      roll: roll,
+      rollPlusModifier: totalMod + roll
+    };
+
+    let rollResultsWithNewRoll = [rollResult, ...rollResults];
+    setRollResults(rollResultsWithNewRoll);
   }
+
 
   return (
     <>
+  
       <table>
         <tr>
           <th>Stat</th>
@@ -40,17 +93,17 @@ function CharacterSheet() {
         </tr>
         <tr>
           <td>
-            Strength: 
+            Strength:
           </td>
           <td>
-            <input type='number' onChange={(e) => {setAbilityScore(parseInt(e.target.value))}} value={ablityScore} />
+            <input type='number' onChange={(e) => { setAbilityScore(parseInt(e.target.value)) }} value={ablityScore} />
           </td>
           <td>
             {baseMod > 0 ? "+" : ""}
             {baseMod}
           </td>
           <td>
-            <input type='number' onChange={(e) => {setBonusMod(parseInt(e.target.value))}} value={bonusMod} />
+            <input type='number' onChange={(e) => { setBonusMod(parseInt(e.target.value)) }} value={bonusMod} />
           </td>
           <td>
             {totalMod > 0 ? "+" : ""}
@@ -59,11 +112,15 @@ function CharacterSheet() {
           <td>
             <button className="dice" onClick={() => (rollHandler())}> Check </button>
           </td>
-          
+
         </tr>
       </table>
       <p>
-        Roll result: {JSON.stringify(sumOfDice)}
+        <ul>
+          {rollResults.map(rollResult => {
+            return (<li>Mod: {rollResult.totalModifier} Roll: {rollResult.roll} Total: {rollResult.rollPlusModifier}</li>);
+          })}
+        </ul>
       </p>
     </>
   );

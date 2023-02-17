@@ -15,6 +15,8 @@ In the project directory, you can run: `npm start`
 		- filter
 	- spread operater (append to list/array)
 		- `[...list, newElement]`
+        - `...[1, 2, 3]         ->  1, 2, 3`
+        - `[...[1, 2, 3], 4]    ->  [1, 2, 3, 4]`
 	- equality (never use ==)
 		- `5 === 5`
 	- Debugging Tools
