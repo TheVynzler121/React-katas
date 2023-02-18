@@ -112,15 +112,14 @@ function CharacterSheet() {
           <td>
             <button className="dice" onClick={() => (rollHandler())}> Check </button>
           </td>
-
         </tr>
       </table>
       <p>
-        <ul>
+        <select>
           {rollResults.map(rollResult => {
-            return (<li>Mod: {rollResult.totalModifier} Roll: {rollResult.roll} Total: {rollResult.rollPlusModifier}</li>);
+            return (<option>Mod: {rollResult.totalModifier} Roll: {rollResult.roll} Total: {rollResult.rollPlusModifier}</option>);
           })}
-        </ul>
+        </select>
       </p>
     </>
   );
