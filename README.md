@@ -35,3 +35,6 @@ In the project directory, you can run: `npm start`
 		- `useState`
 		- set____
 		- `onClick`
+	- Props
+		- Functions => Components
+		- Parameters => Props
