@@ -2,15 +2,11 @@ import { useState } from 'react';
 import './CharacterSheet.css';
 import { rollDice } from './DiceHelpers';
 import { calculateBaseModifier } from './DndHelpers';
-
-interface RollResult {
-  totalModifier: number
-  roll: number
-  rollPlusModifier: number
-}
+import {RollResult} from './CharacterSheet';
 
 interface CharacterStatRowProps {
   statName: string
+  pushToRollResultHistory: (rollResult:RollResult) => void
 }
 
 function CharacterStatRow(props: CharacterStatRowProps) {
@@ -19,23 +15,21 @@ function CharacterStatRow(props: CharacterStatRowProps) {
   const [bonusMod, setBonusMod] = useState(0);
   const baseMod = calculateBaseModifier(ablityScore);
   const totalMod = baseMod + bonusMod;
-
-  const [rollResults, setRollResults] = useState([] as RollResult[]);
-
+  
   const rollHandler = () => {
-    console.log("Rolled the Dice!");
+    console.log("1. Called rollHandler");
 
     let roll = rollDice(20);
     let rollResult = {
+      statName: props.statName,
       totalModifier: totalMod,
       roll: roll,
       rollPlusModifier: totalMod + roll
     };
 
-    let rollResultsWithNewRoll = [rollResult, ...rollResults];
-    setRollResults(rollResultsWithNewRoll);
+    console.log('2. calling pushToRollResultHistory');
+    props.pushToRollResultHistory(rollResult)
   }
-
 
   return (
     <>
@@ -59,13 +53,6 @@ function CharacterStatRow(props: CharacterStatRowProps) {
         </td>
         <td>
           <button className="dice" onClick={() => (rollHandler())}> Check </button>
-        </td>
-        <td>
-          <select>
-            {rollResults.map(rollResult => {
-              return (<option>Mod: {rollResult.totalModifier} Roll: {rollResult.roll} Total: {rollResult.rollPlusModifier}</option>);
-            })}
-          </select>
         </td>
       </tr>
     </>
