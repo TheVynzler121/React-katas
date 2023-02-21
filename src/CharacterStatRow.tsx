@@ -6,6 +6,7 @@ import {RollResult} from './CharacterSheet';
 
 interface CharacterStatRowProps {
   statName: string
+  profBonus: number
   pushToRollResultHistory: (rollResult:RollResult) => void
 }
 
@@ -14,7 +15,8 @@ function CharacterStatRow(props: CharacterStatRowProps) {
   const [ablityScore, setAbilityScore] = useState(10);
   const [bonusMod, setBonusMod] = useState(0);
   const baseMod = calculateBaseModifier(ablityScore);
-  const totalMod = baseMod + bonusMod;
+  const [profBonusCheckbox, setProfBonusCheckBox] = useState(false);
+  const totalMod = baseMod + bonusMod +(profBonusCheckbox ? props.profBonus : 0);
   
   const rollHandler = () => {
     console.log("1. Called rollHandler");
@@ -34,8 +36,8 @@ function CharacterStatRow(props: CharacterStatRowProps) {
   return (
     <>
       <tr>
-        <td>
-          {props.statName}:
+        <td className="statname">
+          <input type="checkbox" onChange={(e) => { setProfBonusCheckBox(!profBonusCheckbox)}} checked={profBonusCheckbox}></input>{props.statName}:
         </td>
         <td>
           <input className='statInput' type='number' onChange={(e) => { setAbilityScore(parseInt(e.target.value)) }} value={ablityScore} />

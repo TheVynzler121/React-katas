@@ -34,12 +34,12 @@ function CharacterSheet() {
           <th>Bonus Mod</th>
           <th>Total Mod</th>
         </tr>
-        <CharacterStatRow pushToRollResultHistory={pushToHistory} statName={"Strength"} />
-        <CharacterStatRow pushToRollResultHistory={pushToHistory} statName={"Dexterity"} />
-        <CharacterStatRow pushToRollResultHistory={pushToHistory} statName={"Constitution"} />
-        <CharacterStatRow pushToRollResultHistory={pushToHistory} statName={"Intelligence"} />
-        <CharacterStatRow pushToRollResultHistory={pushToHistory} statName={"Wisdom"} />
-        <CharacterStatRow pushToRollResultHistory={pushToHistory} statName={"Charisma"} />
+        <CharacterStatRow pushToRollResultHistory={pushToHistory} profBonus={profBonus} statName={"Strength"} />
+        <CharacterStatRow pushToRollResultHistory={pushToHistory} profBonus={profBonus} statName={"Dexterity"} />
+        <CharacterStatRow pushToRollResultHistory={pushToHistory} profBonus={profBonus} statName={"Constitution"} />
+        <CharacterStatRow pushToRollResultHistory={pushToHistory} profBonus={profBonus} statName={"Intelligence"} />
+        <CharacterStatRow pushToRollResultHistory={pushToHistory} profBonus={profBonus} statName={"Wisdom"} />
+        <CharacterStatRow pushToRollResultHistory={pushToHistory} profBonus={profBonus} statName={"Charisma"} />
       </table>
       <p>
         Proficiency Bonus:
