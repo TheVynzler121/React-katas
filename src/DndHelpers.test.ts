@@ -1,4 +1,4 @@
-import {calculateBaseModifier} from './DndHelpers';
+import {formatMod, calculateBaseModifier} from './DndHelpers';
 
 test('calculates base modifier for -2', () => {
   expect(calculateBaseModifier(6)).toBe(-2);
@@ -38,4 +38,12 @@ test('calculates base modifier for +4', () => {
 test('calculates base modifier for +5', () => {
   expect(calculateBaseModifier(20)).toBe(5);
   
+});
+
+
+// Check
+test('formatMod', () => {
+  expect(formatMod(0)).toBe("");
+  expect(formatMod(1)).toBe("+1");
+  expect(formatMod(-1)).toBe("-1");
 });

@@ -6,3 +6,16 @@ export const calculateBaseModifier = (stat: number) => {
     return Math.floor((stat - 10) / 2);
 };
 
+export const formatMod = (mod: number) => {
+    if(mod > 0){
+        return `+${mod}`;
+    }
+    
+    if(mod < 0){
+        return `${mod}`;
+    }
+
+    return "";
+};
+
+
