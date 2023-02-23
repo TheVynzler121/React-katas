@@ -15,6 +15,9 @@ export interface RollResult {
 function CharacterSheet() {
   const [rollResults, setRollResults] = useState([] as RollResult[]);
   const [profBonus, setProfBonus] = useState(0); //useState to remember user input
+  const [ablityScore, setAbilityScore] = useState(10);
+  const [bonusMod, setBonusMod] = useState(0);
+  const [profBonusCheckbox, setProfBonusCheckBox] = useState(false);
 
   // callback function
   const pushToHistory = (r: RollResult) => {
@@ -50,12 +53,13 @@ function CharacterSheet() {
           <th>Base Mod</th>
           <th>Bonus Mod</th>         
         </tr>
-        <CharacterStatRow pushToRollResultHistory={pushToHistory} profBonus={profBonus} statName={"Strength"} />
-        <CharacterStatRow pushToRollResultHistory={pushToHistory} profBonus={profBonus} statName={"Dexterity"} />
+        <CharacterStatRow ablityScore={ablityScore} setAbilityScore={setAbilityScore} bonusMod={bonusMod} setBonusMod={setBonusMod}
+         profBonusCheckbox={profBonusCheckbox} setProfBonusCheckBox={setProfBonusCheckBox} pushToRollResultHistory={pushToHistory} profBonus={profBonus} statName={"Strength"} />
+        {/* <CharacterStatRow pushToRollResultHistory={pushToHistory} profBonus={profBonus} statName={"Dexterity"} />
         <CharacterStatRow pushToRollResultHistory={pushToHistory} profBonus={profBonus} statName={"Constitution"} />
         <CharacterStatRow pushToRollResultHistory={pushToHistory} profBonus={profBonus} statName={"Intelligence"} />
         <CharacterStatRow pushToRollResultHistory={pushToHistory} profBonus={profBonus} statName={"Wisdom"} />
-        <CharacterStatRow pushToRollResultHistory={pushToHistory} profBonus={profBonus} statName={"Charisma"} />
+        <CharacterStatRow pushToRollResultHistory={pushToHistory} profBonus={profBonus} statName={"Charisma"} /> */}
       </table>
       <p>
         Proficiency Bonus:

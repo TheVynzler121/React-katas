@@ -8,15 +8,20 @@ interface CharacterStatRowProps {
   statName: string;
   profBonus: number;
   pushToRollResultHistory: (rollResult: RollResult) => void;
+  ablityScore: number;
+  setAbilityScore: (abilityScore: number) => void;
+  bonusMod: number;
+  setBonusMod: (bonusMod: number) => void;
+  profBonusCheckbox: boolean;
+  setProfBonusCheckBox: (profBonusCheckbox: boolean) => void;
 }
 
 function CharacterStatRow(props: CharacterStatRowProps) {
-  const [ablityScore, setAbilityScore] = useState(10);
-  const [bonusMod, setBonusMod] = useState(0);
-  const baseMod = calculateBaseModifier(ablityScore);
-  const [profBonusCheckbox, setProfBonusCheckBox] = useState(false);
-  const profBonus = (profBonusCheckbox ? props.profBonus : 0)
-  const checkMod = baseMod + bonusMod + profBonus;
+
+  const baseMod = calculateBaseModifier(props.ablityScore);
+ 
+  const profBonus = (props.profBonusCheckbox ? props.profBonus : 0)
+  const checkMod = baseMod + props.bonusMod + profBonus;
   const saveMod = baseMod + profBonus; //write your code like the user would talk (if possible) also known as self documenting code
   
   const rollHandler = (checkOrSave: string, modifier: number) => {
@@ -37,8 +42,8 @@ function CharacterStatRow(props: CharacterStatRowProps) {
         <td>
           <input
             type="checkbox"
-            onChange={(e) => setProfBonusCheckBox(!profBonusCheckbox)}
-            checked={profBonusCheckbox}
+            onChange={(e) => props.setProfBonusCheckBox(!props.profBonusCheckbox)}
+            checked={props.profBonusCheckbox}
           ></input>
         </td>
         <td className="statname">{props.statName}:</td>
@@ -46,8 +51,8 @@ function CharacterStatRow(props: CharacterStatRowProps) {
           <input
             className="statInput"
             type="number"
-            onChange={(e) => setAbilityScore(parseInt(e.target.value))}
-            value={ablityScore}
+            onChange={(e) => props.setAbilityScore(parseInt(e.target.value))}
+            value={props.ablityScore}
           />
         </td>
         <td>
@@ -58,8 +63,8 @@ function CharacterStatRow(props: CharacterStatRowProps) {
           <input
             className="statInput"
             type="number"
-            onChange={(e) => setBonusMod(parseInt(e.target.value))}
-            value={bonusMod}
+            onChange={(e) => props.setBonusMod(parseInt(e.target.value))}
+            value={props.bonusMod}
           />
         </td>
         <td>
