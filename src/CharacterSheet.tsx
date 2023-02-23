@@ -22,9 +22,26 @@ function CharacterSheet() {
     let rollResultsWithNewRoll = [r, ...rollResults];
     setRollResults(rollResultsWithNewRoll);
   };
+  
+
+  const key = 'myCat';
+  const saveToStore = () => {
+    console.log("save in store");
+    localStorage.setItem(key, JSON.stringify(rollResults));// you can only save and get back strings
+  };
+
+  const getFromStore = () => {
+    let x = JSON.parse(localStorage.getItem(key) || '[]');
+    setRollResults(x);
+    console.log("Found in storage:" + x);
+  };
 
   return (
     <>
+      <p>
+        <button onClick={() => {saveToStore()}}>Save In Store</button>
+        <button onClick={() => {getFromStore()}}>Load from Store</button>
+      </p>
       <table>
         <tr>
           <th></th>
