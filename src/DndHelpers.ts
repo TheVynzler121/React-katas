@@ -19,3 +19,11 @@ export const formatMod = (mod: number) => {
 };
 
 
+export const add5 = (nums: number[]) => {
+    return [];
+};
+
+export const add5KeepOver6 = (nums: number[]) => {
+    return [];
+};
+

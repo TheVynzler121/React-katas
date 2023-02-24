@@ -1,4 +1,4 @@
-import {formatMod, calculateBaseModifier} from './DndHelpers';
+import {add5,add5KeepOver6, formatMod, calculateBaseModifier} from './DndHelpers';
 
 test('calculates base modifier for -2', () => {
   expect(calculateBaseModifier(6)).toBe(-2);
@@ -46,4 +46,9 @@ test('formatMod', () => {
   expect(formatMod(0)).toBe("");
   expect(formatMod(1)).toBe("+1");
   expect(formatMod(-1)).toBe("-1");
+});
+
+test('map tests', () => {
+  expect(add5([1,2,3])).toEqual([6,7,8]);
+  expect(add5KeepOver6([1,2,3])).toEqual([7,8]);
 });
