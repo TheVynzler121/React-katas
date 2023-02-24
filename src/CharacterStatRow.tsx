@@ -2,32 +2,23 @@ import { useState } from "react";
 import "./CharacterSheet.css";
 import { rollDice } from "./DiceHelpers";
 import { calculateBaseModifier, formatMod } from "./DndHelpers";
-import { RollResult } from "./CharacterSheet";
+import { CharacterStat, RollResult } from "./CharacterSheet";
 
-interface CharacterStatRowProps {
-  statName: string;
+function CharacterStatRow(props: {
   profBonus: number;
+  characterStat: CharacterStat;
+  setCharacterStat: (characterStat: CharacterStat) => void;
   pushToRollResultHistory: (rollResult: RollResult) => void;
-  ablityScore: number;
-  setAbilityScore: (abilityScore: number) => void;
-  bonusMod: number;
-  setBonusMod: (bonusMod: number) => void;
-  profBonusCheckbox: boolean;
-  setProfBonusCheckBox: (profBonusCheckbox: boolean) => void;
-}
-
-function CharacterStatRow(props: CharacterStatRowProps) {
-
-  const baseMod = calculateBaseModifier(props.ablityScore);
- 
-  const profBonus = (props.profBonusCheckbox ? props.profBonus : 0)
-  const checkMod = baseMod + props.bonusMod + profBonus;
+}) {
+  const baseMod = calculateBaseModifier(props.characterStat.abilityScore);
+  const profBonus = props.characterStat.profBonusCheckbox ? props.profBonus : 0;
+  const checkMod = baseMod + props.characterStat.bonusMod + profBonus;
   const saveMod = baseMod + profBonus; //write your code like the user would talk (if possible) also known as self documenting code
-  
+
   const rollHandler = (checkOrSave: string, modifier: number) => {
     let roll = rollDice(20);
     let rollResult: RollResult = {
-      statName: props.statName,
+      statName: props.characterStat.statName,
       totalModifier: modifier,
       roll: roll,
       rollPlusModifier: modifier + roll,
@@ -36,23 +27,37 @@ function CharacterStatRow(props: CharacterStatRowProps) {
     props.pushToRollResultHistory(rollResult);
   };
 
+  const profBonusHandler = (e: React.ChangeEvent) => {
+    let newProfBonusCheckbox = !props.characterStat.profBonusCheckbox;
+    let characterStatWithNewCheckbox = { ...props.characterStat, profBonusCheckbox: newProfBonusCheckbox };
+    props.setCharacterStat(characterStatWithNewCheckbox);
+  };
+
+  const abilityScoreHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let newAbilityScore = parseInt(e.target.value);
+    let characterStatWithNewAbilityScore = { ...props.characterStat, abilityScore: newAbilityScore };
+    props.setCharacterStat(characterStatWithNewAbilityScore);
+  };
+
+  const bonusModHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let newBonusMod = parseInt(e.target.value);
+    let characterStatWithNewBonusMod = { ...props.characterStat, bonusMod: newBonusMod };
+    props.setCharacterStat(characterStatWithNewBonusMod);
+  };
+
   return (
     <>
       <tr>
         <td>
-          <input
-            type="checkbox"
-            onChange={(e) => props.setProfBonusCheckBox(!props.profBonusCheckbox)}
-            checked={props.profBonusCheckbox}
-          ></input>
+          <input type="checkbox" onChange={profBonusHandler} checked={props.characterStat.profBonusCheckbox}></input>
         </td>
-        <td className="statname">{props.statName}:</td>
+        <td className="statname">{props.characterStat.statName}:</td>
         <td>
           <input
             className="statInput"
             type="number"
-            onChange={(e) => props.setAbilityScore(parseInt(e.target.value))}
-            value={props.ablityScore}
+            onChange={abilityScoreHandler}
+            value={props.characterStat.abilityScore}
           />
         </td>
         <td>
@@ -60,20 +65,15 @@ function CharacterStatRow(props: CharacterStatRowProps) {
           {baseMod}
         </td>
         <td>
-          <input
-            className="statInput"
-            type="number"
-            onChange={(e) => props.setBonusMod(parseInt(e.target.value))}
-            value={props.bonusMod}
-          />
+          <input className="statInput" type="number" onChange={bonusModHandler} value={props.characterStat.bonusMod} />
         </td>
         <td>
-          <button className="dice" onClick={() => rollHandler("Check",checkMod)}>
-            Check{formatMod(checkMod)}           
+          <button className="dice" onClick={() => rollHandler("Check", checkMod)}>
+            Check{formatMod(checkMod)}
           </button>
         </td>
         <td>
-          <button className="dice" onClick={() => rollHandler("Save",saveMod)}>
+          <button className="dice" onClick={() => rollHandler("Save", saveMod)}>
             Save{formatMod(saveMod)}
           </button>
         </td>

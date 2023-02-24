@@ -12,12 +12,35 @@ export interface RollResult {
   checkOrSave: string;
 }
 
+export interface CharacterStat {
+  statName: string;
+  abilityScore: number;
+  bonusMod: number;
+  profBonusCheckbox: boolean;
+}
+
+interface CharacterSheetState {
+  rollResults: RollResult[]; // List<RollResult>  // IEnumerable<RollResult>
+  profBonus: number;
+  strengthStat: CharacterStat;
+  dexterityStat: CharacterStat;
+}
+
 function CharacterSheet() {
   const [rollResults, setRollResults] = useState([] as RollResult[]);
   const [profBonus, setProfBonus] = useState(0); //useState to remember user input
-  const [ablityScore, setAbilityScore] = useState(10);
-  const [bonusMod, setBonusMod] = useState(0);
-  const [profBonusCheckbox, setProfBonusCheckBox] = useState(false);
+  const [strengthStat, setStrengthStat] = useState<CharacterStat>({
+    statName: "Strength",
+    abilityScore: 10,
+    bonusMod: 0,
+    profBonusCheckbox: false,
+  });
+  const [dexterityStat, setDexterityStat] = useState<CharacterStat>({
+    statName: "Dexterity",
+    abilityScore: 10,
+    bonusMod: 0,
+    profBonusCheckbox: false,
+  });
 
   // callback function
   const pushToHistory = (r: RollResult) => {
@@ -25,25 +48,38 @@ function CharacterSheet() {
     let rollResultsWithNewRoll = [r, ...rollResults];
     setRollResults(rollResultsWithNewRoll);
   };
-  
 
-  const key = 'myCat';
+  const ROLL_HISTORY = "rollHistory";
+  const STR_STAT = "strStat";
   const saveToStore = () => {
-    console.log("save in store");
-    localStorage.setItem(key, JSON.stringify(rollResults));// you can only save and get back strings
+    localStorage.setItem(ROLL_HISTORY, JSON.stringify(rollResults)); // you can only save and get back strings
+    localStorage.setItem(STR_STAT, JSON.stringify(strengthStat));
   };
 
   const getFromStore = () => {
-    let x = JSON.parse(localStorage.getItem(key) || '[]');
-    setRollResults(x);
-    console.log("Found in storage:" + x);
+    setRollResults(JSON.parse(localStorage.getItem(ROLL_HISTORY) || "[]"));
+    setStrengthStat(JSON.parse(localStorage.getItem(STR_STAT) || "{}"));
   };
 
   return (
     <>
       <p>
-        <button onClick={() => {saveToStore()}}>Save In Store</button>
-        <button onClick={() => {getFromStore()}}>Load from Store</button>
+        <button
+          onClick={() => {
+            saveToStore();
+          }}
+        >
+          {" "}
+          Save In Store{" "}
+        </button>
+        <button
+          onClick={() => {
+            getFromStore();
+          }}
+        >
+          {" "}
+          Load from Store{" "}
+        </button>
       </p>
       <table>
         <tr>
@@ -51,11 +87,21 @@ function CharacterSheet() {
           <th>Stat</th>
           <th>Value</th>
           <th>Base Mod</th>
-          <th>Bonus Mod</th>         
+          <th>Bonus Mod</th>
         </tr>
-        <CharacterStatRow ablityScore={ablityScore} setAbilityScore={setAbilityScore} bonusMod={bonusMod} setBonusMod={setBonusMod}
-         profBonusCheckbox={profBonusCheckbox} setProfBonusCheckBox={setProfBonusCheckBox} pushToRollResultHistory={pushToHistory} profBonus={profBonus} statName={"Strength"} />
-        {/* <CharacterStatRow pushToRollResultHistory={pushToHistory} profBonus={profBonus} statName={"Dexterity"} />
+        <CharacterStatRow
+          characterStat={strengthStat}
+          setCharacterStat={setStrengthStat}
+          pushToRollResultHistory={pushToHistory}
+          profBonus={profBonus}
+        />
+        <CharacterStatRow
+          characterStat={dexterityStat}
+          setCharacterStat={setDexterityStat}
+          pushToRollResultHistory={pushToHistory}
+          profBonus={profBonus}
+        />
+       { /* 
         <CharacterStatRow pushToRollResultHistory={pushToHistory} profBonus={profBonus} statName={"Constitution"} />
         <CharacterStatRow pushToRollResultHistory={pushToHistory} profBonus={profBonus} statName={"Intelligence"} />
         <CharacterStatRow pushToRollResultHistory={pushToHistory} profBonus={profBonus} statName={"Wisdom"} />
@@ -76,8 +122,8 @@ function CharacterSheet() {
           {rollResults.map((rollResult) => {
             return (
               <option>
-                {rollResult.statName} {rollResult.checkOrSave}, Mod: {rollResult.totalModifier}, Roll: {rollResult.roll}, 
-                Total: {rollResult.rollPlusModifier}
+                {rollResult.statName} {rollResult.checkOrSave}, Mod: {rollResult.totalModifier}, Roll: {rollResult.roll}
+                , Total: {rollResult.rollPlusModifier}
               </option>
             );
           })}
