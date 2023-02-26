@@ -27,3 +27,11 @@ export const add5KeepOver6 = (nums: number[]) => {
     return nums.map(number => number += 5).filter(number => number > 6);
 };
 
+export const sub7KeepUnder5 = (nums: number[]) => {
+    return nums.map(number => number -= 7).filter(number => number < 5);
+};
+
+export const reverseStringArray = (sArray: string[]) => {
+    
+    return sArray.map(sArray.pop, [...sArray]);
+}
