@@ -12,7 +12,7 @@ export interface RollResult {
   checkOrSave: string;
 }
 
-export interface CharacterStat {
+export interface CharacterStat { //an interface is the shape of the data inside an object
   statName: string;
   abilityScore: number;
   bonusMod: number;
@@ -49,16 +49,26 @@ function CharacterSheet() {
     setRollResults(rollResultsWithNewRoll);
   };
 
-  const ROLL_HISTORY = "rollHistory";
-  const STR_STAT = "strStat";
   const saveToStore = () => {
-    localStorage.setItem(ROLL_HISTORY, JSON.stringify(rollResults)); // you can only save and get back strings
-    localStorage.setItem(STR_STAT, JSON.stringify(strengthStat));
+    const characterSheetState: CharacterSheetState = {
+      rollResults: rollResults,
+      profBonus: profBonus,
+      strengthStat: strengthStat,
+      dexterityStat: dexterityStat,
+    };
+    let characterSheetStateString = JSON.stringify(characterSheetState);
+    localStorage.setItem("LOCAL_STORE_CharacterSheetState", characterSheetStateString);
   };
 
   const getFromStore = () => {
-    setRollResults(JSON.parse(localStorage.getItem(ROLL_HISTORY) || "[]"));
-    setStrengthStat(JSON.parse(localStorage.getItem(STR_STAT) || "{}"));
+    const characterSheetString = localStorage.getItem("LOCAL_STORE_CharacterSheetState");
+    if(characterSheetString !== null) {
+      let characterSheet = JSON.parse(characterSheetString) as CharacterSheetState;
+      setRollResults(characterSheet.rollResults);
+      setProfBonus(characterSheet.profBonus);
+      setStrengthStat(characterSheet.strengthStat);
+      setDexterityStat(characterSheet.dexterityStat);
+    }
   };
 
   return (
@@ -119,9 +129,9 @@ function CharacterSheet() {
       </p>
       <p>
         <select>
-          {rollResults.map((rollResult) => {
+          {rollResults.map((rollResult, idx) => {
             return (
-              <option>
+              <option key={idx}>
                 {rollResult.statName} {rollResult.checkOrSave}, Mod: {rollResult.totalModifier}, Roll: {rollResult.roll}
                 , Total: {rollResult.rollPlusModifier}
               </option>
