@@ -24,6 +24,7 @@ interface CharacterSheetState {
   profBonus: number;
   strengthStat: CharacterStat;
   dexterityStat: CharacterStat;
+  consitutionStat: CharacterStat;
 }
 
 function CharacterSheet() {
@@ -37,6 +38,12 @@ function CharacterSheet() {
   });
   const [dexterityStat, setDexterityStat] = useState<CharacterStat>({
     statName: "Dexterity",
+    abilityScore: 10,
+    bonusMod: 0,
+    profBonusCheckbox: false,
+  });
+  const [constitutionStat, setConsitutionStat] = useState<CharacterStat>({
+    statName: "Constitution",
     abilityScore: 10,
     bonusMod: 0,
     profBonusCheckbox: false,
@@ -55,6 +62,7 @@ function CharacterSheet() {
       profBonus: profBonus,
       strengthStat: strengthStat,
       dexterityStat: dexterityStat,
+      consitutionStat: constitutionStat,
     };
     let characterSheetStateString = JSON.stringify(characterSheetState);
     localStorage.setItem("LOCAL_STORE_CharacterSheetState", characterSheetStateString);
@@ -68,6 +76,7 @@ function CharacterSheet() {
       setProfBonus(characterSheet.profBonus);
       setStrengthStat(characterSheet.strengthStat);
       setDexterityStat(characterSheet.dexterityStat);
+      setConsitutionStat(characterSheet.consitutionStat);
     }
   };
 
@@ -108,6 +117,12 @@ function CharacterSheet() {
         <CharacterStatRow
           characterStat={dexterityStat}
           setCharacterStat={setDexterityStat}
+          pushToRollResultHistory={pushToHistory}
+          profBonus={profBonus}
+        />
+        <CharacterStatRow
+          characterStat={constitutionStat}
+          setCharacterStat={setConsitutionStat}
           pushToRollResultHistory={pushToHistory}
           profBonus={profBonus}
         />
