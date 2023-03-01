@@ -19,39 +19,29 @@ export interface CharacterStat { //an interface is the shape of the data inside 
   profBonusCheckbox: boolean;
 }
 
+const defaultStat = {
+  statName: "",
+  abilityScore: 10,
+  bonusMod: 0,
+  profBonusCheckbox: false,
+} as CharacterStat;
+
 interface CharacterSheetState {
   rollResults: RollResult[]; // List<RollResult>  // IEnumerable<RollResult>
   profBonus: number;
   strengthStat: CharacterStat;
   dexterityStat: CharacterStat;
-  consitutionStat: CharacterStat;
+  constitutionStat: CharacterStat;
 }
 
 function CharacterSheet() {
-  const [rollResults, setRollResults] = useState([] as RollResult[]);
-  const [profBonus, setProfBonus] = useState(0); //useState to remember user input
-  const [strengthStat, setStrengthStat] = useState<CharacterStat>({
-    statName: "Strength",
-    abilityScore: 10,
-    bonusMod: 0,
-    profBonusCheckbox: false,
-  });
-  const [dexterityStat, setDexterityStat] = useState<CharacterStat>({
-    statName: "Dexterity",
-    abilityScore: 10,
-    bonusMod: 0,
-    profBonusCheckbox: false,
-  });
-  const [constitutionStat, setConsitutionStat] = useState<CharacterStat>({
-    statName: "Constitution",
-    abilityScore: 10,
-    bonusMod: 0,
-    profBonusCheckbox: false,
-  });
+  const [rollResults, setRollResults] = useState<RollResult[]>([]);
+  const [profBonus, setProfBonus] = useState<number>(0); //useState to remember user input
+  const [strengthStat, setStrengthStat] = useState<CharacterStat>({...defaultStat, statName: "Strength"});
+  const [dexterityStat, setDexterityStat] = useState<CharacterStat>({...defaultStat, statName: "Dexterity"});
+  const [constitutionStat, setConstitutionStat] = useState<CharacterStat>({...defaultStat, statName: "Constitution"});
 
-  // callback function
   const pushToHistory = (r: RollResult) => {
-    console.log("3. called pushToHistory");
     let rollResultsWithNewRoll = [r, ...rollResults];
     setRollResults(rollResultsWithNewRoll);
   };
@@ -62,7 +52,7 @@ function CharacterSheet() {
       profBonus: profBonus,
       strengthStat: strengthStat,
       dexterityStat: dexterityStat,
-      consitutionStat: constitutionStat,
+      constitutionStat: constitutionStat,
     };
     let characterSheetStateString = JSON.stringify(characterSheetState);
     localStorage.setItem("LOCAL_STORE_CharacterSheetState", characterSheetStateString);
@@ -76,7 +66,7 @@ function CharacterSheet() {
       setProfBonus(characterSheet.profBonus);
       setStrengthStat(characterSheet.strengthStat);
       setDexterityStat(characterSheet.dexterityStat);
-      setConsitutionStat(characterSheet.consitutionStat);
+      setConstitutionStat(characterSheet.constitutionStat);
     }
   };
 
@@ -122,7 +112,7 @@ function CharacterSheet() {
         />
         <CharacterStatRow
           characterStat={constitutionStat}
-          setCharacterStat={setConsitutionStat}
+          setCharacterStat={setConstitutionStat}
           pushToRollResultHistory={pushToHistory}
           profBonus={profBonus}
         />
