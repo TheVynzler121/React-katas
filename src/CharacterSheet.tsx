@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./CharacterSheet.css";
 import CharacterStatRow from "./CharacterStatRow";
+import { calculateBaseModifier } from "./DndHelpers";
 
 // a child component can't call a parent function, unless it is given the function as a callback
 
@@ -12,7 +13,8 @@ export interface RollResult {
   checkOrSave: string;
 }
 
-export interface CharacterStat { //an interface is the shape of the data inside an object
+export interface CharacterStat {
+  //an interface names a shape, the object is the instance that has the data in it
   statName: string;
   abilityScore: number;
   bonusMod: number;
@@ -32,14 +34,24 @@ interface CharacterSheetState {
   strengthStat: CharacterStat;
   dexterityStat: CharacterStat;
   constitutionStat: CharacterStat;
+  intelligenceStat: CharacterStat;
+  wisdomStat: CharacterStat;
+  charismaStat: CharacterStat;
+  acrobaticsProf: boolean;
+  athleticsProf: boolean;
 }
 
 function CharacterSheet() {
   const [rollResults, setRollResults] = useState<RollResult[]>([]);
   const [profBonus, setProfBonus] = useState<number>(0); //useState to remember user input
-  const [strengthStat, setStrengthStat] = useState<CharacterStat>({...defaultStat, statName: "Strength"});
-  const [dexterityStat, setDexterityStat] = useState<CharacterStat>({...defaultStat, statName: "Dexterity"});
-  const [constitutionStat, setConstitutionStat] = useState<CharacterStat>({...defaultStat, statName: "Constitution"});
+  const [strengthStat, setStrengthStat] = useState<CharacterStat>({ ...defaultStat, statName: "Strength" });
+  const [dexterityStat, setDexterityStat] = useState<CharacterStat>({ ...defaultStat, statName: "Dexterity" });
+  const [constitutionStat, setConstitutionStat] = useState<CharacterStat>({ ...defaultStat, statName: "Constitution" });
+  const [intelligenceStat, setIntelligenceStat] = useState<CharacterStat>({...defaultStat, statName: "Intelligence" });
+  const [wisdomStat, setWisdomStat] = useState<CharacterStat>({...defaultStat, statName: "Wisdom" });
+  const [charismaStat, setCharismaStat] = useState<CharacterStat>({...defaultStat, statName: "Charisma"});
+  const [acrobaticsProf, setAcrobaticsProf] = useState<boolean>(false);
+  const [athleticsProf, setAthleticsProf] = useState<boolean>(false);
 
   const pushToHistory = (r: RollResult) => {
     let rollResultsWithNewRoll = [r, ...rollResults];
@@ -53,6 +65,11 @@ function CharacterSheet() {
       strengthStat: strengthStat,
       dexterityStat: dexterityStat,
       constitutionStat: constitutionStat,
+      intelligenceStat: intelligenceStat,
+      wisdomStat: wisdomStat,
+      charismaStat: charismaStat,
+      acrobaticsProf: acrobaticsProf,
+      athleticsProf: athleticsProf,
     };
     let characterSheetStateString = JSON.stringify(characterSheetState);
     localStorage.setItem("LOCAL_STORE_CharacterSheetState", characterSheetStateString);
@@ -60,13 +77,18 @@ function CharacterSheet() {
 
   const getFromStore = () => {
     const characterSheetString = localStorage.getItem("LOCAL_STORE_CharacterSheetState");
-    if(characterSheetString !== null) {
+    if (characterSheetString !== null) {
       let characterSheet = JSON.parse(characterSheetString) as CharacterSheetState;
       setRollResults(characterSheet.rollResults);
       setProfBonus(characterSheet.profBonus);
       setStrengthStat(characterSheet.strengthStat);
       setDexterityStat(characterSheet.dexterityStat);
       setConstitutionStat(characterSheet.constitutionStat);
+      setIntelligenceStat(characterSheet.intelligenceStat);
+      setWisdomStat(characterSheet.wisdomStat);
+      setCharismaStat(characterSheet.charismaStat);
+      setAcrobaticsProf(characterSheet.acrobaticsProf);
+      setAthleticsProf(characterSheet.athleticsProf);
     }
   };
 
@@ -116,11 +138,24 @@ function CharacterSheet() {
           pushToRollResultHistory={pushToHistory}
           profBonus={profBonus}
         />
-       { /* 
-        <CharacterStatRow pushToRollResultHistory={pushToHistory} profBonus={profBonus} statName={"Constitution"} />
-        <CharacterStatRow pushToRollResultHistory={pushToHistory} profBonus={profBonus} statName={"Intelligence"} />
-        <CharacterStatRow pushToRollResultHistory={pushToHistory} profBonus={profBonus} statName={"Wisdom"} />
-        <CharacterStatRow pushToRollResultHistory={pushToHistory} profBonus={profBonus} statName={"Charisma"} /> */}
+        <CharacterStatRow
+          characterStat={intelligenceStat}
+          setCharacterStat={setIntelligenceStat}
+          pushToRollResultHistory={pushToHistory}
+          profBonus={profBonus}
+        />
+        <CharacterStatRow
+          characterStat={wisdomStat}
+          setCharacterStat={setWisdomStat}
+          pushToRollResultHistory={pushToHistory}
+          profBonus={profBonus}
+        />
+        <CharacterStatRow
+          characterStat={charismaStat}
+          setCharacterStat={setCharismaStat}
+          pushToRollResultHistory={pushToHistory}
+          profBonus={profBonus}
+        />
       </table>
       <p>
         Proficiency Bonus:
@@ -131,6 +166,18 @@ function CharacterSheet() {
           onChange={(e) => setProfBonus(parseInt(e.target.value))}
           value={profBonus}
         />
+      </p>
+      <p>
+        <ul>
+          <li>
+            <input type="checkbox" onChange={(e) => setAthleticsProf(!athleticsProf)} checked={athleticsProf} />
+            Athletics: {calculateBaseModifier(strengthStat.abilityScore) + (athleticsProf ? profBonus : 0)}
+          </li>
+          <li>
+            <input type="checkbox" onChange={(e) => setAcrobaticsProf(!acrobaticsProf)} checked={acrobaticsProf} />
+            Acrobatics: {calculateBaseModifier(dexterityStat.abilityScore) + (acrobaticsProf ? profBonus : 0)}
+          </li>
+        </ul>
       </p>
       <p>
         <select>
