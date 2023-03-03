@@ -38,6 +38,7 @@ interface CharacterSheetState {
   wisdomStat: CharacterStat;
   charismaStat: CharacterStat;
   acrobaticsProf: boolean;
+  animalHandlingProf: boolean;
   athleticsProf: boolean;
 }
 
@@ -47,10 +48,11 @@ function CharacterSheet() {
   const [strengthStat, setStrengthStat] = useState<CharacterStat>({ ...defaultStat, statName: "Strength" });
   const [dexterityStat, setDexterityStat] = useState<CharacterStat>({ ...defaultStat, statName: "Dexterity" });
   const [constitutionStat, setConstitutionStat] = useState<CharacterStat>({ ...defaultStat, statName: "Constitution" });
-  const [intelligenceStat, setIntelligenceStat] = useState<CharacterStat>({...defaultStat, statName: "Intelligence" });
-  const [wisdomStat, setWisdomStat] = useState<CharacterStat>({...defaultStat, statName: "Wisdom" });
-  const [charismaStat, setCharismaStat] = useState<CharacterStat>({...defaultStat, statName: "Charisma"});
+  const [intelligenceStat, setIntelligenceStat] = useState<CharacterStat>({ ...defaultStat, statName: "Intelligence" });
+  const [wisdomStat, setWisdomStat] = useState<CharacterStat>({ ...defaultStat, statName: "Wisdom" });
+  const [charismaStat, setCharismaStat] = useState<CharacterStat>({ ...defaultStat, statName: "Charisma" });
   const [acrobaticsProf, setAcrobaticsProf] = useState<boolean>(false);
+  const [animalHandlingProf, setAnimalHandlingProf] = useState<boolean>(false);
   const [athleticsProf, setAthleticsProf] = useState<boolean>(false);
 
   const pushToHistory = (r: RollResult) => {
@@ -69,6 +71,7 @@ function CharacterSheet() {
       wisdomStat: wisdomStat,
       charismaStat: charismaStat,
       acrobaticsProf: acrobaticsProf,
+      animalHandlingProf: animalHandlingProf,
       athleticsProf: athleticsProf,
     };
     let characterSheetStateString = JSON.stringify(characterSheetState);
@@ -88,6 +91,7 @@ function CharacterSheet() {
       setWisdomStat(characterSheet.wisdomStat);
       setCharismaStat(characterSheet.charismaStat);
       setAcrobaticsProf(characterSheet.acrobaticsProf);
+      setAnimalHandlingProf(characterSheet.animalHandlingProf);
       setAthleticsProf(characterSheet.athleticsProf);
     }
   };
@@ -170,12 +174,16 @@ function CharacterSheet() {
       <p>
         <ul>
           <li>
-            <input type="checkbox" onChange={(e) => setAthleticsProf(!athleticsProf)} checked={athleticsProf} />
-            Athletics: {calculateBaseModifier(strengthStat.abilityScore) + (athleticsProf ? profBonus : 0)}
-          </li>
-          <li>
             <input type="checkbox" onChange={(e) => setAcrobaticsProf(!acrobaticsProf)} checked={acrobaticsProf} />
             Acrobatics: {calculateBaseModifier(dexterityStat.abilityScore) + (acrobaticsProf ? profBonus : 0)}
+          </li>
+          <li>
+            <input type="checkbox" onChange={(e) => setAnimalHandlingProf(!animalHandlingProf)} checked={animalHandlingProf} />
+            Animal Handling: {calculateBaseModifier(wisdomStat.abilityScore) + (animalHandlingProf ? profBonus : 0)}
+          </li>
+          <li>
+            <input type="checkbox" onChange={(e) => setAthleticsProf(!athleticsProf)} checked={athleticsProf} />
+            Athletics: {calculateBaseModifier(strengthStat.abilityScore) + (athleticsProf ? profBonus : 0)}
           </li>
         </ul>
       </p>
