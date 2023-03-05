@@ -39,7 +39,9 @@ interface CharacterSheetState {
   charismaStat: CharacterStat;
   acrobaticsProf: boolean;
   animalHandlingProf: boolean;
+  arcanaProf: boolean
   athleticsProf: boolean;
+  deceptionProf: boolean;
 }
 
 function CharacterSheet() {
@@ -53,7 +55,9 @@ function CharacterSheet() {
   const [charismaStat, setCharismaStat] = useState<CharacterStat>({ ...defaultStat, statName: "Charisma" });
   const [acrobaticsProf, setAcrobaticsProf] = useState<boolean>(false);
   const [animalHandlingProf, setAnimalHandlingProf] = useState<boolean>(false);
+  const [arcanaProf, setArcanaProf] = useState<boolean>(false);
   const [athleticsProf, setAthleticsProf] = useState<boolean>(false);
+  const [deceptionProf, setDeceptionProf] = useState<boolean>(false);
 
   const pushToHistory = (r: RollResult) => {
     let rollResultsWithNewRoll = [r, ...rollResults];
@@ -72,7 +76,9 @@ function CharacterSheet() {
       charismaStat: charismaStat,
       acrobaticsProf: acrobaticsProf,
       animalHandlingProf: animalHandlingProf,
+      arcanaProf: arcanaProf,
       athleticsProf: athleticsProf,
+      deceptionProf: deceptionProf,
     };
     let characterSheetStateString = JSON.stringify(characterSheetState);
     localStorage.setItem("LOCAL_STORE_CharacterSheetState", characterSheetStateString);
@@ -92,7 +98,9 @@ function CharacterSheet() {
       setCharismaStat(characterSheet.charismaStat);
       setAcrobaticsProf(characterSheet.acrobaticsProf);
       setAnimalHandlingProf(characterSheet.animalHandlingProf);
+      setArcanaProf(characterSheet.arcanaProf);
       setAthleticsProf(characterSheet.athleticsProf);
+      setDeceptionProf(characterSheet.deceptionProf);
     }
   };
 
@@ -182,8 +190,16 @@ function CharacterSheet() {
             Animal Handling: {calculateBaseModifier(wisdomStat.abilityScore) + (animalHandlingProf ? profBonus : 0)}
           </li>
           <li>
+            <input type="checkbox" onChange={(e) => setArcanaProf(!arcanaProf)} checked={arcanaProf} />
+            Arcana: {calculateBaseModifier(intelligenceStat.abilityScore) + (arcanaProf ? profBonus : 0)}
+          </li>
+          <li>
             <input type="checkbox" onChange={(e) => setAthleticsProf(!athleticsProf)} checked={athleticsProf} />
             Athletics: {calculateBaseModifier(strengthStat.abilityScore) + (athleticsProf ? profBonus : 0)}
+          </li>
+          <li>
+            <input type="checkbox" onChange={(e) => setDeceptionProf(!deceptionProf)} checked={deceptionProf} />
+            Deception: {calculateBaseModifier(charismaStat.abilityScore) + (deceptionProf ? profBonus : 0)}
           </li>
         </ul>
       </p>
