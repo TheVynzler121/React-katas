@@ -15,14 +15,14 @@ function CharacterStatRow(props: {
   const checkMod = baseMod + props.characterStat.bonusMod + profBonus;
   const saveMod = baseMod + profBonus; //write your code like the user would talk (if possible) also known as self documenting code
 
-  const rollHandler = (checkOrSave: string, modifier: number) => {
+  const rollHandler = (checkOrSaveOrSkill: string, modifier: number) => {
     let roll = rollDice(20);
     let rollResult: RollResult = {
       statName: props.characterStat.statName,
       totalModifier: modifier,
       roll: roll,
       rollPlusModifier: modifier + roll,
-      checkOrSave: checkOrSave,
+      checkOrSaveOrSkill: checkOrSaveOrSkill,
     };
     props.pushToRollResultHistory(rollResult);
   };
@@ -68,12 +68,12 @@ function CharacterStatRow(props: {
           <input className="statInput" type="number" onChange={bonusModHandler} value={props.characterStat.bonusMod} />
         </td>
         <td>
-          <button className="dice" onClick={() => rollHandler("Check", checkMod)}>
+          <button className="dice" onClick={() => rollHandler("[Check]", checkMod)}>
             Check{formatMod(checkMod)}
           </button>
         </td>
         <td>
-          <button className="dice" onClick={() => rollHandler("Save", saveMod)}>
+          <button className="dice" onClick={() => rollHandler("[Save]", saveMod)}>
             Save{formatMod(saveMod)}
           </button>
         </td>

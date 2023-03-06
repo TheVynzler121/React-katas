@@ -10,7 +10,7 @@ export interface RollResult {
   totalModifier: number;
   roll: number;
   rollPlusModifier: number;
-  checkOrSave: string;
+  checkOrSaveOrSkill: string;
 }
 
 export interface CharacterStat {
@@ -208,7 +208,7 @@ function CharacterSheet() {
           {rollResults.map((rollResult, idx) => {
             return (
               <option key={idx}>
-                {rollResult.statName} {rollResult.checkOrSave}, Mod: {rollResult.totalModifier}, Roll: {rollResult.roll}
+                {rollResult.statName} {rollResult.checkOrSaveOrSkill}, Mod: {rollResult.totalModifier}, Roll: {rollResult.roll}
                 , Total: {rollResult.rollPlusModifier}
               </option>
             );
