@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./CharacterSheet.css";
+import CharacterSkillPanel from "./CharacterSkillPanel";
 import CharacterStatRow from "./CharacterStatRow";
 import { calculateBaseModifier } from "./DndHelpers";
 
@@ -10,7 +11,7 @@ export interface RollResult {
   totalModifier: number;
   roll: number;
   rollPlusModifier: number;
-  checkOrSaveOrSkill: string;
+  rollType: string;
 }
 
 export interface CharacterStat {
@@ -181,9 +182,9 @@ function CharacterSheet() {
       </p>
       <p>
         <ul>
+          
           <li>
-            <input type="checkbox" onChange={(e) => setAcrobaticsProf(!acrobaticsProf)} checked={acrobaticsProf} />
-            Acrobatics: {calculateBaseModifier(dexterityStat.abilityScore) + (acrobaticsProf ? profBonus : 0)}
+            <CharacterSkillPanel skillName="Acrobatics" profBonus={profBonus} characterStat={dexterityStat} hasProf={acrobaticsProf} setHasProf={setAcrobaticsProf} pushToRollResultHistory={pushToHistory}/>
           </li>
           <li>
             <input type="checkbox" onChange={(e) => setAnimalHandlingProf(!animalHandlingProf)} checked={animalHandlingProf} />
@@ -208,7 +209,7 @@ function CharacterSheet() {
           {rollResults.map((rollResult, idx) => {
             return (
               <option key={idx}>
-                {rollResult.statName} {rollResult.checkOrSaveOrSkill}, Mod: {rollResult.totalModifier}, Roll: {rollResult.roll}
+                {rollResult.statName} {rollResult.rollType} Mod: {rollResult.totalModifier}, Roll: {rollResult.roll}
                 , Total: {rollResult.rollPlusModifier}
               </option>
             );

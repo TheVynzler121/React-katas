@@ -7,7 +7,7 @@ import { CharacterStat, RollResult } from "./CharacterSheet";
 function CharacterStatRow(props: {
   profBonus: number;
   characterStat: CharacterStat;
-  setCharacterStat: (characterStat: CharacterStat) => void;
+  setCharacterStat: (characterStat: CharacterStat) => void; // [func name]: (paramater name: type) => [return type]
   pushToRollResultHistory: (rollResult: RollResult) => void;
 }) {
   const baseMod = calculateBaseModifier(props.characterStat.abilityScore);
@@ -15,14 +15,14 @@ function CharacterStatRow(props: {
   const checkMod = baseMod + props.characterStat.bonusMod + profBonus;
   const saveMod = baseMod + profBonus; //write your code like the user would talk (if possible) also known as self documenting code
 
-  const rollHandler = (checkOrSaveOrSkill: string, modifier: number) => {
+  const rollHandler = (rollType: string, modifier: number) => {
     let roll = rollDice(20);
     let rollResult: RollResult = {
       statName: props.characterStat.statName,
       totalModifier: modifier,
       roll: roll,
       rollPlusModifier: modifier + roll,
-      checkOrSaveOrSkill: checkOrSaveOrSkill,
+      rollType: rollType,
     };
     props.pushToRollResultHistory(rollResult);
   };
