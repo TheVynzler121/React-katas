@@ -12,7 +12,7 @@ function CharacterSkillPanel(props: {
   setHasProf: (prof: boolean) => void;
   pushToRollResultHistory: (rollResult: RollResult) => void;
 }) {
-  //dont need anymore props. just need the roll button and handler
+  //align the roll check buttons, like you did with the check boxes
 
   const rollHandler = (rollType: string, modifier: number) => {
     let roll = rollDice(20);
