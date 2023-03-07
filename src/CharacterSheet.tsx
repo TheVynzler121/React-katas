@@ -40,9 +40,13 @@ interface CharacterSheetState {
   charismaStat: CharacterStat;
   acrobaticsProf: boolean;
   animalHandlingProf: boolean;
-  arcanaProf: boolean
+  arcanaProf: boolean;
   athleticsProf: boolean;
   deceptionProf: boolean;
+  historyProf: boolean;
+  insightProf: boolean;
+  intimidationProf: boolean;
+  investigationProf: boolean;
 }
 
 function CharacterSheet() {
@@ -59,6 +63,10 @@ function CharacterSheet() {
   const [arcanaProf, setArcanaProf] = useState<boolean>(false);
   const [athleticsProf, setAthleticsProf] = useState<boolean>(false);
   const [deceptionProf, setDeceptionProf] = useState<boolean>(false);
+  const [historyProf, setHistoryProf] = useState<boolean>(false);
+  const [insightProf, setInsightProf] = useState<boolean>(false);
+  const [intimidationProf, setIntimidationProf] = useState<boolean>(false);
+  const [investigationProf, setInvestigationProf] = useState<boolean>(false);
 
   const pushToHistory = (r: RollResult) => {
     let rollResultsWithNewRoll = [r, ...rollResults];
@@ -80,6 +88,10 @@ function CharacterSheet() {
       arcanaProf: arcanaProf,
       athleticsProf: athleticsProf,
       deceptionProf: deceptionProf,
+      historyProf: historyProf,
+      insightProf: insightProf,
+      intimidationProf: intimidationProf,
+      investigationProf: investigationProf,
     };
     let characterSheetStateString = JSON.stringify(characterSheetState);
     localStorage.setItem("LOCAL_STORE_CharacterSheetState", characterSheetStateString);
@@ -102,6 +114,10 @@ function CharacterSheet() {
       setArcanaProf(characterSheet.arcanaProf);
       setAthleticsProf(characterSheet.athleticsProf);
       setDeceptionProf(characterSheet.deceptionProf);
+      setHistoryProf(characterSheet.historyProf);
+      setInsightProf(characterSheet.insightProf);
+      setIntimidationProf(characterSheet.intimidationProf);
+      setInvestigationProf(characterSheet.investigationProf);
     }
   };
 
@@ -182,25 +198,95 @@ function CharacterSheet() {
       </p>
       <p>
         <ul>
-          
           <li>
-            <CharacterSkillPanel skillName="Acrobatics" profBonus={profBonus} characterStat={dexterityStat} hasProf={acrobaticsProf} setHasProf={setAcrobaticsProf} pushToRollResultHistory={pushToHistory}/>
+            <CharacterSkillPanel
+              skillName="Acrobatics"
+              profBonus={profBonus}
+              characterStat={dexterityStat}
+              hasProf={acrobaticsProf}
+              setHasProf={setAcrobaticsProf}
+              pushToRollResultHistory={pushToHistory}
+            />
           </li>
           <li>
-            <input type="checkbox" onChange={(e) => setAnimalHandlingProf(!animalHandlingProf)} checked={animalHandlingProf} />
-            Animal Handling: {calculateBaseModifier(wisdomStat.abilityScore) + (animalHandlingProf ? profBonus : 0)}
+            <CharacterSkillPanel
+              skillName="Animal Handling"
+              profBonus={profBonus}
+              characterStat={wisdomStat}
+              hasProf={animalHandlingProf}
+              setHasProf={setAnimalHandlingProf}
+              pushToRollResultHistory={pushToHistory}
+            />
           </li>
           <li>
-            <input type="checkbox" onChange={(e) => setArcanaProf(!arcanaProf)} checked={arcanaProf} />
-            Arcana: {calculateBaseModifier(intelligenceStat.abilityScore) + (arcanaProf ? profBonus : 0)}
+            <CharacterSkillPanel
+              skillName="Arcana"
+              profBonus={profBonus}
+              characterStat={intelligenceStat}
+              hasProf={arcanaProf}
+              setHasProf={setArcanaProf}
+              pushToRollResultHistory={pushToHistory}
+            />
           </li>
           <li>
-            <input type="checkbox" onChange={(e) => setAthleticsProf(!athleticsProf)} checked={athleticsProf} />
-            Athletics: {calculateBaseModifier(strengthStat.abilityScore) + (athleticsProf ? profBonus : 0)}
+            <CharacterSkillPanel
+              skillName="Athletics"
+              profBonus={profBonus}
+              characterStat={strengthStat}
+              hasProf={athleticsProf}
+              setHasProf={setAthleticsProf}
+              pushToRollResultHistory={pushToHistory}
+            />
           </li>
           <li>
-            <input type="checkbox" onChange={(e) => setDeceptionProf(!deceptionProf)} checked={deceptionProf} />
-            Deception: {calculateBaseModifier(charismaStat.abilityScore) + (deceptionProf ? profBonus : 0)}
+            <CharacterSkillPanel
+              skillName="Deception"
+              profBonus={profBonus}
+              characterStat={charismaStat}
+              hasProf={deceptionProf}
+              setHasProf={setDeceptionProf}
+              pushToRollResultHistory={pushToHistory}
+            />
+          </li>
+          <li>
+            <CharacterSkillPanel
+              skillName="History"
+              profBonus={profBonus}
+              characterStat={intelligenceStat}
+              hasProf={historyProf}
+              setHasProf={setHistoryProf}
+              pushToRollResultHistory={pushToHistory}
+            />
+          </li>
+          <li>
+            <CharacterSkillPanel
+              skillName="Insight"
+              profBonus={profBonus}
+              characterStat={wisdomStat}
+              hasProf={insightProf}
+              setHasProf={setInsightProf}
+              pushToRollResultHistory={pushToHistory}
+            />
+          </li>
+          <li>
+            <CharacterSkillPanel
+              skillName="Intimidation"
+              profBonus={profBonus}
+              characterStat={charismaStat}
+              hasProf={intimidationProf}
+              setHasProf={setIntimidationProf}
+              pushToRollResultHistory={pushToHistory}
+            />
+          </li>
+          <li>
+            <CharacterSkillPanel
+              skillName="Investigation"
+              profBonus={profBonus}
+              characterStat={intelligenceStat}
+              hasProf={investigationProf}
+              setHasProf={setInvestigationProf}
+              pushToRollResultHistory={pushToHistory}
+            />
           </li>
         </ul>
       </p>
@@ -209,8 +295,8 @@ function CharacterSheet() {
           {rollResults.map((rollResult, idx) => {
             return (
               <option key={idx}>
-                {rollResult.statName} {rollResult.rollType} Mod: {rollResult.totalModifier}, Roll: {rollResult.roll}
-                , Total: {rollResult.rollPlusModifier}
+                {rollResult.statName} {rollResult.rollType} Mod: {rollResult.totalModifier}, Roll: {rollResult.roll},
+                Total: {rollResult.rollPlusModifier}
               </option>
             );
           })}
