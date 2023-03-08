@@ -12,7 +12,7 @@ function CharacterSkillPanel(props: {
   setHasProf: (prof: boolean) => void;
   pushToRollResultHistory: (rollResult: RollResult) => void;
 }) {
-  //align the roll check buttons, like you did with the check boxes
+  
 
   const rollHandler = (rollType: string, modifier: number) => {
     let roll = rollDice(20);
@@ -36,8 +36,7 @@ function CharacterSkillPanel(props: {
           <input type="checkbox" onChange={(e) => props.setHasProf(!props.hasProf)} checked={props.hasProf} />
         </td>
         <td>
-          {props.skillName}{" "}
-          {calculateBaseModifier(props.characterStat.abilityScore) + (props.hasProf ? props.profBonus : 0)}
+          {props.skillName}
         </td>
         <td>
           <button className="dice" onClick={() => rollHandler(`[${props.skillName}]`, skillMod)}>
