@@ -54,3 +54,33 @@ test('map tests', () => {
   expect(sub7KeepUnder5([8,9,10,13,14])).toEqual([1,2,3])
   expect(reverseStringArray(["H","e","l","l","o"])).toEqual(["o","l","l","e","H"])
 });
+
+test('truthy / falsey', () => {
+  expect(1).toBeTruthy();
+  expect(true).toBeTruthy();
+  expect("13").toBeTruthy();
+  expect(["13"]).toBeTruthy();
+  expect({a: "13"}).toBeTruthy();
+  expect([]).toBeTruthy();
+  expect({}).toBeTruthy();
+
+  expect(null).toBeFalsy();
+  expect(undefined).toBeFalsy();
+  expect(0).toBeFalsy();
+  expect("").toBeFalsy();
+  expect(false).toBeFalsy();
+
+
+  expect(true && true).toEqual(true); 
+  expect(false && true).toEqual(false);
+  expect(true && false).toEqual(false);
+  expect(false && false).toEqual(false);
+
+  expect(true && 5).toEqual(5);
+  expect(false && 5).toEqual(false);
+  expect(true && 5 && 6).toEqual(6);
+  expect(true && 0 && 6).toEqual(0);
+
+  expect(true && "test").toEqual("test");
+  expect(true && "").toEqual("");
+});

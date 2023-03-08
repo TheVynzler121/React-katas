@@ -5,6 +5,7 @@ import CharacterStatRow from "./CharacterStatRow";
 import { calculateBaseModifier } from "./DndHelpers";
 
 // a child component can't call a parent function, unless it is given the function as a callback
+// && returns the last element if the first is true
 
 export interface RollResult {
   statName: string;
@@ -85,8 +86,8 @@ function CharacterSheet() {
   const [sleightOfHandProf, setSleightOfHandProf] = useState<boolean>(false);
   const [stealthProf, setStealthProf] = useState<boolean>(false);
   const [survivalProf, setSurvivalProf] = useState<boolean>(false);
+  const [showStats, setShowStats] = useState<boolean>(true);
   const [showSkills, setShowSkills] = useState<boolean>(true);
-  //just got done learning about "truthy" and "falsey"
 
   const pushToHistory = (r: RollResult) => {
     let rollResultsWithNewRoll = [r, ...rollResults];
@@ -159,8 +160,6 @@ function CharacterSheet() {
     }
   };
 
-  
-
   return (
     <>
       <p>
@@ -181,51 +180,35 @@ function CharacterSheet() {
           Load from Store{" "}
         </button>
       </p>
-      <table>
-        <tr>
-          <th></th>
-          <th>Stat</th>
-          <th>Value</th>
-          <th>Base Mod</th>
-          <th>Bonus Mod</th>
-        </tr>
-        <CharacterStatRow
-          characterStat={strengthStat}
-          setCharacterStat={setStrengthStat}
-          pushToRollResultHistory={pushToHistory}
-          profBonus={profBonus}
-        />
-        <CharacterStatRow
-          characterStat={dexterityStat}
-          setCharacterStat={setDexterityStat}
-          pushToRollResultHistory={pushToHistory}
-          profBonus={profBonus}
-        />
-        <CharacterStatRow
-          characterStat={constitutionStat}
-          setCharacterStat={setConstitutionStat}
-          pushToRollResultHistory={pushToHistory}
-          profBonus={profBonus}
-        />
-        <CharacterStatRow
-          characterStat={intelligenceStat}
-          setCharacterStat={setIntelligenceStat}
-          pushToRollResultHistory={pushToHistory}
-          profBonus={profBonus}
-        />
-        <CharacterStatRow
-          characterStat={wisdomStat}
-          setCharacterStat={setWisdomStat}
-          pushToRollResultHistory={pushToHistory}
-          profBonus={profBonus}
-        />
-        <CharacterStatRow
-          characterStat={charismaStat}
-          setCharacterStat={setCharismaStat}
-          pushToRollResultHistory={pushToHistory}
-          profBonus={profBonus}
-        />
-      </table>
+      <button onClick={() => setShowStats(!showStats)}>Toggle Stats</button>
+      {showStats && (
+        <table>
+          <tr>
+            <th></th>
+            <th>Stat</th>
+            <th>Value</th>
+            <th>Base Mod</th>
+            <th>Bonus Mod</th>
+          </tr>
+          {[
+            [strengthStat, setStrengthStat],
+            [dexterityStat, setDexterityStat],
+            [constitutionStat, setConstitutionStat],
+            [intelligenceStat, setIntelligenceStat],
+            [wisdomStat, setWisdomStat],
+            [charismaStat, setCharismaStat],
+          ].map(([stat, setStat]: any) => {
+            return (
+              <CharacterStatRow
+                characterStat={stat}
+                setCharacterStat={setStat}
+                pushToRollResultHistory={pushToHistory}
+                profBonus={profBonus}
+              />
+            );
+          })}
+        </table>
+      )}
       <p>
         Proficiency Bonus:
         {/* one tag close if there is nothing in between. See line 18 vs 30-33  */}
@@ -239,7 +222,6 @@ function CharacterSheet() {
       </p>
       <p>
         {showSkills && (
-
           <table>
             <CharacterSkillPanel
               skillName="Acrobatics"
