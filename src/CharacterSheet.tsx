@@ -85,6 +85,8 @@ function CharacterSheet() {
   const [sleightOfHandProf, setSleightOfHandProf] = useState<boolean>(false);
   const [stealthProf, setStealthProf] = useState<boolean>(false);
   const [survivalProf, setSurvivalProf] = useState<boolean>(false);
+  const [showSkills, setShowSkills] = useState<boolean>(true);
+  //just got done learning about "truthy" and "falsey"
 
   const pushToHistory = (r: RollResult) => {
     let rollResultsWithNewRoll = [r, ...rollResults];
@@ -156,6 +158,8 @@ function CharacterSheet() {
       setSurvivalProf(characterSheet.survivalProf);
     }
   };
+
+  
 
   return (
     <>
@@ -231,154 +235,158 @@ function CharacterSheet() {
           onChange={(e) => setProfBonus(parseInt(e.target.value))}
           value={profBonus}
         />
+        <button onClick={() => setShowSkills(!showSkills)}>Toggle Skills</button>
       </p>
       <p>
-        <table>
-          <CharacterSkillPanel
-            skillName="Acrobatics"
-            profBonus={profBonus}
-            characterStat={dexterityStat}
-            hasProf={acrobaticsProf}
-            setHasProf={setAcrobaticsProf}
-            pushToRollResultHistory={pushToHistory}
-          />
-          <CharacterSkillPanel
-            skillName="Animal Handling"
-            profBonus={profBonus}
-            characterStat={wisdomStat}
-            hasProf={animalHandlingProf}
-            setHasProf={setAnimalHandlingProf}
-            pushToRollResultHistory={pushToHistory}
-          />
-          <CharacterSkillPanel
-            skillName="Arcana"
-            profBonus={profBonus}
-            characterStat={intelligenceStat}
-            hasProf={arcanaProf}
-            setHasProf={setArcanaProf}
-            pushToRollResultHistory={pushToHistory}
-          />
-          <CharacterSkillPanel
-            skillName="Athletics"
-            profBonus={profBonus}
-            characterStat={strengthStat}
-            hasProf={athleticsProf}
-            setHasProf={setAthleticsProf}
-            pushToRollResultHistory={pushToHistory}
-          />
-          <CharacterSkillPanel
-            skillName="Deception"
-            profBonus={profBonus}
-            characterStat={charismaStat}
-            hasProf={deceptionProf}
-            setHasProf={setDeceptionProf}
-            pushToRollResultHistory={pushToHistory}
-          />
-          <CharacterSkillPanel
-            skillName="History"
-            profBonus={profBonus}
-            characterStat={intelligenceStat}
-            hasProf={historyProf}
-            setHasProf={setHistoryProf}
-            pushToRollResultHistory={pushToHistory}
-          />
-          <CharacterSkillPanel
-            skillName="Insight"
-            profBonus={profBonus}
-            characterStat={wisdomStat}
-            hasProf={insightProf}
-            setHasProf={setInsightProf}
-            pushToRollResultHistory={pushToHistory}
-          />
-          <CharacterSkillPanel
-            skillName="Intimidation"
-            profBonus={profBonus}
-            characterStat={charismaStat}
-            hasProf={intimidationProf}
-            setHasProf={setIntimidationProf}
-            pushToRollResultHistory={pushToHistory}
-          />
-          <CharacterSkillPanel
-            skillName="Investigation"
-            profBonus={profBonus}
-            characterStat={intelligenceStat}
-            hasProf={investigationProf}
-            setHasProf={setInvestigationProf}
-            pushToRollResultHistory={pushToHistory}
-          />
-          <CharacterSkillPanel
-            skillName="Medicine"
-            profBonus={profBonus}
-            characterStat={wisdomStat}
-            hasProf={medicineProf}
-            setHasProf={setMedicineProf}
-            pushToRollResultHistory={pushToHistory}
-          />
-          <CharacterSkillPanel
-            skillName="Nature"
-            profBonus={profBonus}
-            characterStat={intelligenceStat}
-            hasProf={natureProf}
-            setHasProf={setNatureProf}
-            pushToRollResultHistory={pushToHistory}
-          />
-          <CharacterSkillPanel
-            skillName="Perception"
-            profBonus={profBonus}
-            characterStat={wisdomStat}
-            hasProf={perceptionProf}
-            setHasProf={setPerceptionProf}
-            pushToRollResultHistory={pushToHistory}
-          />
-          <CharacterSkillPanel
-            skillName="Performance"
-            profBonus={profBonus}
-            characterStat={charismaStat}
-            hasProf={performanceProf}
-            setHasProf={setPerformanceProf}
-            pushToRollResultHistory={pushToHistory}
-          />
-          <CharacterSkillPanel
-            skillName="Persuasion"
-            profBonus={profBonus}
-            characterStat={charismaStat}
-            hasProf={persuasionProf}
-            setHasProf={setPersuasionProf}
-            pushToRollResultHistory={pushToHistory}
-          />
-          <CharacterSkillPanel
-            skillName="Religion"
-            profBonus={profBonus}
-            characterStat={intelligenceStat}
-            hasProf={religionProf}
-            setHasProf={setReligionProf}
-            pushToRollResultHistory={pushToHistory}
-          />
-          <CharacterSkillPanel
-            skillName="Sleight of Hand"
-            profBonus={profBonus}
-            characterStat={dexterityStat}
-            hasProf={sleightOfHandProf}
-            setHasProf={setSleightOfHandProf}
-            pushToRollResultHistory={pushToHistory}
-          />
-          <CharacterSkillPanel
-            skillName="Stealth"
-            profBonus={profBonus}
-            characterStat={dexterityStat}
-            hasProf={stealthProf}
-            setHasProf={setStealthProf}
-            pushToRollResultHistory={pushToHistory}
-          />
-          <CharacterSkillPanel
-            skillName="Survival"
-            profBonus={profBonus}
-            characterStat={wisdomStat}
-            hasProf={survivalProf}
-            setHasProf={setSurvivalProf}
-            pushToRollResultHistory={pushToHistory}
-          />
-        </table>
+        {showSkills && (
+
+          <table>
+            <CharacterSkillPanel
+              skillName="Acrobatics"
+              profBonus={profBonus}
+              characterStat={dexterityStat}
+              hasProf={acrobaticsProf}
+              setHasProf={setAcrobaticsProf}
+              pushToRollResultHistory={pushToHistory}
+            />
+            <CharacterSkillPanel
+              skillName="Animal Handling"
+              profBonus={profBonus}
+              characterStat={wisdomStat}
+              hasProf={animalHandlingProf}
+              setHasProf={setAnimalHandlingProf}
+              pushToRollResultHistory={pushToHistory}
+            />
+            <CharacterSkillPanel
+              skillName="Arcana"
+              profBonus={profBonus}
+              characterStat={intelligenceStat}
+              hasProf={arcanaProf}
+              setHasProf={setArcanaProf}
+              pushToRollResultHistory={pushToHistory}
+            />
+            <CharacterSkillPanel
+              skillName="Athletics"
+              profBonus={profBonus}
+              characterStat={strengthStat}
+              hasProf={athleticsProf}
+              setHasProf={setAthleticsProf}
+              pushToRollResultHistory={pushToHistory}
+            />
+            <CharacterSkillPanel
+              skillName="Deception"
+              profBonus={profBonus}
+              characterStat={charismaStat}
+              hasProf={deceptionProf}
+              setHasProf={setDeceptionProf}
+              pushToRollResultHistory={pushToHistory}
+            />
+            <CharacterSkillPanel
+              skillName="History"
+              profBonus={profBonus}
+              characterStat={intelligenceStat}
+              hasProf={historyProf}
+              setHasProf={setHistoryProf}
+              pushToRollResultHistory={pushToHistory}
+            />
+            <CharacterSkillPanel
+              skillName="Insight"
+              profBonus={profBonus}
+              characterStat={wisdomStat}
+              hasProf={insightProf}
+              setHasProf={setInsightProf}
+              pushToRollResultHistory={pushToHistory}
+            />
+            <CharacterSkillPanel
+              skillName="Intimidation"
+              profBonus={profBonus}
+              characterStat={charismaStat}
+              hasProf={intimidationProf}
+              setHasProf={setIntimidationProf}
+              pushToRollResultHistory={pushToHistory}
+            />
+            <CharacterSkillPanel
+              skillName="Investigation"
+              profBonus={profBonus}
+              characterStat={intelligenceStat}
+              hasProf={investigationProf}
+              setHasProf={setInvestigationProf}
+              pushToRollResultHistory={pushToHistory}
+            />
+            <CharacterSkillPanel
+              skillName="Medicine"
+              profBonus={profBonus}
+              characterStat={wisdomStat}
+              hasProf={medicineProf}
+              setHasProf={setMedicineProf}
+              pushToRollResultHistory={pushToHistory}
+            />
+            <CharacterSkillPanel
+              skillName="Nature"
+              profBonus={profBonus}
+              characterStat={intelligenceStat}
+              hasProf={natureProf}
+              setHasProf={setNatureProf}
+              pushToRollResultHistory={pushToHistory}
+            />
+            <CharacterSkillPanel
+              skillName="Perception"
+              profBonus={profBonus}
+              characterStat={wisdomStat}
+              hasProf={perceptionProf}
+              setHasProf={setPerceptionProf}
+              pushToRollResultHistory={pushToHistory}
+            />
+            <CharacterSkillPanel
+              skillName="Performance"
+              profBonus={profBonus}
+              characterStat={charismaStat}
+              hasProf={performanceProf}
+              setHasProf={setPerformanceProf}
+              pushToRollResultHistory={pushToHistory}
+            />
+            <CharacterSkillPanel
+              skillName="Persuasion"
+              profBonus={profBonus}
+              characterStat={charismaStat}
+              hasProf={persuasionProf}
+              setHasProf={setPersuasionProf}
+              pushToRollResultHistory={pushToHistory}
+            />
+            <CharacterSkillPanel
+              skillName="Religion"
+              profBonus={profBonus}
+              characterStat={intelligenceStat}
+              hasProf={religionProf}
+              setHasProf={setReligionProf}
+              pushToRollResultHistory={pushToHistory}
+            />
+            <CharacterSkillPanel
+              skillName="Sleight of Hand"
+              profBonus={profBonus}
+              characterStat={dexterityStat}
+              hasProf={sleightOfHandProf}
+              setHasProf={setSleightOfHandProf}
+              pushToRollResultHistory={pushToHistory}
+            />
+            <CharacterSkillPanel
+              skillName="Stealth"
+              profBonus={profBonus}
+              characterStat={dexterityStat}
+              hasProf={stealthProf}
+              setHasProf={setStealthProf}
+              pushToRollResultHistory={pushToHistory}
+            />
+            <CharacterSkillPanel
+              skillName="Survival"
+              profBonus={profBonus}
+              characterStat={wisdomStat}
+              hasProf={survivalProf}
+              setHasProf={setSurvivalProf}
+              pushToRollResultHistory={pushToHistory}
+            />
+          </table>
+        )}
       </p>
       <p>
         <select>
