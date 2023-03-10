@@ -5,30 +5,33 @@ import CharacterStatRow from "./CharacterStatRow";
 import { calculateBaseModifier } from "./DndHelpers";
 
 // a child component can't call a parent function, unless it is given the function as a callback
-// && returns the last element if the first is true
+// '&&' returns the last element if the first is true
 
-export interface RollResult {
+export interface HasStatName {
   statName: string;
+}
+
+export interface RollResult extends HasStatName {
   totalModifier: number;
   roll: number;
   rollPlusModifier: number;
   rollType: string;
 }
 
-export interface CharacterStat {
+export interface CharacterStat extends HasStatName { // INTERFACE IS NOT A CLASS
   //an interface names a shape, the object is the instance that has the data in it
-  statName: string;
   abilityScore: number;
   bonusMod: number;
   profBonusCheckbox: boolean;
 }
 
-const defaultStat = {
-  statName: "",
+const defaultStat = { //objects can hold anything, and it'll work as long as it has the interface shape. they are like flexible dictionaries
+  statName : "",
   abilityScore: 10,
   bonusMod: 0,
   profBonusCheckbox: false,
-} as CharacterStat;
+ };
+
 
 interface CharacterSheetState {
   rollResults: RollResult[]; // List<RollResult>  // IEnumerable<RollResult>
