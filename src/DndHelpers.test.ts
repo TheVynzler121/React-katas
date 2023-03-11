@@ -1,4 +1,4 @@
-import {add5,add5KeepOver6, formatMod, calculateBaseModifier, sub7KeepUnder5, reverseStringArray } from './DndHelpers';
+import {add5,add5KeepOver6, formatMod, calculateBaseModifier, sub7KeepUnder5, reverseStringArray, ContainsDupes } from './DndHelpers';
 
 test('calculates base modifier for -2', () => {
   expect(calculateBaseModifier(6)).toBe(-2);
@@ -83,4 +83,10 @@ test('truthy / falsey', () => {
 
   expect(true && "test").toEqual("test");
   expect(true && "").toEqual("");
+});
+
+test('interviewtests',  () => {
+    expect(ContainsDupes([1,2,3,1])).toEqual(true);
+    expect(ContainsDupes([1,2,3,4])).toEqual(false);
+    expect(ContainsDupes([1,1,1,3,3,4,3,2,4,2])).toEqual(true);
 });

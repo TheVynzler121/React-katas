@@ -35,3 +35,15 @@ export const reverseStringArray = (sArray: string[]) => {
     
     return sArray.map(sArray.pop, [...sArray]);
 }
+
+export function ContainsDupes(nums: number[]): boolean  {
+    const dict = [];
+
+    for (let i = 0; i < nums.length; i++) {
+        if(dict[nums[i]]){
+            return true
+        }
+        dict[nums[i]] = 1;
+    }
+    return false;
+};
