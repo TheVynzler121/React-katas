@@ -34,7 +34,7 @@ export const sub7KeepUnder5 = (nums: number[]) => {
 export const reverseStringArray = (sArray: string[]) => {
     
     return sArray.map(sArray.pop, [...sArray]);
-}
+};
 
 export function ContainsDupes(nums: number[]): boolean  {
     const dict = [];
@@ -46,4 +46,24 @@ export function ContainsDupes(nums: number[]): boolean  {
         dict[nums[i]] = 1;
     }
     return false;
+};
+
+export function ReverseString(input: string[]): string[] {
+    let reversedArray: any[] = [];
+    input.forEach(character => {
+        reversedArray.splice(0, 0, character);
+    });
+    return reversedArray;
+};
+
+export function TwoSum(nums: number[], target: number): number[]{
+    let retArray = [] as number[];
+    let loopCount = nums.length;
+    for (let i = 0; i < loopCount; i++) {
+       for (let j = i + 1; j < loopCount; j++) {
+            if(nums[i] + nums[j] == target)
+                retArray.push(i, j);              
+       }
+    }
+    return retArray;
 };
