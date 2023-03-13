@@ -2,7 +2,8 @@ import { useState } from "react";
 import "./CharacterSheet.css";
 import { rollDice } from "./DiceHelpers";
 import { calculateBaseModifier, formatMod } from "./DndHelpers";
-import { CharacterStat, RollResult } from "./CharacterSheet";
+import { CharacterStat, RollResult } from "./DndTypes";
+
 
 function CharacterStatRow(props: {
   profBonus: number;

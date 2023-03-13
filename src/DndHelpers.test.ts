@@ -89,7 +89,7 @@ test('interviewtests',  () => {
     expect(ContainsDupes([1,2,3,1])).toEqual(true);
     expect(ContainsDupes([1,2,3,4])).toEqual(false);
     expect(ContainsDupes([1,1,1,3,3,4,3,2,4,2])).toEqual(true);
-    expect(ReverseString(["h","e","l","l","o"])).toEqual(["o","l","l","e","h"])
-    expect(ReverseString(["H","a","n","n","a","h"])).toEqual(["h","a","n","n","a","H"])
-    expect(TwoSum([2,7,11,15], 9)).toEqual([0, 1])
+    expect(ReverseString(["h","e","l","l","o"])).toEqual(["o","l","l","e","h"]);
+    expect(ReverseString(["H","a","n","n","a","h"])).toEqual(["h","a","n","n","a","H"]);
+    expect(TwoSum([2,7,11,15], 9)).toEqual([0, 1]);
 });

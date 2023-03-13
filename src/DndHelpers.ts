@@ -62,7 +62,7 @@ export function TwoSum(nums: number[], target: number): number[]{
     for (let i = 0; i < loopCount; i++) {
        for (let j = i + 1; j < loopCount; j++) {
             if(nums[i] + nums[j] == target)
-                retArray.push(i, j);              
+                retArray.push(i, j);
        }
     }
     return retArray;

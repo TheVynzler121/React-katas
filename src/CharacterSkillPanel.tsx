@@ -1,8 +1,9 @@
 import { useState } from "react";
 import "./CharacterSheet.css";
 import { rollDice } from "./DiceHelpers";
-import { CharacterStat, RollResult } from "./CharacterSheet";
+
 import { calculateBaseModifier, formatMod } from "./DndHelpers";
+import { CharacterStat, RollResult } from "./DndTypes";
 
 function CharacterSkillPanel(props: {
   skillName: string;

@@ -2,28 +2,10 @@ import { useState } from "react";
 import "./CharacterSheet.css";
 import CharacterSkillPanel from "./CharacterSkillPanel";
 import CharacterStatRow from "./CharacterStatRow";
-import { calculateBaseModifier } from "./DndHelpers";
+import { CharacterSheetState, CharacterStat, RollResult } from "./DndTypes";
 
 // a child component can't call a parent function, unless it is given the function as a callback
 // '&&' returns the last element if the first is true
-
-export interface HasStatName {
-  statName: string;
-}
-
-export interface RollResult extends HasStatName {
-  totalModifier: number;
-  roll: number;
-  rollPlusModifier: number;
-  rollType: string;
-}
-
-export interface CharacterStat extends HasStatName { // INTERFACE IS NOT A CLASS
-  //an interface names a shape, the object is the instance that has the data in it
-  abilityScore: number;
-  bonusMod: number;
-  profBonusCheckbox: boolean;
-}
 
 const defaultStat = { //objects can hold anything, and it'll work as long as it has the interface shape. they are like flexible dictionaries
   statName : "",
@@ -32,63 +14,36 @@ const defaultStat = { //objects can hold anything, and it'll work as long as it 
   profBonusCheckbox: false,
  };
 
-
-interface CharacterSheetState {
-  rollResults: RollResult[]; // List<RollResult>  // IEnumerable<RollResult>
-  profBonus: number;
-  strengthStat: CharacterStat;
-  dexterityStat: CharacterStat;
-  constitutionStat: CharacterStat;
-  intelligenceStat: CharacterStat;
-  wisdomStat: CharacterStat;
-  charismaStat: CharacterStat;
-  acrobaticsProf: boolean;
-  animalHandlingProf: boolean;
-  arcanaProf: boolean;
-  athleticsProf: boolean;
-  deceptionProf: boolean;
-  historyProf: boolean;
-  insightProf: boolean;
-  intimidationProf: boolean;
-  investigationProf: boolean;
-  medicineProf: boolean;
-  natureProf: boolean;
-  perceptionProf: boolean;
-  performanceProf: boolean;
-  persuasionProf: boolean;
-  religionProf: boolean;
-  sleightOfHandProf: boolean;
-  stealthProf: boolean;
-  survivalProf: boolean;
-}
-
-function CharacterSheet() {
-  const [rollResults, setRollResults] = useState<RollResult[]>([]);
-  const [profBonus, setProfBonus] = useState<number>(0); //useState to remember user input
-  const [strengthStat, setStrengthStat] = useState<CharacterStat>({ ...defaultStat, statName: "Strength" });
-  const [dexterityStat, setDexterityStat] = useState<CharacterStat>({ ...defaultStat, statName: "Dexterity" });
-  const [constitutionStat, setConstitutionStat] = useState<CharacterStat>({ ...defaultStat, statName: "Constitution" });
-  const [intelligenceStat, setIntelligenceStat] = useState<CharacterStat>({ ...defaultStat, statName: "Intelligence" });
-  const [wisdomStat, setWisdomStat] = useState<CharacterStat>({ ...defaultStat, statName: "Wisdom" });
-  const [charismaStat, setCharismaStat] = useState<CharacterStat>({ ...defaultStat, statName: "Charisma" });
-  const [acrobaticsProf, setAcrobaticsProf] = useState<boolean>(false);
-  const [animalHandlingProf, setAnimalHandlingProf] = useState<boolean>(false);
-  const [arcanaProf, setArcanaProf] = useState<boolean>(false);
-  const [athleticsProf, setAthleticsProf] = useState<boolean>(false);
-  const [deceptionProf, setDeceptionProf] = useState<boolean>(false);
-  const [historyProf, setHistoryProf] = useState<boolean>(false);
-  const [insightProf, setInsightProf] = useState<boolean>(false);
-  const [intimidationProf, setIntimidationProf] = useState<boolean>(false);
-  const [investigationProf, setInvestigationProf] = useState<boolean>(false);
-  const [medicineProf, setMedicineProf] = useState<boolean>(false);
-  const [natureProf, setNatureProf] = useState<boolean>(false);
-  const [perceptionProf, setPerceptionProf] = useState<boolean>(false);
-  const [performanceProf, setPerformanceProf] = useState<boolean>(false);
-  const [persuasionProf, setPersuasionProf] = useState<boolean>(false);
-  const [religionProf, setReligionProf] = useState<boolean>(false);
-  const [sleightOfHandProf, setSleightOfHandProf] = useState<boolean>(false);
-  const [stealthProf, setStealthProf] = useState<boolean>(false);
-  const [survivalProf, setSurvivalProf] = useState<boolean>(false);
+function CharacterSheet(props: {
+  characterSheet: CharacterSheetState;
+  saveToStore: (characterSheetState:CharacterSheetState) => void;
+}) {
+  const [rollResults, setRollResults] = useState<RollResult[]>(props.characterSheet.rollResults);
+  const [profBonus, setProfBonus] = useState<number>(props.characterSheet.profBonus); //useState to remember user input
+  const [strengthStat, setStrengthStat] = useState<CharacterStat>(props.characterSheet.strengthStat);
+  const [dexterityStat, setDexterityStat] = useState<CharacterStat>(props.characterSheet.dexterityStat);
+  const [constitutionStat, setConstitutionStat] = useState<CharacterStat>(props.characterSheet.constitutionStat);
+  const [intelligenceStat, setIntelligenceStat] = useState<CharacterStat>(props.characterSheet.intelligenceStat);
+  const [wisdomStat, setWisdomStat] = useState<CharacterStat>(props.characterSheet.wisdomStat);
+  const [charismaStat, setCharismaStat] = useState<CharacterStat>(props.characterSheet.charismaStat);
+  const [acrobaticsProf, setAcrobaticsProf] = useState<boolean>(props.characterSheet.acrobaticsProf);
+  const [animalHandlingProf, setAnimalHandlingProf] = useState<boolean>(props.characterSheet.animalHandlingProf);
+  const [arcanaProf, setArcanaProf] = useState<boolean>(props.characterSheet.arcanaProf);
+  const [athleticsProf, setAthleticsProf] = useState<boolean>(props.characterSheet.athleticsProf);
+  const [deceptionProf, setDeceptionProf] = useState<boolean>(props.characterSheet.deceptionProf);
+  const [historyProf, setHistoryProf] = useState<boolean>(props.characterSheet.historyProf);
+  const [insightProf, setInsightProf] = useState<boolean>(props.characterSheet.insightProf);
+  const [intimidationProf, setIntimidationProf] = useState<boolean>(props.characterSheet.intimidationProf);
+  const [investigationProf, setInvestigationProf] = useState<boolean>(props.characterSheet.investigationProf);
+  const [medicineProf, setMedicineProf] = useState<boolean>(props.characterSheet.medicineProf);
+  const [natureProf, setNatureProf] = useState<boolean>(props.characterSheet.natureProf);
+  const [perceptionProf, setPerceptionProf] = useState<boolean>(props.characterSheet.perceptionProf);
+  const [performanceProf, setPerformanceProf] = useState<boolean>(props.characterSheet.performanceProf);
+  const [persuasionProf, setPersuasionProf] = useState<boolean>(props.characterSheet.persuasionProf);
+  const [religionProf, setReligionProf] = useState<boolean>(props.characterSheet.religionProf);
+  const [sleightOfHandProf, setSleightOfHandProf] = useState<boolean>(props.characterSheet.sleightOfHandProf);
+  const [stealthProf, setStealthProf] = useState<boolean>(props.characterSheet.stealthProf);
+  const [survivalProf, setSurvivalProf] = useState<boolean>(props.characterSheet.survivalProf);
   const [showStats, setShowStats] = useState<boolean>(true);
   const [showSkills, setShowSkills] = useState<boolean>(true);
 
@@ -97,92 +52,51 @@ function CharacterSheet() {
     setRollResults(rollResultsWithNewRoll);
   };
 
-  const saveToStore = () => {
+  const saveToStoreHandler = () => {
     const characterSheetState: CharacterSheetState = {
-      rollResults: rollResults,
-      profBonus: profBonus,
-      strengthStat: strengthStat,
-      dexterityStat: dexterityStat,
-      constitutionStat: constitutionStat,
-      intelligenceStat: intelligenceStat,
-      wisdomStat: wisdomStat,
-      charismaStat: charismaStat,
-      acrobaticsProf: acrobaticsProf,
-      animalHandlingProf: animalHandlingProf,
-      arcanaProf: arcanaProf,
-      athleticsProf: athleticsProf,
-      deceptionProf: deceptionProf,
-      historyProf: historyProf,
-      insightProf: insightProf,
-      intimidationProf: intimidationProf,
-      investigationProf: investigationProf,
-      medicineProf: medicineProf,
-      natureProf: natureProf,
-      perceptionProf: perceptionProf,
-      performanceProf: performanceProf,
-      persuasionProf: persuasionProf,
-      religionProf: religionProf,
-      sleightOfHandProf: sleightOfHandProf,
-      stealthProf: stealthProf,
-      survivalProf: survivalProf,
-    };
-    let characterSheetStateString = JSON.stringify(characterSheetState);
-    localStorage.setItem("LOCAL_STORE_CharacterSheetState", characterSheetStateString);
-  };
-
-  const getFromStore = () => {
-    const characterSheetString = localStorage.getItem("LOCAL_STORE_CharacterSheetState");
-    if (characterSheetString !== null) {
-      let characterSheet = JSON.parse(characterSheetString) as CharacterSheetState;
-      setRollResults(characterSheet.rollResults);
-      setProfBonus(characterSheet.profBonus);
-      setStrengthStat(characterSheet.strengthStat);
-      setDexterityStat(characterSheet.dexterityStat);
-      setConstitutionStat(characterSheet.constitutionStat);
-      setIntelligenceStat(characterSheet.intelligenceStat);
-      setWisdomStat(characterSheet.wisdomStat);
-      setCharismaStat(characterSheet.charismaStat);
-      setAcrobaticsProf(characterSheet.acrobaticsProf);
-      setAnimalHandlingProf(characterSheet.animalHandlingProf);
-      setArcanaProf(characterSheet.arcanaProf);
-      setAthleticsProf(characterSheet.athleticsProf);
-      setDeceptionProf(characterSheet.deceptionProf);
-      setHistoryProf(characterSheet.historyProf);
-      setInsightProf(characterSheet.insightProf);
-      setIntimidationProf(characterSheet.intimidationProf);
-      setInvestigationProf(characterSheet.investigationProf);
-      setMedicineProf(characterSheet.medicineProf);
-      setNatureProf(characterSheet.natureProf);
-      setPerceptionProf(characterSheet.perceptionProf);
-      setPerformanceProf(characterSheet.performanceProf);
-      setPersuasionProf(characterSheet.persuasionProf);
-      setReligionProf(characterSheet.religionProf);
-      setSleightOfHandProf(characterSheet.sleightOfHandProf);
-      setStealthProf(characterSheet.stealthProf);
-      setSurvivalProf(characterSheet.survivalProf);
-    }
-  };
-
+        rollResults: rollResults,
+        profBonus: profBonus,
+        strengthStat: strengthStat,
+        dexterityStat: dexterityStat,
+        constitutionStat: constitutionStat,
+        intelligenceStat: intelligenceStat,
+        wisdomStat: wisdomStat,
+        charismaStat: charismaStat,
+        acrobaticsProf: acrobaticsProf,
+        animalHandlingProf: animalHandlingProf,
+        arcanaProf: arcanaProf,
+        athleticsProf: athleticsProf,
+        deceptionProf: deceptionProf,
+        historyProf: historyProf,
+        insightProf: insightProf,
+        intimidationProf: intimidationProf,
+        investigationProf: investigationProf,
+        medicineProf: medicineProf,
+        natureProf: natureProf,
+        perceptionProf: perceptionProf,
+        performanceProf: performanceProf,
+        persuasionProf: persuasionProf,
+        religionProf: religionProf,
+        sleightOfHandProf: sleightOfHandProf,
+        stealthProf: stealthProf,
+        survivalProf: survivalProf,
+      };
+      props.saveToStore(characterSheetState)
+  }
+  
 
   return (
     <>
       <p>
         <button
           onClick={() => {
-            saveToStore();
+            saveToStoreHandler();
           }}
         >
           {" "}
           Save In Store{" "}
         </button>
-        <button
-          onClick={() => {
-            getFromStore();
-          }}
-        >
-          {" "}
-          Load from Store{" "}
-        </button>
+        
       </p>
       <button onClick={() => setShowStats(!showStats)}>Toggle Stats</button>
       {showStats && (
