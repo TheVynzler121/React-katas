@@ -67,3 +67,33 @@ export function TwoSum(nums: number[], target: number): number[]{
     }
     return retArray;
 };
+
+export function PlusOne(digits: number[]): number[] {
+    let loopCount = digits.length - 1;
+    for (let i = loopCount; i >= 0; i--) {
+        if(digits[i] === 9){
+            digits[i] = 0;
+        } else {
+            digits[i]++;
+            return digits;
+        }
+    }
+    let carriedOne = [1] as number[];
+    return carriedOne.concat(digits);
+}
+
+export function SingleNumber(nums: number[]): number {
+    const countingMap = new Map<number, number>();
+
+    nums.forEach((i) => {
+        const numCount = (countingMap.get(i) ?? 0) + 1;
+        countingMap.set(i, numCount);
+    });
+
+    for (let [key, value] of countingMap) {
+        if(value === 1){
+            return key;
+        }
+    };
+    return 0;
+}
