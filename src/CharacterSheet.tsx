@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./CharacterSheet.css";
 import CharacterSkillPanel from "./CharacterSkillPanel";
 import CharacterStatRow from "./CharacterStatRow";
@@ -7,16 +7,9 @@ import { CharacterSheetState, CharacterStat, RollResult } from "./DndTypes";
 // a child component can't call a parent function, unless it is given the function as a callback
 // '&&' returns the last element if the first is true
 
-const defaultStat = { //objects can hold anything, and it'll work as long as it has the interface shape. they are like flexible dictionaries
-  statName : "",
-  abilityScore: 10,
-  bonusMod: 0,
-  profBonusCheckbox: false,
- };
-
 function CharacterSheet(props: {
   characterSheet: CharacterSheetState;
-  saveToStore: (characterSheetState:CharacterSheetState) => void;
+  saveToStore: (characterSheetState: CharacterSheetState) => void;
 }) {
   const [rollResults, setRollResults] = useState<RollResult[]>(props.characterSheet.rollResults);
   const [profBonus, setProfBonus] = useState<number>(props.characterSheet.profBonus); //useState to remember user input
@@ -47,6 +40,35 @@ function CharacterSheet(props: {
   const [showStats, setShowStats] = useState<boolean>(true);
   const [showSkills, setShowSkills] = useState<boolean>(true);
 
+  useEffect(() => {
+    setRollResults(props.characterSheet.rollResults);
+    setProfBonus(props.characterSheet.profBonus);
+    setStrengthStat(props.characterSheet.strengthStat);
+    setDexterityStat(props.characterSheet.dexterityStat);
+    setConstitutionStat(props.characterSheet.constitutionStat);
+    setIntelligenceStat(props.characterSheet.intelligenceStat);
+    setWisdomStat(props.characterSheet.wisdomStat);
+    setCharismaStat(props.characterSheet.charismaStat);
+    setAcrobaticsProf(props.characterSheet.acrobaticsProf);
+    setAnimalHandlingProf(props.characterSheet.animalHandlingProf);
+    setArcanaProf(props.characterSheet.arcanaProf);
+    setAthleticsProf(props.characterSheet.athleticsProf);
+    setDeceptionProf(props.characterSheet.deceptionProf);
+    setHistoryProf(props.characterSheet.historyProf);
+    setInsightProf(props.characterSheet.insightProf);
+    setIntimidationProf(props.characterSheet.intimidationProf);
+    setInvestigationProf(props.characterSheet.investigationProf);
+    setMedicineProf(props.characterSheet.medicineProf);
+    setNatureProf(props.characterSheet.natureProf);
+    setPerceptionProf(props.characterSheet.perceptionProf);
+    setPerformanceProf(props.characterSheet.performanceProf);
+    setPersuasionProf(props.characterSheet.persuasionProf);
+    setReligionProf(props.characterSheet.religionProf);
+    setSleightOfHandProf(props.characterSheet.sleightOfHandProf);
+    setStealthProf(props.characterSheet.stealthProf);
+    setSurvivalProf(props.characterSheet.survivalProf);
+  }, [props.characterSheet]);
+
   const pushToHistory = (r: RollResult) => {
     let rollResultsWithNewRoll = [r, ...rollResults];
     setRollResults(rollResultsWithNewRoll);
@@ -54,36 +76,35 @@ function CharacterSheet(props: {
 
   const saveToStoreHandler = () => {
     const characterSheetState: CharacterSheetState = {
-        rollResults: rollResults,
-        profBonus: profBonus,
-        strengthStat: strengthStat,
-        dexterityStat: dexterityStat,
-        constitutionStat: constitutionStat,
-        intelligenceStat: intelligenceStat,
-        wisdomStat: wisdomStat,
-        charismaStat: charismaStat,
-        acrobaticsProf: acrobaticsProf,
-        animalHandlingProf: animalHandlingProf,
-        arcanaProf: arcanaProf,
-        athleticsProf: athleticsProf,
-        deceptionProf: deceptionProf,
-        historyProf: historyProf,
-        insightProf: insightProf,
-        intimidationProf: intimidationProf,
-        investigationProf: investigationProf,
-        medicineProf: medicineProf,
-        natureProf: natureProf,
-        perceptionProf: perceptionProf,
-        performanceProf: performanceProf,
-        persuasionProf: persuasionProf,
-        religionProf: religionProf,
-        sleightOfHandProf: sleightOfHandProf,
-        stealthProf: stealthProf,
-        survivalProf: survivalProf,
-      };
-      props.saveToStore(characterSheetState)
-  }
-  
+      rollResults: rollResults,
+      profBonus: profBonus,
+      strengthStat: strengthStat,
+      dexterityStat: dexterityStat,
+      constitutionStat: constitutionStat,
+      intelligenceStat: intelligenceStat,
+      wisdomStat: wisdomStat,
+      charismaStat: charismaStat,
+      acrobaticsProf: acrobaticsProf,
+      animalHandlingProf: animalHandlingProf,
+      arcanaProf: arcanaProf,
+      athleticsProf: athleticsProf,
+      deceptionProf: deceptionProf,
+      historyProf: historyProf,
+      insightProf: insightProf,
+      intimidationProf: intimidationProf,
+      investigationProf: investigationProf,
+      medicineProf: medicineProf,
+      natureProf: natureProf,
+      perceptionProf: perceptionProf,
+      performanceProf: performanceProf,
+      persuasionProf: persuasionProf,
+      religionProf: religionProf,
+      sleightOfHandProf: sleightOfHandProf,
+      stealthProf: stealthProf,
+      survivalProf: survivalProf,
+    };
+    props.saveToStore(characterSheetState);
+  };
 
   return (
     <>
@@ -96,35 +117,39 @@ function CharacterSheet(props: {
           {" "}
           Save In Store{" "}
         </button>
-        
       </p>
       <button onClick={() => setShowStats(!showStats)}>Toggle Stats</button>
       {showStats && (
         <table>
-          <tr>
-            <th></th>
-            <th>Stat</th>
-            <th>Value</th>
-            <th>Base Mod</th>
-            <th>Bonus Mod</th>
-          </tr>
-          {[
-            { stat: strengthStat, setStat: setStrengthStat },
-            { stat: dexterityStat, setStat: setDexterityStat },
-            { stat: constitutionStat, setStat: setConstitutionStat },
-            { stat: intelligenceStat, setStat: setIntelligenceStat },
-            { stat: wisdomStat, setStat: setWisdomStat },
-            { stat: charismaStat, setStat: setCharismaStat },
-          ].map(({ stat, setStat }) => {
-            return (
-              <CharacterStatRow
-                characterStat={stat}
-                setCharacterStat={setStat}
-                pushToRollResultHistory={pushToHistory}
-                profBonus={profBonus}
-              />
-            );
-          })}
+          <thead>
+            <tr>
+              <th></th>
+              <th>Stat</th>
+              <th>Value</th>
+              <th>Base Mod</th>
+              <th>Bonus Mod</th>
+            </tr>
+          </thead>
+          <tbody>
+            {[
+              { stat: strengthStat, setStat: setStrengthStat },
+              { stat: dexterityStat, setStat: setDexterityStat },
+              { stat: constitutionStat, setStat: setConstitutionStat },
+              { stat: intelligenceStat, setStat: setIntelligenceStat },
+              { stat: wisdomStat, setStat: setWisdomStat },
+              { stat: charismaStat, setStat: setCharismaStat },
+            ].map(({ stat, setStat }, idx) => {
+              return (
+                <CharacterStatRow
+                  key={idx}
+                  characterStat={stat}
+                  setCharacterStat={setStat}
+                  pushToRollResultHistory={pushToHistory}
+                  profBonus={profBonus}
+                />
+              );
+            })}
+          </tbody>
         </table>
       )}
       <p>
@@ -138,43 +163,46 @@ function CharacterSheet(props: {
         />
         <button onClick={() => setShowSkills(!showSkills)}>Toggle Skills</button>
       </p>
-      <p>
+      <div>
         {showSkills && (
           <table>
-            {[
-              { name: "Acrobatics", stat: dexterityStat, prof: acrobaticsProf, setProf: setAcrobaticsProf },
-              { name: "Animal Handling", stat: wisdomStat, prof: animalHandlingProf, setProf: setAnimalHandlingProf, },
-              { name: "Arcana", stat: intelligenceStat, prof: arcanaProf, setProf: setArcanaProf, },
-              { name: "Athletics", stat: strengthStat, prof: athleticsProf, setProf: setAthleticsProf, },
-              { name: "Deception", stat: charismaStat, prof: deceptionProf, setProf: setDeceptionProf, },
-              { name: "History", stat: intelligenceStat, prof: historyProf, setProf: setHistoryProf, },
-              { name: "Insight", stat: wisdomStat, prof: insightProf, setProf: setInsightProf, },
-              { name: "Intimidation", stat: charismaStat, prof: intimidationProf, setProf: setIntimidationProf, },
-              { name: "Investigation", stat: intelligenceStat, prof: investigationProf, setProf: setInvestigationProf, },
-              { name: "Medicine", stat: wisdomStat, prof: medicineProf, setProf: setMedicineProf, },
-              { name: "Nature", stat: intelligenceStat, prof: natureProf, setProf: setNatureProf, },
-              { name: "Perception", stat: wisdomStat, prof: perceptionProf, setProf: setPerceptionProf, },
-              { name: "Performance", stat: charismaStat, prof: performanceProf, setProf: setPerformanceProf, },
-              { name: "Persuasion", stat: charismaStat, prof: persuasionProf, setProf: setPersuasionProf, },
-              { name: "Religion", stat: intelligenceStat, prof: religionProf, setProf: setReligionProf, },
-              { name: "Sleight of Hand", stat: dexterityStat, prof: sleightOfHandProf, setProf: setSleightOfHandProf, },
-              { name: "Stealth", stat: dexterityStat, prof: stealthProf, setProf: setStealthProf, },
-              { name: "Survival", stat: wisdomStat, prof: survivalProf, setProf: setSurvivalProf, },
-            ].map(({ name, stat, prof, setProf }) => {
-              return (
-                <CharacterSkillPanel
-                  skillName={name}
-                  profBonus={profBonus}
-                  characterStat={stat}
-                  hasProf={prof}
-                  setHasProf={setProf}
-                  pushToRollResultHistory={pushToHistory}
-                />
-              );
-            })}
+            <tbody>
+              {[
+                { name: "Acrobatics", stat: dexterityStat, prof: acrobaticsProf, setProf: setAcrobaticsProf },
+                { name: "Animal Handling", stat: wisdomStat, prof: animalHandlingProf, setProf: setAnimalHandlingProf },
+                { name: "Arcana", stat: intelligenceStat, prof: arcanaProf, setProf: setArcanaProf },
+                { name: "Athletics", stat: strengthStat, prof: athleticsProf, setProf: setAthleticsProf },
+                { name: "Deception", stat: charismaStat, prof: deceptionProf, setProf: setDeceptionProf },
+                { name: "History", stat: intelligenceStat, prof: historyProf, setProf: setHistoryProf },
+                { name: "Insight", stat: wisdomStat, prof: insightProf, setProf: setInsightProf },
+                { name: "Intimidation", stat: charismaStat, prof: intimidationProf, setProf: setIntimidationProf },
+                { name: "Investigation", stat: intelligenceStat, prof: investigationProf, setProf: setInvestigationProf, },
+                { name: "Medicine", stat: wisdomStat, prof: medicineProf, setProf: setMedicineProf },
+                { name: "Nature", stat: intelligenceStat, prof: natureProf, setProf: setNatureProf },
+                { name: "Perception", stat: wisdomStat, prof: perceptionProf, setProf: setPerceptionProf },
+                { name: "Performance", stat: charismaStat, prof: performanceProf, setProf: setPerformanceProf },
+                { name: "Persuasion", stat: charismaStat, prof: persuasionProf, setProf: setPersuasionProf },
+                { name: "Religion", stat: intelligenceStat, prof: religionProf, setProf: setReligionProf },
+                { name: "Sleight of Hand", stat: dexterityStat, prof: sleightOfHandProf, setProf: setSleightOfHandProf, },
+                { name: "Stealth", stat: dexterityStat, prof: stealthProf, setProf: setStealthProf },
+                { name: "Survival", stat: wisdomStat, prof: survivalProf, setProf: setSurvivalProf },
+              ].map(({ name, stat, prof, setProf }, idx) => {
+                return (
+                  <CharacterSkillPanel
+                    key={idx}
+                    skillName={name}
+                    profBonus={profBonus}
+                    characterStat={stat}
+                    hasProf={prof}
+                    setHasProf={setProf}
+                    pushToRollResultHistory={pushToHistory}
+                  />
+                );
+              })}
+            </tbody>
           </table>
         )}
-      </p>
+      </div>
       <p>
         <select>
           {rollResults.map((rollResult, idx) => {

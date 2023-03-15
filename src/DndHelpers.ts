@@ -90,7 +90,7 @@ export function SingleNumber(nums: number[]): number {
         countingMap.set(i, numCount);
     });
 
-    for (let [key, value] of countingMap) {
+    for (let [key, value] of countingMap as any) {
         if(value === 1){
             return key;
         }

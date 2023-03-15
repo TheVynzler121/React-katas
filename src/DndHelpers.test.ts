@@ -93,5 +93,7 @@ test('interviewtests',  () => {
     expect(ReverseString(["H","a","n","n","a","h"])).toEqual(["h","a","n","n","a","H"]);
     expect(TwoSum([2,7,11,15], 9)).toEqual([0, 1]);
     expect(PlusOne([1,2,3])).toEqual([1,2,4]);
+    expect(PlusOne([9])).toEqual([1,0]);
+    expect(PlusOne([2,9])).toEqual([3,0]);
     expect(SingleNumber([2,2,1])).toEqual(1);
 });
