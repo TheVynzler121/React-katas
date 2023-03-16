@@ -97,3 +97,18 @@ export function SingleNumber(nums: number[]): number {
     };
     return 0;
 }
+
+export function LongestCommonPrefix(strs: string[]): string {
+    const firstStr = strs[0];
+    if(strs.length === 1) return firstStr;
+
+    let retString = '';
+
+    for(let i = 0; i < firstStr.length; i++){
+        retString += firstStr[i];
+        for(let j = 0; j < strs.length; j++){
+            if (!strs[j].startsWith(retString)) return retString.slice(0, -1);
+        }
+    }
+    return retString;
+}

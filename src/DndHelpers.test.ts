@@ -1,4 +1,4 @@
-import {add5,add5KeepOver6, formatMod, calculateBaseModifier, sub7KeepUnder5, reverseStringArray, ContainsDupes, ReverseString, TwoSum, PlusOne, SingleNumber } from './DndHelpers';
+import {add5,add5KeepOver6, formatMod, calculateBaseModifier, sub7KeepUnder5, reverseStringArray, ContainsDupes, ReverseString, TwoSum, PlusOne, SingleNumber, LongestCommonPrefix } from './DndHelpers';
 
 test('calculates base modifier for -2', () => {
   expect(calculateBaseModifier(6)).toBe(-2);
@@ -96,4 +96,5 @@ test('interviewtests',  () => {
     expect(PlusOne([9])).toEqual([1,0]);
     expect(PlusOne([2,9])).toEqual([3,0]);
     expect(SingleNumber([2,2,1])).toEqual(1);
+    expect(LongestCommonPrefix(["flower","flow","flight"])).toEqual("fl");
 });
