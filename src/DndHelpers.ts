@@ -57,16 +57,17 @@ export function ReverseString(input: string[]): string[] {
 };
 
 export function TwoSum(nums: number[], target: number): number[]{
-    let retArray = [] as number[];
     let loopCount = nums.length;
+    let retArray = [] as number[];
     for (let i = 0; i < loopCount; i++) {
-       for (let j = i + 1; j < loopCount; j++) {
-            if(nums[i] + nums[j] == target)
+        for (let j = i + 1; j < loopCount; j++) {
+            if(nums[i] + nums[j] === target){
                 retArray.push(i, j);
-       }
+            }
+        }
     }
     return retArray;
-};
+}
 
 export function PlusOne(digits: number[]): number[] {
     let loopCount = digits.length - 1;
