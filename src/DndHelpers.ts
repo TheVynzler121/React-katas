@@ -113,3 +113,20 @@ export function LongestCommonPrefix(strs: string[]): string {
     }
     return retString;
 }
+
+export function FirstUniqueChar(str: string): number{
+    const indexToCountMap = new Map<string, number>(); //HashMap for counting the
+    for (let i = 0; i < str.length; i++) {
+        if (!indexToCountMap.get(str[i])) {
+            indexToCountMap.set(str[i], 1);
+        } else {
+            indexToCountMap.set(str[i], indexToCountMap.get(str[i]) + 1);
+        }
+    } 
+
+    for (let i = 0; i < str.length; i++) {
+        if (indexToCountMap.get(str[i]) === 1) return i;
+    }
+
+    return -1;
+}
