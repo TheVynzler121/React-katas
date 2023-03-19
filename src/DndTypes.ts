@@ -16,6 +16,7 @@ export interface CharacterStat {
 }
 
 export interface CharacterSheetState {
+  characterName: string;
   rollResults: RollResult[]; // List<RollResult>  // IEnumerable<RollResult>
   profBonus: number;
   strengthStat: CharacterStat;

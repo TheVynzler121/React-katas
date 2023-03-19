@@ -39,6 +39,7 @@ function CharacterSheet(props: {
   const [survivalProf, setSurvivalProf] = useState<boolean>(props.characterSheet.survivalProf);
   const [showStats, setShowStats] = useState<boolean>(true);
   const [showSkills, setShowSkills] = useState<boolean>(true);
+  const [characterName, setCharacterName] = useState<string>("");
 
   useEffect(() => {
     setRollResults(props.characterSheet.rollResults);
@@ -67,6 +68,7 @@ function CharacterSheet(props: {
     setSleightOfHandProf(props.characterSheet.sleightOfHandProf);
     setStealthProf(props.characterSheet.stealthProf);
     setSurvivalProf(props.characterSheet.survivalProf);
+    setCharacterName(props.characterSheet.characterName);
   }, [props.characterSheet]);
 
   const pushToHistory = (r: RollResult) => {
@@ -76,6 +78,7 @@ function CharacterSheet(props: {
 
   const saveToStoreHandler = () => {
     const characterSheetState: CharacterSheetState = {
+      characterName: characterName,
       rollResults: rollResults,
       profBonus: profBonus,
       strengthStat: strengthStat,
@@ -119,6 +122,14 @@ function CharacterSheet(props: {
         </button>
       </p>
       <button onClick={() => setShowStats(!showStats)}>Toggle Stats</button>
+      <p>
+        <input 
+        className="statName"
+        type="string"
+        onChange={(e) => setCharacterName(e.target.value)}
+        value={characterName}
+        />
+      </p>
       {showStats && (
         <table>
           <thead>

@@ -120,7 +120,7 @@ export function FirstUniqueChar(str: string): number{
         if (!indexToCountMap.get(str[i])) {
             indexToCountMap.set(str[i], 1);
         } else {
-            indexToCountMap.set(str[i], indexToCountMap.get(str[i]) + 1);
+            indexToCountMap.set(str[i], (indexToCountMap.get(str[i])||0) + 1);
         }
     } 
 
