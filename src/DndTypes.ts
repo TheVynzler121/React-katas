@@ -44,3 +44,8 @@ export interface CharacterSheetState {
   stealthProf: boolean;
   survivalProf: boolean;
 }
+
+
+export interface CharacterLocalStore {
+  [key:string]: CharacterSheetState
+}

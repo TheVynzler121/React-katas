@@ -1,5 +1,6 @@
 import { useState } from "react";
 import CharacterSheet from "./CharacterSheet";
+import { getFromStore, saveToStore, getAllFromStore } from "./DndStorage";
 import { CharacterSheetState } from "./DndTypes";
 
 const defaultStat = {
@@ -9,6 +10,10 @@ const defaultStat = {
   bonusMod: 0,
   profBonusCheckbox: false,
 };
+
+// save any number of characters
+// load a specific character by name
+// save a loaded character
 
 const defaultSheet = {
   characterName: "",
@@ -40,36 +45,61 @@ const defaultSheet = {
   survivalProf: false,
 } as CharacterSheetState;
 
+
+// API  (Application Programming Interface)
+//       : e.g a service, or set of functions in a library, or a way to talk to a database
+//       used to talk about actual concrete function names
+
+// Abstraction  : Cartoon simplification of the underlying details (used to talk about responsibilities)
+//                (hides implementation details)
+// Implementation Details : how the abstraction does it's job, concrete steps to do something
+
+// module : a file with code in it (broadly speaking)
+// Component : a function that returns JSX
+
 function DndAdminPanel() {
   const [currentCharacterSheet, setCurrentCharacterSheet] = useState<CharacterSheetState | undefined>(undefined);
 
-  const getFromStore = () => {
-    const characterSheetString = localStorage.getItem("LOCAL_STORE_CharacterSheetState");
-    if (characterSheetString !== null) {
-      let characterSheet = JSON.parse(characterSheetString) as CharacterSheetState;
+  const getFromStoreHandler = (name:string) => {
+    let characterSheet = getFromStore(name);
+    if(characterSheet) {
       setCurrentCharacterSheet(characterSheet);
     }
   };
 
-  const saveToStore = (characterSheetState: CharacterSheetState) => {
-    let characterSheetStateString = JSON.stringify(characterSheetState);
-    localStorage.setItem("LOCAL_STORE_CharacterSheetState", characterSheetStateString);
+  const saveToStoreHandler = (characterSheetState: CharacterSheetState) => {
+    saveToStore(characterSheetState);
+
     setCurrentCharacterSheet(characterSheetState);
   };
 
   const newCharacterSheet = () => {
     setCurrentCharacterSheet({ ...defaultSheet });
   };
+
+  /*
+    {
+      'Jim': {str: 5, dex: 4},
+      'Sally': {str: 10, dex: 10}
+    }
+
+    ['Jim', 'Sally']
+
+  */
+  const namesAsObject = getAllFromStore();
+  const characterNames:string[] = Object.keys(namesAsObject) // fill this out later
+
   return (
     <>
       <p>
-        <button
-          onClick={() => {
-            getFromStore();
+        <select
+          value={currentCharacterSheet?.characterName}
+          onChange={(e) => {
+            getFromStoreHandler(e.target.value);
           }}
         >
-          Load from Store
-        </button>
+          {characterNames.map(name => <option value={name}>{name}</option>)}
+        </select>
       </p>
       <p>
         <button
@@ -81,7 +111,7 @@ function DndAdminPanel() {
         </button>
       </p>
 
-      {currentCharacterSheet && <CharacterSheet characterSheet={currentCharacterSheet} saveToStore={saveToStore} />}
+      {currentCharacterSheet && <CharacterSheet characterSheet={currentCharacterSheet} saveToStore={saveToStoreHandler} />}
     </>
   );
 }
