@@ -77,17 +77,8 @@ function DndAdminPanel() {
     setCurrentCharacterSheet({ ...defaultSheet });
   };
 
-  /*
-    {
-      'Jim': {str: 5, dex: 4},
-      'Sally': {str: 10, dex: 10}
-    }
-
-    ['Jim', 'Sally']
-
-  */
   const namesAsObject = getAllFromStore();
-  const characterNames:string[] = Object.keys(namesAsObject) // fill this out later
+  const characterNames:string[] = Object.keys(namesAsObject);
 
   return (
     <>
@@ -118,13 +109,4 @@ function DndAdminPanel() {
 
 export default DndAdminPanel;
 
-/*
 
-App
-  DndAdminPanel  currentCharacterSheet: (Dritz S:10)
-    CharacterSheet currentCharacterSheet: (Dritz S:10)
-        strengthStat(11)
-      CharacterSkillPanel
-      CharacterStatRow
-
-*/
