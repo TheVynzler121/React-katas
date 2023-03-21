@@ -17,6 +17,7 @@ const defaultStat = {
 
 const defaultSheet = {
   characterName: "",
+  characterLevel: 0,
   rollResults: [],
   profBonus: 0,
   strengthStat: { ...defaultStat, statName: "Strength" },
