@@ -1,4 +1,4 @@
-import {add5,add5KeepOver6, formatMod, calculateBaseModifier, sub7KeepUnder5, reverseStringArray, ContainsDupes, ReverseString, TwoSum, PlusOne, SingleNumber, LongestCommonPrefix, FirstUniqueChar } from './DndHelpers';
+import {add5,add5KeepOver6, formatMod, calculateBaseModifier, sub7KeepUnder5, reverseStringArray, ContainsDupes, ReverseString, TwoSum, PlusOne, SingleNumber, LongestCommonPrefix, FirstUniqueChar, ValidPalindrome } from './DndHelpers';
 
 test('calculates base modifier for -2', () => {
   expect(calculateBaseModifier(6)).toBe(-2);
@@ -98,4 +98,7 @@ test('interviewtests',  () => {
     expect(SingleNumber([2,2,1])).toEqual(1);
     expect(LongestCommonPrefix(["flower","flow","flight"])).toEqual("fl");
     expect(FirstUniqueChar("leetcode")).toEqual(0);
+    expect(FirstUniqueChar("loveleetcode")).toEqual(2);
+    expect(ValidPalindrome("A man, a plan, a canal: Panama")).toEqual(true);
+    expect(ValidPalindrome("race a car")).toEqual(false);
 });

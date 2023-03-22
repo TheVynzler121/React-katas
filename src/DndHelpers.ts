@@ -130,3 +130,16 @@ export function FirstUniqueChar(str: string): number{
 
     return -1;
 }
+
+export function ValidPalindrome(s: string): boolean{
+    s = s.replace(/\W|_/g, '').toLowerCase(); //replace any("g") non letter char("\W") or underscore with an empty, lowercase, char
+    let point1 = 0;
+    let point2 = s.length-1;
+    while(point1 <= point2){
+        if(s[point1] !== s[point2]) return false;
+        point1++;
+        point2--;
+    }
+    return true;
+}
+
