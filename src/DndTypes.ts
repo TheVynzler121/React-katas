@@ -69,14 +69,18 @@ export interface Weapon {
 }
 
 export interface MeleeWeapon extends Weapon{
-  itemType: "Club" | "Dagger" |"Greatclub" | "Battle Axe" | "Longsword";
+  itemType: "Club" | "Dagger" |"Greatclub" | "Handaxe" | "Javelin" | "Light Hammer" | "Mace" | "Quarterstaff" 
+  | "Sickle" | "Spear" | "Battleaxe" | "Flail" | "Glaive" | "Greataxe" | "Greatsword" | "Halberd" | "Lance" 
+  | "Longsword" | "Maul" | "Morningstar" | "Pike" | "Rapier" | "Scimitar" | "Shortsword" | "Trident" | "War pick" 
+  | "Warhammer" | "Whip"; 
   finesse: boolean;
   versatile: boolean;
+  thrown: boolean;
 }
 
 export interface RangedWeapon extends Weapon{
-  itemType: "Bow"
-  thrown: boolean;
+  itemType: "Light Crossbow" | "Dart" | "Shortbow" | "Sling" | "Blowgun" | "Hand Crossbow" | "Heavy Crossbow" 
+  | "Longbow" | "Net" | "Wand" | "Quarterstaff";
   ammunition: boolean;
   loading: boolean;
   special: boolean;
@@ -88,11 +92,11 @@ export interface MagicArmor extends Armor, MagicDetails {
 }
 
 export interface MagicMeleeWeapon extends MeleeWeapon, MagicDetails {
- 
+  
 }
 
 export interface MagicRangedWeapon extends RangedWeapon, MagicDetails{
-  // itemType: "Rod" | "Staff" | "Bow";
+  
 }
 
 export interface MagicItem extends MagicDetails{
@@ -139,9 +143,84 @@ const magicSword: MagicMeleeWeapon = {
   reach: false,
   twoHanded: true,
   versatile: false,
+  thrown: false,
   wondrousItem: true,
   description: "Creates an ice field on impact thats 4 square feet, slowing anyone inside the zone"
-} 
+}
+
+const simpleAxe: MeleeWeapon = {
+  name: "Simple Axe",
+  cost: 12,
+  damageDiceCount: 1,
+  damageDiceType: 6,
+  finesse: false,
+  heavy: false,
+  itemType: "Handaxe",
+  light: true,
+  reach: false,
+  thrown: true,
+  twoHanded: false,
+  versatile: false,
+  weight: 2,
+}
+
+const simpleCrossbow: RangedWeapon = {
+  ammunition: true,
+  cost: 10,
+  damageDiceCount: 1,
+  damageDiceType: 8,
+  heavy: false,
+  itemType: "Light Crossbow",
+  light: true,
+  loading: true,
+  name: "Simple Crossbow",
+  range: 120,
+  reach: false,
+  special: false,
+  twoHanded: true,
+  weight: 4
+}
+
+const magicRanged: MagicRangedWeapon = {
+  ammunition: true,
+  itemType: "Longbow",
+  heavy:false,
+  light:false,
+  loading:false,
+  name: "Lightning Bolt",
+  quality: 2,
+  range: 240,
+  rarity: "Uncommon",
+  reach: false,
+  reqAttunement: true,
+  special: false,
+  twoHanded: true,
+  weight: 4,
+  wondrousItem: true,
+  attuned:false,
+  cost: 200,
+  cursed: false,
+  damageDiceCount: 2,
+  damageDiceType: 8,
+  description: "A bow the shoots lightning"
+}
+
+const magicHelm: MagicArmor = {
+  attuned: false,
+  itemType: "Helm",
+  name: "Bone Helm",
+  quality: 1,
+  rarity: "Rare",
+  reqAttunement: true,
+  stealthDisadvantage: false,
+  strReq: 0,
+  weight: 2,
+  wondrousItem: false,
+  baseArmorClass: 10,
+  cost: 400,
+  cursed: true,
+  description: "A helm that melds to the wearers head"
+}
 
 
 
