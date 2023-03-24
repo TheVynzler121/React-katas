@@ -139,6 +139,9 @@ function CharacterSheet(props: {
         value={characterLevel}
         />
       </p>
+      <p>
+        
+      </p>
       {showStats && (
         <table>
           <thead>

@@ -49,7 +49,7 @@ export interface CharacterSheetState {
 export interface Armor{
   name: string;
   cost: number;
-  itemType: "Helm" | "Chest",
+  itemType: "Helm" | "Chest" | "Gloves" | "Boots" | "Belt";
   baseArmorClass: number;
   strReq: number | undefined;
   stealthDisadvantage: boolean;

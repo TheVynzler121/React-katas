@@ -25,6 +25,30 @@
   margin: 1rem;
 }
 
-.dice {
-  
+.navbar {
+  background-color: grey;
+}
+
+.menu {
+  margin: 0px;
+  padding: 1rem;
+}
+
+.menuItem {
+    display: inline-block;
+    padding-right: 1rem;
+}
+
+.menuItem a {
+  color: black;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.menuItem .active {
+  color: #822510;
+  border-bottom:2px solid #A9270B;
+  padding-bottom: 1rem;
+  padding-top: 1rem;
+  background-color: rgb(92, 92, 92);
 }
