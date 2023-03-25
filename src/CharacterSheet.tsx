@@ -42,7 +42,7 @@ function CharacterSheet(props: {
   const [characterName, setCharacterName] = useState<string>("");
   const [characterLevel, setCharacterLevel] = useState<number>(0);
   const [characterClass, setCharacterClass] = useState(props.characterSheet.characterClass);
-  const [characterRace, setCharacterRace] = useState(props.characterSheet.characterRace);
+  const [characterRace, setCharacterRace] = useState<CharacterSheetState["characterRace"]>(props.characterSheet.characterRace);
 
   useEffect(() => {
     setRollResults(props.characterSheet.rollResults);
