@@ -41,6 +41,8 @@ function CharacterSheet(props: {
   const [showSkills, setShowSkills] = useState<boolean>(true);
   const [characterName, setCharacterName] = useState<string>("");
   const [characterLevel, setCharacterLevel] = useState<number>(0);
+  const [characterClass, setCharacterClass] = useState(props.characterSheet.characterClass);
+  const [characterRace, setCharacterRace] = useState(props.characterSheet.characterRace);
 
   useEffect(() => {
     setRollResults(props.characterSheet.rollResults);
@@ -70,7 +72,9 @@ function CharacterSheet(props: {
     setStealthProf(props.characterSheet.stealthProf);
     setSurvivalProf(props.characterSheet.survivalProf);
     setCharacterName(props.characterSheet.characterName);
-    setCharacterLevel(props.characterSheet.characterLevel)
+    setCharacterLevel(props.characterSheet.characterLevel);
+    setCharacterClass(props.characterSheet.characterClass);
+    setCharacterRace(props.characterSheet.characterRace);
   }, [props.characterSheet]);
 
   const pushToHistory = (r: RollResult) => {
@@ -82,6 +86,8 @@ function CharacterSheet(props: {
     const characterSheetState: CharacterSheetState = {
       characterName: characterName,
       characterLevel: characterLevel,
+      characterClass: characterClass,
+      characterRace: characterRace,
       rollResults: rollResults,
       profBonus: profBonus,
       strengthStat: strengthStat,
@@ -138,6 +144,7 @@ function CharacterSheet(props: {
         onChange={(e) => setCharacterLevel(parseInt(e.target.value))}
         value={characterLevel}
         />
+        
       </p>
       <p>
         

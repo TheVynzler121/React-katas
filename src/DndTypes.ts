@@ -18,6 +18,9 @@ export interface CharacterStat {
 export interface CharacterSheetState {
   characterName: string;
   characterLevel: number;
+  characterClass: "Artificer" | "Barbarian" | "Bard" | "Cleric" | "Druid" | "Fighter" | "Monk" | "Paladin" | "Ranger" |
+  "Rogue" | "Sorcerer" | "Warlock" | "Wizard";
+  characterRace: "Dwarf" | "Elf" | "Halfling" | "Human" | "Dragonborn" | "Gnome" | "Half-Elf" | "Half-Orc" | "Tiefling";
   rollResults: RollResult[]; // List<RollResult>  // IEnumerable<RollResult>
   profBonus: number;
   strengthStat: CharacterStat;
