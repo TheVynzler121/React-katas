@@ -1,4 +1,6 @@
+import { parse } from "querystring";
 import { useState, useEffect } from "react";
+import { parseJsonText } from "typescript";
 import "./CharacterSheet.css";
 import CharacterSkillPanel from "./CharacterSkillPanel";
 import CharacterStatRow from "./CharacterStatRow";
@@ -144,7 +146,12 @@ function CharacterSheet(props: {
         onChange={(e) => setCharacterLevel(parseInt(e.target.value))}
         value={characterLevel}
         />
-        
+        {/* <input
+        className="statName"
+        type="string"
+        value={characterClass}
+        onChange={(e) => setCharacterClass()}
+        /> */}
       </p>
       <p>
         
