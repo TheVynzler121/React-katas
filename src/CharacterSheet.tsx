@@ -4,7 +4,7 @@ import { parseJsonText } from "typescript";
 import "./CharacterSheet.css";
 import CharacterSkillPanel from "./CharacterSkillPanel";
 import CharacterStatRow from "./CharacterStatRow";
-import { CharacterSheetState, CharacterStat, RollResult } from "./DndTypes";
+import { CharacterClass, CharacterRace, CharacterSheetState, CharacterStat, RollResult } from "./DndTypes";
 
 // a child component can't call a parent function, unless it is given the function as a callback
 // '&&' returns the last element if the first is true
@@ -43,8 +43,8 @@ function CharacterSheet(props: {
   const [showSkills, setShowSkills] = useState<boolean>(true);
   const [characterName, setCharacterName] = useState<string>("");
   const [characterLevel, setCharacterLevel] = useState<number>(0);
-  const [characterClass, setCharacterClass] = useState(props.characterSheet.characterClass);
-  const [characterRace, setCharacterRace] = useState<CharacterSheetState["characterRace"]>(props.characterSheet.characterRace);
+  const [characterClass, setCharacterClass] = useState<CharacterClass>(props.characterSheet.characterClass);
+  const [characterRace, setCharacterRace] = useState<CharacterRace>(props.characterSheet.characterRace);
 
   useEffect(() => {
     setRollResults(props.characterSheet.rollResults);
@@ -123,7 +123,7 @@ function CharacterSheet(props: {
   return (
     <>
       <p>
-        <button
+        <button disabled={characterClass===0}
           onClick={() => {
             saveToStoreHandler();
           }}
@@ -146,15 +146,26 @@ function CharacterSheet(props: {
         onChange={(e) => setCharacterLevel(parseInt(e.target.value))}
         value={characterLevel}
         />
-        {/* <input
-        className="statName"
-        type="string"
-        value={characterClass}
-        onChange={(e) => setCharacterClass()}
-        /> */}
-      </p>
-      <p>
-        
+        <select value={characterRace}
+        onChange={(e) => setCharacterRace(e.target.value as any)}>
+          {Object.keys(CharacterRace).filter(charRace => !(parseInt(charRace)>=0)).map(charRace => {
+            return (
+              <option>
+                {charRace}
+              </option>
+            )
+          })}
+        </select>
+        <select value={characterClass}
+        onChange={(e) => setCharacterClass(e.target.value as any)}>
+          {Object.keys(CharacterClass).filter(charClass => !(parseInt(charClass)>=0)).map(charClass => {
+            return (
+              <option>
+              {charClass}
+              </option>
+            )
+          })}
+        </select>       
       </p>
       {showStats && (
         <table>

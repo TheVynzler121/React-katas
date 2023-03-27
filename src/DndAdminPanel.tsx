@@ -1,7 +1,7 @@
 import { useState } from "react";
 import CharacterSheet from "./CharacterSheet";
 import { getFromStore, saveToStore, getAllFromStore } from "./DndStorage";
-import { CharacterSheetState } from "./DndTypes";
+import { CharacterClass, CharacterRace, CharacterSheetState } from "./DndTypes";
 
 const defaultStat = {
   //objects can hold anything, and it'll work as long as it has the interface shape. they are like flexible dictionaries
@@ -18,6 +18,8 @@ const defaultStat = {
 const defaultSheet = {
   characterName: "",
   characterLevel: 0,
+  characterClass: CharacterClass.Artificer,
+  characterRace: CharacterRace.Dwarf,
   rollResults: [],
   profBonus: 0,
   strengthStat: { ...defaultStat, statName: "Strength" },

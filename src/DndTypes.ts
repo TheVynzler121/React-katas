@@ -15,12 +15,39 @@ export interface CharacterStat {
   profBonusCheckbox: boolean;
 }
 
+export enum CharacterClass {
+  Artificer,
+  Barbarian,
+  Bard,
+  Cleric,
+  Druid,
+  Fighter,
+  Monk,
+  Paladin,
+  Ranger,
+  Rogue,
+  Sorcerer,
+  Warlock,
+  Wizard,
+}
+
+export enum CharacterRace {
+  Dwarf,
+  Elf,
+  Halfling,
+  Human,
+  Dragonborn,
+  Gnome,
+  HalfElf,
+  HalfOrc,
+  Tiefling,
+}
+
 export interface CharacterSheetState {
   characterName: string;
   characterLevel: number;
-  characterClass: "Artificer" | "Barbarian" | "Bard" | "Cleric" | "Druid" | "Fighter" | "Monk" | "Paladin" | "Ranger" |
-  "Rogue" | "Sorcerer" | "Warlock" | "Wizard";
-  characterRace: "Dwarf" | "Elf" | "Halfling" | "Human" | "Dragonborn" | "Gnome" | "Half-Elf" | "Half-Orc" | "Tiefling";
+  characterClass: CharacterClass;
+  characterRace: CharacterRace;
   rollResults: RollResult[]; // List<RollResult>  // IEnumerable<RollResult>
   profBonus: number;
   strengthStat: CharacterStat;
@@ -49,10 +76,10 @@ export interface CharacterSheetState {
   survivalProf: boolean;
 }
 
-export interface Armor{
+export interface Armor {
   name: string;
   cost: number;
-  itemType: "Helm" | "Chest" | "Gloves" | "Boots" | "Belt";
+  itemType: "Helm" | "Chest" | "Gloves" | "Boots" | "Belt"; //known as a literal type
   baseArmorClass: number;
   strReq: number | undefined;
   stealthDisadvantage: boolean;
@@ -71,38 +98,67 @@ export interface Weapon {
   reach: boolean;
 }
 
-export interface MeleeWeapon extends Weapon{
-  itemType: "Club" | "Dagger" |"Greatclub" | "Handaxe" | "Javelin" | "Light Hammer" | "Mace" | "Quarterstaff" 
-  | "Sickle" | "Spear" | "Battleaxe" | "Flail" | "Glaive" | "Greataxe" | "Greatsword" | "Halberd" | "Lance" 
-  | "Longsword" | "Maul" | "Morningstar" | "Pike" | "Rapier" | "Scimitar" | "Shortsword" | "Trident" | "War pick" 
-  | "Warhammer" | "Whip"; 
+export interface MeleeWeapon extends Weapon {
+  itemType:
+    | "Club"
+    | "Dagger"
+    | "Greatclub"
+    | "Handaxe"
+    | "Javelin"
+    | "Light Hammer"
+    | "Mace"
+    | "Quarterstaff"
+    | "Sickle"
+    | "Spear"
+    | "Battleaxe"
+    | "Flail"
+    | "Glaive"
+    | "Greataxe"
+    | "Greatsword"
+    | "Halberd"
+    | "Lance"
+    | "Longsword"
+    | "Maul"
+    | "Morningstar"
+    | "Pike"
+    | "Rapier"
+    | "Scimitar"
+    | "Shortsword"
+    | "Trident"
+    | "War pick"
+    | "Warhammer"
+    | "Whip";
   finesse: boolean;
   versatile: boolean;
   thrown: boolean;
 }
 
-export interface RangedWeapon extends Weapon{
-  itemType: "Light Crossbow" | "Dart" | "Shortbow" | "Sling" | "Blowgun" | "Hand Crossbow" | "Heavy Crossbow" 
-  | "Longbow" | "Net" | "Wand" | "Quarterstaff";
+export interface RangedWeapon extends Weapon {
+  itemType:
+    | "Light Crossbow"
+    | "Dart"
+    | "Shortbow"
+    | "Sling"
+    | "Blowgun"
+    | "Hand Crossbow"
+    | "Heavy Crossbow"
+    | "Longbow"
+    | "Net"
+    | "Wand"
+    | "Quarterstaff";
   ammunition: boolean;
   loading: boolean;
   special: boolean;
   range: number;
 }
 
-export interface MagicArmor extends Armor, MagicDetails {
+export interface MagicArmor extends Armor, MagicDetails {}
 
-}
+export interface MagicMeleeWeapon extends MeleeWeapon, MagicDetails {}
 
-export interface MagicMeleeWeapon extends MeleeWeapon, MagicDetails {
-  
-}
+export interface MagicRangedWeapon extends RangedWeapon, MagicDetails {}
 
-export interface MagicRangedWeapon extends RangedWeapon, MagicDetails{
-  
-}
-
-export interface MagicItem extends MagicDetails{
+export interface MagicItem extends MagicDetails {
   itemType: "Ring" | "Rod" | "Potion" | "Wand";
 }
 
@@ -127,7 +183,7 @@ const magicRing: MagicItem = {
   cursed: false,
   wondrousItem: true,
   description: "Makes the wielder jump twice as high",
-}
+};
 const magicSword: MagicMeleeWeapon = {
   name: "Icebound Sword",
   quality: 3,
@@ -148,8 +204,8 @@ const magicSword: MagicMeleeWeapon = {
   versatile: false,
   thrown: false,
   wondrousItem: true,
-  description: "Creates an ice field on impact thats 4 square feet, slowing anyone inside the zone"
-}
+  description: "Creates an ice field on impact thats 4 square feet, slowing anyone inside the zone",
+};
 
 const simpleAxe: MeleeWeapon = {
   name: "Simple Axe",
@@ -165,7 +221,7 @@ const simpleAxe: MeleeWeapon = {
   twoHanded: false,
   versatile: false,
   weight: 2,
-}
+};
 
 const simpleCrossbow: RangedWeapon = {
   ammunition: true,
@@ -181,15 +237,15 @@ const simpleCrossbow: RangedWeapon = {
   reach: false,
   special: false,
   twoHanded: true,
-  weight: 4
-}
+  weight: 4,
+};
 
 const magicRanged: MagicRangedWeapon = {
   ammunition: true,
   itemType: "Longbow",
-  heavy:false,
-  light:false,
-  loading:false,
+  heavy: false,
+  light: false,
+  loading: false,
   name: "Lightning Bolt",
   quality: 2,
   range: 240,
@@ -200,13 +256,13 @@ const magicRanged: MagicRangedWeapon = {
   twoHanded: true,
   weight: 4,
   wondrousItem: true,
-  attuned:false,
+  attuned: false,
   cost: 200,
   cursed: false,
   damageDiceCount: 2,
   damageDiceType: 8,
-  description: "A bow the shoots lightning"
-}
+  description: "A bow the shoots lightning",
+};
 
 const magicHelm: MagicArmor = {
   attuned: false,
@@ -222,23 +278,17 @@ const magicHelm: MagicArmor = {
   baseArmorClass: 10,
   cost: 400,
   cursed: true,
-  description: "A helm that melds to the wearers head"
-}
+  description: "A helm that melds to the wearers head",
+};
 
-
-
-export interface AdventureGear{
+export interface AdventureGear {
   name: string;
   cost: number;
   weight: number;
 }
 
-export type Item = 
-  | Weapon 
-  | AdventureGear 
-  | Armor
-  | MagicItem
+export type Item = Weapon | AdventureGear | Armor | MagicItem;
 
 export interface CharacterLocalStore {
-  [key:string]: CharacterSheetState
+  [key: string]: CharacterSheetState;
 }
