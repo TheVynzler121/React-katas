@@ -37,15 +37,16 @@ export const reverseStringArray = (sArray: string[]) => {
 };
 
 export function ContainsDupes(nums: number[]): boolean  {
-    const dict = [];
-
-    for (let i = 0; i < nums.length; i++) {
-        if(dict[nums[i]]){
-            return true
+    let countingArray = [] as any;
+    let returnBool = false;
+    for (let index = 0; index < nums.length; index++) {
+        if(countingArray[nums[index]]){
+            returnBool = true;
+            return returnBool;
         }
-        dict[nums[i]] = 1;
+        countingArray[nums[index]] = 1;
     }
-    return false;
+    return returnBool;
 };
 
 export function ReverseString(input: string[]): string[] {
