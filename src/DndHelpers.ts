@@ -24,7 +24,7 @@ export const add5 = (nums: number[]) => {
 };
 
 export const add5KeepOver6 = (nums: number[]) => {
-    return nums.map(number => number += 5).filter(number => number > 6);
+    return nums.map(num => num += 5).filter(num => num > 6)
 };
 
 export const sub7KeepUnder5 = (nums: number[]) => {
@@ -37,16 +37,18 @@ export const reverseStringArray = (sArray: string[]) => {
 };
 
 export function ContainsDupes(nums: number[]): boolean  {
-    let countingArray = [] as any;
-    let returnBool = false;
-    for (let index = 0; index < nums.length; index++) {
-        if(countingArray[nums[index]]){
-            returnBool = true;
-            return returnBool;
-        }
-        countingArray[nums[index]] = 1;
+   let countArr = [] as any;
+   let loopLength = nums.length; // no "- 1" if its an array?
+   let retBool = false;
+   for (let index = 0; index < loopLength; index++) {
+    const element = nums[index];
+    if(countArr[element]){
+        retBool = true;
+        return retBool;
     }
-    return returnBool;
+    countArr[element] = 1;
+   }
+   return retBool;
 };
 
 export function ReverseString(input: string[]): string[] {
