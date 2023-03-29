@@ -76,10 +76,18 @@ export interface CharacterSheetState {
   survivalProf: boolean;
 }
 
+export enum ArmorType {
+  Helm,
+  Chest,
+  Gloves,
+  Boots,
+  Belt,
+}
+
 export interface Armor {
   name: string;
   cost: number;
-  itemType: "Helm" | "Chest" | "Gloves" | "Boots" | "Belt"; //known as a literal type
+  itemType: ArmorType;
   baseArmorClass: number;
   strReq: number | undefined;
   stealthDisadvantage: boolean;
@@ -266,7 +274,7 @@ const magicRanged: MagicRangedWeapon = {
 
 const magicHelm: MagicArmor = {
   attuned: false,
-  itemType: "Helm",
+  itemType: ArmorType.Helm,
   name: "Bone Helm",
   quality: 1,
   rarity: "Rare",
