@@ -1,3 +1,5 @@
+import { type } from "os";
+
 export interface RollResult {
   statName: string;
   totalModifier: number;
@@ -94,17 +96,21 @@ export interface Armor {
   weight: number;
 }
 
+export const damageDiceType = [4 , 6 , 8 , 10 , 12 , 20] as const;
+export type damageDiceType = typeof damageDiceType[number];
 export interface Weapon {
   name: string;
   cost: number;
   damageDiceCount: number;
-  damageDiceType: 4 | 6 | 8 | 10 | 12 | 20;
+  damageDiceType: damageDiceType; // this is a literal type
   weight: number;
   heavy: boolean;
   twoHanded: boolean;
   light: boolean;
   reach: boolean;
 }
+
+
 
 export interface MeleeWeapon extends Weapon {
   itemType:
