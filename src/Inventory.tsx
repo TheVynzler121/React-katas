@@ -89,6 +89,21 @@ export default function Inventory() {
                     })}
                   </select> */}
                 </tr>
+                <tr>
+                  Weight: <input type="statName" value={weapWeight} onChange={(e) => setWeapWeight(parseInt(e.target.value))}/>
+                </tr>
+                <tr>
+                  Heavy: <input type="checkbox" checked={weapHeavy} onChange={() => setWeapHeavy(!weapHeavy)}/>
+                </tr>
+                <tr>
+                  Two Handed: <input type="checkbox" checked={weapTwoHanded} onChange={() => setWeapTwoHanded(!weapTwoHanded)}/>
+                </tr>
+                <tr>
+                  Light: <input type="checkbox" checked={weapLight} onChange={() => setWeapLight(!weapLight)}/>
+                </tr>
+                <tr>
+                  Reach: <input type="checkbox" checked={weapReach} onChange={() => setWeapReach(!weapReach)}/>
+                </tr>
               </tbody>
             </table>
           </p>
