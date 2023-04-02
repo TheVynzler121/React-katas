@@ -88,18 +88,18 @@ export function PlusOne(digits: number[]): number[] {
 }
 
 export function SingleNumber(nums: number[]): number {
-    const countingMap = new Map<number, number>();
+    const countMap =  new Map<number,number>();
+    for (let i = 0; i < nums.length; i++) {
+        const element = nums[i];
+        const numsCount = (countMap.get(element) ?? 0) + 1;
+        countMap.set(element, numsCount);
+    }
 
-    nums.forEach((i) => {
-        const numCount = (countingMap.get(i) ?? 0) + 1;
-        countingMap.set(i, numCount);
-    });
-
-    for (let [key, value] of countingMap as any) {
+    for (let [key, value] of countMap as any){
         if(value === 1){
             return key;
         }
-    };
+    }
     return 0;
 }
 
