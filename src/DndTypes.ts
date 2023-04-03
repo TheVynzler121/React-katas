@@ -90,10 +90,10 @@ export interface Armor {
   name: string;
   cost: number;
   itemType: ArmorType;
-  baseArmorClass: number;
-  strReq: number | undefined;
-  stealthDisadvantage: boolean;
-  weight: number;
+  // baseArmorClass: number;
+  // strReq: number | undefined;
+  // stealthDisadvantage: boolean;
+  // weight: number;
 }
 
 export const damageDiceType = [4 , 6 , 8 , 10 , 12 , 20] as const;
@@ -278,22 +278,22 @@ const magicRanged: MagicRangedWeapon = {
   description: "A bow the shoots lightning",
 };
 
-const magicHelm: MagicArmor = {
-  attuned: false,
-  itemType: ArmorType.Helm,
-  name: "Bone Helm",
-  quality: 1,
-  rarity: "Rare",
-  reqAttunement: true,
-  stealthDisadvantage: false,
-  strReq: 0,
-  weight: 2,
-  wondrousItem: false,
-  baseArmorClass: 10,
-  cost: 400,
-  cursed: true,
-  description: "A helm that melds to the wearers head",
-};
+// const magicHelm: MagicArmor = {
+//   attuned: false,
+//   itemType: ArmorType.Helm,
+//   name: "Bone Helm",
+//   quality: 1,
+//   rarity: "Rare",
+//   reqAttunement: true,
+//   stealthDisadvantage: false,
+//   strReq: 0,
+//   weight: 2,
+//   wondrousItem: false,
+//   baseArmorClass: 10,
+//   cost: 400,
+//   cursed: true,
+//   description: "A helm that melds to the wearers head",
+// };
 
 export interface AdventureGear {
   name: string;

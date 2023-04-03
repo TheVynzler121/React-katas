@@ -1,4 +1,4 @@
-import { CharacterLocalStore, CharacterSheetState } from "./DndTypes";
+import { Armor, CharacterLocalStore, CharacterSheetState } from "./DndTypes";
 
 
 export const getAllFromStore = () => {
@@ -22,3 +22,19 @@ export const saveToStore = (characterSheetState: CharacterSheetState) => {
   let allCharactersString = JSON.stringify(allCharacters);
   localStorage.setItem("LOCAL_STORE_CharacterSheetState", allCharactersString);
 };
+
+export const getInvFromStore = () => {
+  const armorDetails = localStorage.getItem("LOCAL_STORE_ArmorState");
+  if(armorDetails !== null){
+    let armorDetailsState = JSON.parse(armorDetails) as Armor;
+    return armorDetailsState || undefined;
+  }
+  return undefined;
+}
+
+export const saveInvToStore = (armorState: Armor) => {
+  let armorDetails = JSON.stringify(armorState)
+  localStorage.setItem("LOCAL_STORE_ArmorState", armorDetails);
+  
+}
+

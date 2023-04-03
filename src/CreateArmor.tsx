@@ -1,5 +1,5 @@
 
 
-function CreateArmor(){
+export default function CreateArmor(){
     
 }
