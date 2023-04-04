@@ -2,17 +2,17 @@ import { Armor, CharacterLocalStore, CharacterSheetState } from "./DndTypes";
 
 
 export const getAllFromStore = () => {
-  const characterSheetsString = localStorage.getItem("LOCAL_STORE_CharacterSheetState");
-  if (characterSheetsString !== null) {
-    let characterSheets = JSON.parse(characterSheetsString) as CharacterLocalStore;
-    return characterSheets || {};
+  const characterSheetsString = localStorage.getItem("LOCAL_STORE_CharacterSheetState"); // sets a var to the string saved in local storage
+  if (characterSheetsString !== null) { //checks if the string is not empty
+    let characterSheets = JSON.parse(characterSheetsString) as CharacterLocalStore; //parses the string into and array of keys
+    return characterSheets || {}; //returns the keys or and empty object
   }
   return {};
 };
 
-export const getFromStore = (name:string) => {
-  let allCharacters = getAllFromStore();
-  return allCharacters[name];
+export const getFromStore = (name:string) => { //get provided a name
+  let allCharacters = getAllFromStore(); //sets a var to be the keys saved in local storage, by calling getAllFromStore()
+  return allCharacters[name]; //returns the key of the matching name
 };
 
 export const saveToStore = (characterSheetState: CharacterSheetState) => {

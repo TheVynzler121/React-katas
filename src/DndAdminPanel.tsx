@@ -63,10 +63,10 @@ const defaultSheet = {
 function DndAdminPanel() {
   const [currentCharacterSheet, setCurrentCharacterSheet] = useState<CharacterSheetState | undefined>(undefined);
 
-  const getFromStoreHandler = (name:string) => {
-    let characterSheet = getFromStore(name);
-    if(characterSheet) {
-      setCurrentCharacterSheet(characterSheet);
+  const getFromStoreHandler = (name:string) => { //gets provided a name
+    let characterSheet = getFromStore(name); //sets the key of the matching name as a var
+    if(characterSheet) { //if the var is "truthy", or in otherwords has a value
+      setCurrentCharacterSheet(characterSheet); //set the state to the states saved in local store
     }
   };
 
