@@ -71,13 +71,13 @@ function DndAdminPanel() {
   };
 
   const saveToStoreHandler = (characterSheetState: CharacterSheetState) => {
-    saveToStore(characterSheetState);
+    saveToStore(characterSheetState); //save the current sheets state to store
 
-    setCurrentCharacterSheet(characterSheetState);
+    setCurrentCharacterSheet(characterSheetState); //set the current sheets state to the current sheet
   };
 
   const newCharacterSheet = () => {
-    setCurrentCharacterSheet({ ...defaultSheet });
+    setCurrentCharacterSheet({ ...defaultSheet }); //sets the state to the default sheet
   };
 
   const namesAsObject = getAllFromStore();

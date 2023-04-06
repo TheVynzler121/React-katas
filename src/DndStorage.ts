@@ -16,11 +16,11 @@ export const getFromStore = (name:string) => { //get provided a name
 };
 
 export const saveToStore = (characterSheetState: CharacterSheetState) => {
-  let allCharacters = getAllFromStore();
-  allCharacters[characterSheetState.characterName] = characterSheetState;
+  let allCharacters = getAllFromStore(); //gets all the keys for all the currently stored characters
+  allCharacters[characterSheetState.characterName] = characterSheetState; //select the name of the sheet passed to saveToStore
   
-  let allCharactersString = JSON.stringify(allCharacters);
-  localStorage.setItem("LOCAL_STORE_CharacterSheetState", allCharactersString);
+  let allCharactersString = JSON.stringify(allCharacters); //turn allCharacters into a string
+  localStorage.setItem("LOCAL_STORE_CharacterSheetState", allCharactersString); //save the characters string with the provided key
 };
 
 export const getInvFromStore = () => {
