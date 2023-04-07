@@ -1,11 +1,11 @@
-import { Armor, CharacterLocalStore, CharacterSheetState } from "./DndTypes";
+import { Armor, ArmorLocalStore, CharacterLocalStore, CharacterSheetState } from "./DndTypes";
 
 
 export const getAllFromStore = () => {
   const characterSheetsString = localStorage.getItem("LOCAL_STORE_CharacterSheetState"); // sets a var to the string saved in local storage
   if (characterSheetsString !== null) { //checks if the string is not empty
-    let characterSheets = JSON.parse(characterSheetsString) as CharacterLocalStore; //parses the string into and array of keys
-    return characterSheets || {}; //returns the keys or and empty object
+    let characterSheets = JSON.parse(characterSheetsString) as CharacterLocalStore; //parses the string into an array of keys
+    return characterSheets || {}; //returns the keys or an empty object
   }
   return {};
 };
@@ -23,18 +23,24 @@ export const saveToStore = (characterSheetState: CharacterSheetState) => {
   localStorage.setItem("LOCAL_STORE_CharacterSheetState", allCharactersString); //save the characters string with the provided key
 };
 
-export const getInvFromStore = () => {
+export const getAllArmorFromStore = () => {
   const armorDetails = localStorage.getItem("LOCAL_STORE_ArmorState");
   if(armorDetails !== null){
-    let armorDetailsState = JSON.parse(armorDetails) as Armor;
-    return armorDetailsState || undefined;
+    let armorDetailsState = JSON.parse(armorDetails) as ArmorLocalStore;
+    return armorDetailsState || {};
   }
-  return undefined;
-}
+  return {};
+};
 
-export const saveInvToStore = (armorState: Armor) => {
-  let armorDetails = JSON.stringify(armorState)
+export const getArmorFromStore = (armorName:string) => {
+  let allArmor = getAllArmorFromStore();
+  return allArmor[armorName];
+};
+
+export const saveArmorToStore = (armorState: Armor) => {
+  let allArmor = getAllArmorFromStore();
+  allArmor[armorState.name] = armorState; //create or update the key with the new value
+  let armorDetails = JSON.stringify(allArmor);
   localStorage.setItem("LOCAL_STORE_ArmorState", armorDetails);
-  
-}
+};
 

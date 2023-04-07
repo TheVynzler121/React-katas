@@ -306,3 +306,7 @@ export type Item = Weapon | AdventureGear | Armor | MagicItem;
 export interface CharacterLocalStore {
   [key: string]: CharacterSheetState;
 }
+
+export interface ArmorLocalStore {
+  [key: string]: Armor; //think Dictionary<string, Armor>();
+}

@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
-import { Armor, ArmorType, damageDiceType } from './DndTypes';
-import { getInvFromStore, saveInvToStore } from './DndStorage';
-
+import React, { useState } from "react";
+import { Armor, ArmorType, damageDiceType } from "./DndTypes";
+import { getAllArmorFromStore, getArmorFromStore, saveArmorToStore } from "./DndStorage";
 
 export default function Inventory() {
   const [newArmor, setNewArmor] = useState<boolean>(false);
@@ -23,14 +22,14 @@ export default function Inventory() {
   // const [weapLight, setWeapLight] = useState<boolean>(false);
   // const [weapReach, setWeapReach] = useState<boolean>(false);
 
-  const getArmorFromStorehandler = () => {
-    let armor = getInvFromStore();
-    if(armor){
+  const getArmorFromStorehandler = (armorName: string) => {
+    let armor = getArmorFromStore(armorName);
+    if (armor) {
       setArmorName(armor.name);
       setArmorCost(armor.cost);
       setArmorType(armor.itemType);
     }
-  }
+  };
 
   const saveArmorToStoreHandler = () => {
     const armorState: Armor = {
@@ -38,33 +37,51 @@ export default function Inventory() {
       cost: armorCost,
       itemType: armorType,
     };
-    saveInvToStore(armorState);
-  }
+    saveArmorToStore(armorState);
+  };
 
   return (
-    <div >
+    <div>
+      <select
+        value={armorName}
+        onChange={(e) => {
+          const armorName = e.target.value;
+          if(armorName !== '-----') {
+            getArmorFromStorehandler(armorName);
+          }
+        }}
+      >
+        <option>-----</option>
+        {Object.keys(getAllArmorFromStore()).map((armorName) => {
+          return <option key={armorName}>{armorName}</option>;
+        })}
+      </select>
       <button onClick={() => setNewArmor(!newArmor)}>New Armor</button>
-        {newArmor &&(
-        <p>
+      {(newArmor || armorName) && (
+        <>
           <table>
             <tbody>
               <tr>
-                Name: <input type="statName" value={armorName} onChange={(e) => setArmorName(e.target.value)}/>
+                <td>
+                  Name: <input type="statName" value={armorName} onChange={(e) => setArmorName(e.target.value)} />
+                </td>
               </tr>
               <tr>
-                Cost: <input type="statName" value={armorCost} onChange={(e) => setArmorCost(parseInt(e.target.value))}/>
+                <td>
+                  Cost:{" "}
+                  <input type="statName" value={armorCost} onChange={(e) => setArmorCost(parseInt(e.target.value))} />
+                </td>
               </tr>
               <tr>
-                <select value={armorType}
-                onChange={(e) => setArmorType(e.target.value as any)}>
-                  {Object.keys(ArmorType).filter(armrType => !(parseInt(armrType)>=0)).map(armrType => {
-                    return (
-                      <option>
-                        {armrType}
-                      </option>
-                    )
-                  })}
-                </select>
+                <td>
+                  <select value={armorType} onChange={(e) => setArmorType(e.target.value as any)}>
+                    {Object.keys(ArmorType)
+                      .filter((armrType) => !(parseInt(armrType) >= 0))
+                      .map((armrType) => {
+                        return <option key={armrType}>{armrType}</option>;
+                      })}
+                  </select>
+                </td>
               </tr>
               {/* <tr>
                 Base AC: <input type="statName" value={baseArmorClass} onChange={(e) => setBaseArmorClass(parseInt(e.target.value))}/>
@@ -80,18 +97,15 @@ export default function Inventory() {
               </tr> */}
             </tbody>
           </table>
-          <button onClick={() => {
-            saveArmorToStoreHandler();
-          }}>
+          <button
+            onClick={() => {
+              saveArmorToStoreHandler();
+            }}
+          >
             Save Armor
           </button>
-          <button onClick={() => {
-            getArmorFromStorehandler();
-          }}>
-            Get Armor
-          </button>
-        </p>
-        )}
+        </>
+      )}
       {/* <button onClick={() => setNewWeapon(!newWeapon)}>New Weapon</button>
         {newWeapon &&(
           <p>
