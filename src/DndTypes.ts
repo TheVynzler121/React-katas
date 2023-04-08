@@ -90,8 +90,8 @@ export interface Armor {
   name: string;
   cost: number;
   itemType: ArmorType;
-  // baseArmorClass: number;
-  // strReq: number | undefined;
+  baseArmorClass: number;
+  strReq: number | undefined;
   // stealthDisadvantage: boolean;
   // weight: number;
 }

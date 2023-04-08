@@ -8,8 +8,8 @@ export default function Inventory() {
   const [armorName, setArmorName] = useState<string>("");
   const [armorCost, setArmorCost] = useState<number>(0);
   const [armorType, setArmorType] = useState<ArmorType>(ArmorType.Helm);
-  // const [baseArmorClass, setBaseArmorClass] = useState<number>(0);
-  // const [strReq, setStrReq] = useState<number | undefined>(0);
+  const [baseArmorClass, setBaseArmorClass] = useState<number>(0);
+  const [strReq, setStrReq] = useState<number | undefined>(0);
   // const [stealthDis, setStealthDis] = useState<boolean>(false);
   // const [armorWeight, setArmorWeight] = useState<number>(0);
   // const [weapName, setWeapName] = useState<string>("");
@@ -28,6 +28,8 @@ export default function Inventory() {
       setArmorName(armor.name);
       setArmorCost(armor.cost);
       setArmorType(armor.itemType);
+      setBaseArmorClass(armor.baseArmorClass);
+      setStrReq(armor.strReq);
     }
   };
 
@@ -36,6 +38,8 @@ export default function Inventory() {
       name: armorName,
       cost: armorCost,
       itemType: armorType,
+      baseArmorClass: baseArmorClass,
+      strReq: strReq,
     };
     saveArmorToStore(armorState);
   };
@@ -83,12 +87,17 @@ export default function Inventory() {
                   </select>
                 </td>
               </tr>
-              {/* <tr>
+              <tr>
+                <td>
                 Base AC: <input type="statName" value={baseArmorClass} onChange={(e) => setBaseArmorClass(parseInt(e.target.value))}/>
+                </td>
               </tr>
               <tr>
+                <td>
                 Strength Requirement: <input type="statName" value={strReq} onChange={(e) => setStrReq(parseInt(e.target.value))}/>
+                </td>
               </tr>
+              {/* 
               <tr>
                 Stealth Disadvantage: <input type="checkbox" checked={stealthDis} onChange={() => setStealthDis(!stealthDis)}/>
               </tr>
