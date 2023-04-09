@@ -1,18 +1,18 @@
 import React, { useState } from "react";
-import { Armor, ArmorType, damageDiceType } from "./DndTypes";
-import { getAllArmorFromStore, getArmorFromStore, saveArmorToStore } from "./DndStorage";
+import { Armor, ArmorType, Weapon, damageDiceType } from "./DndTypes";
+import { getAllArmorFromStore, getArmorFromStore, saveArmorToStore, saveWeaponToStore } from "./DndStorage";
 
 export default function Inventory() {
   const [newArmor, setNewArmor] = useState<boolean>(false);
-  // const [newWeapon, setNewWeapon] = useState<boolean>(false);
+  const [newWeapon, setNewWeapon] = useState<boolean>(false);
   const [armorName, setArmorName] = useState<string>("");
   const [armorCost, setArmorCost] = useState<number>(0);
   const [armorType, setArmorType] = useState<ArmorType>(ArmorType.Helm);
   const [baseArmorClass, setBaseArmorClass] = useState<number>(0);
   const [strReq, setStrReq] = useState<number | undefined>(0);
-  // const [stealthDis, setStealthDis] = useState<boolean>(false);
-  // const [armorWeight, setArmorWeight] = useState<number>(0);
-  // const [weapName, setWeapName] = useState<string>("");
+  const [stealthDis, setStealthDis] = useState<boolean>(false);
+  const [armorWeight, setArmorWeight] = useState<number>(0);
+  const [weapName, setWeapName] = useState<string>("");
   // const [weapCost, setWeapCost] = useState<number>(0);
   // const [weapDmgDiceCount, setWeapDmgDiceCount] = useState<number>(0);
   // const [weapDmgDiceType, setWeapDmgDiceType] = useState<damageDiceType>(damageDiceType[0]);
@@ -30,6 +30,8 @@ export default function Inventory() {
       setArmorType(armor.itemType);
       setBaseArmorClass(armor.baseArmorClass);
       setStrReq(armor.strReq);
+      setStealthDis(armor.stealthDisadvantage);
+      setArmorWeight(armor.weight);
     }
   };
 
@@ -40,8 +42,17 @@ export default function Inventory() {
       itemType: armorType,
       baseArmorClass: baseArmorClass,
       strReq: strReq,
+      stealthDisadvantage: stealthDis,
+      weight: armorWeight,
     };
     saveArmorToStore(armorState);
+  };
+
+  const saveWeaponToStoreHandler = () => {
+    const weaponState: Weapon = {
+      name: weapName,
+    };
+    saveWeaponToStore(weaponState)
   };
 
   return (
@@ -50,7 +61,7 @@ export default function Inventory() {
         value={armorName}
         onChange={(e) => {
           const armorName = e.target.value;
-          if(armorName !== '-----') {
+          if (armorName !== "-----") {
             getArmorFromStorehandler(armorName);
           }
         }}
@@ -89,21 +100,36 @@ export default function Inventory() {
               </tr>
               <tr>
                 <td>
-                Base AC: <input type="statName" value={baseArmorClass} onChange={(e) => setBaseArmorClass(parseInt(e.target.value))}/>
+                  Base AC:{" "}
+                  <input
+                    type="statName"
+                    value={baseArmorClass}
+                    onChange={(e) => setBaseArmorClass(parseInt(e.target.value))}
+                  />
                 </td>
               </tr>
               <tr>
                 <td>
-                Strength Requirement: <input type="statName" value={strReq} onChange={(e) => setStrReq(parseInt(e.target.value))}/>
+                  Strength Requirement:{" "}
+                  <input type="statName" value={strReq} onChange={(e) => setStrReq(parseInt(e.target.value))} />
                 </td>
               </tr>
-              {/* 
               <tr>
-                Stealth Disadvantage: <input type="checkbox" checked={stealthDis} onChange={() => setStealthDis(!stealthDis)}/>
+                <td>
+                  Stealth Disadvantage:{" "}
+                  <input type="checkbox" checked={stealthDis} onChange={() => setStealthDis(!stealthDis)} />
+                </td>
               </tr>
               <tr>
-                Weight: <input type="statName" value={armorWeight} onChange={(e) => setArmorWeight(parseInt(e.target.value))}/>
-              </tr> */}
+                <td>
+                  Weight:{" "}
+                  <input
+                    type="statName"
+                    value={armorWeight}
+                    onChange={(e) => setArmorWeight(parseInt(e.target.value))}
+                  />
+                </td>
+              </tr>
             </tbody>
           </table>
           <button
@@ -115,14 +141,17 @@ export default function Inventory() {
           </button>
         </>
       )}
-      {/* <button onClick={() => setNewWeapon(!newWeapon)}>New Weapon</button>
-        {newWeapon &&(
-          <p>
-            <table>
-              <tbody>
-                <tr>
-                  Name: <input type="statName" value={weapName} onChange={(e) => setWeapName(e.target.value)}/>
-                </tr>
+      <button onClick={() => setNewWeapon(!newWeapon)}>New Weapon</button>
+      {newWeapon && (
+        <>
+          <table>
+            <tbody>
+              <tr>
+                <td>
+                  Name: <input type="statName" value={weapName} onChange={(e) => setWeapName(e.target.value)} />
+                </td>
+              </tr>
+              {/* 
                 <tr>
                   Cost: <input type="statName" value={weapCost} onChange={(e) => setWeapCost(parseInt(e.target.value))}/>
                 </tr>
@@ -155,11 +184,18 @@ export default function Inventory() {
                 </tr>
                 <tr>
                   Reach: <input type="checkbox" checked={weapReach} onChange={() => setWeapReach(!weapReach)}/>
-                </tr>
-              </tbody>
-            </table>
-          </p>
-        )} */}
+                </tr>*/}
+            </tbody>
+          </table>
+          <button
+            onClick={() => {
+              saveWeaponToStoreHandler();
+            }}
+          >
+            Save Weapon
+          </button>
+        </>
+      )}
     </div>
   );
 }

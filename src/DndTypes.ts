@@ -92,22 +92,22 @@ export interface Armor {
   itemType: ArmorType;
   baseArmorClass: number;
   strReq: number | undefined;
-  // stealthDisadvantage: boolean;
-  // weight: number;
+  stealthDisadvantage: boolean;
+  weight: number;
 }
 
 export const damageDiceType = [4 , 6 , 8 , 10 , 12 , 20] as const;
 export type damageDiceType = typeof damageDiceType[number];
 export interface Weapon {
   name: string;
-  cost: number;
-  damageDiceCount: number;
-  damageDiceType: damageDiceType; // this is a literal type
-  weight: number;
-  heavy: boolean;
-  twoHanded: boolean;
-  light: boolean;
-  reach: boolean;
+  // cost: number;
+  // damageDiceCount: number;
+  // damageDiceType: damageDiceType; // this is a literal type
+  // weight: number;
+  // heavy: boolean;
+  // twoHanded: boolean;
+  // light: boolean;
+  // reach: boolean;
 }
 
 
@@ -186,114 +186,6 @@ export interface MagicDetails {
   wondrousItem: boolean;
   description: string;
 }
-
-const magicRing: MagicItem = {
-  name: "Ring of Anti-gravity",
-  quality: 2,
-  rarity: "Rare",
-  itemType: "Ring",
-  reqAttunement: true,
-  attuned: false,
-  cursed: false,
-  wondrousItem: true,
-  description: "Makes the wielder jump twice as high",
-};
-const magicSword: MagicMeleeWeapon = {
-  name: "Icebound Sword",
-  quality: 3,
-  rarity: "Legendary",
-  itemType: "Longsword",
-  reqAttunement: true,
-  attuned: true,
-  cursed: true,
-  cost: 300,
-  damageDiceCount: 3,
-  damageDiceType: 8,
-  weight: 20,
-  light: false,
-  finesse: false,
-  heavy: true,
-  reach: false,
-  twoHanded: true,
-  versatile: false,
-  thrown: false,
-  wondrousItem: true,
-  description: "Creates an ice field on impact thats 4 square feet, slowing anyone inside the zone",
-};
-
-const simpleAxe: MeleeWeapon = {
-  name: "Simple Axe",
-  cost: 12,
-  damageDiceCount: 1,
-  damageDiceType: 6,
-  finesse: false,
-  heavy: false,
-  itemType: "Handaxe",
-  light: true,
-  reach: false,
-  thrown: true,
-  twoHanded: false,
-  versatile: false,
-  weight: 2,
-};
-
-const simpleCrossbow: RangedWeapon = {
-  ammunition: true,
-  cost: 10,
-  damageDiceCount: 1,
-  damageDiceType: 8,
-  heavy: false,
-  itemType: "Light Crossbow",
-  light: true,
-  loading: true,
-  name: "Simple Crossbow",
-  range: 120,
-  reach: false,
-  special: false,
-  twoHanded: true,
-  weight: 4,
-};
-
-const magicRanged: MagicRangedWeapon = {
-  ammunition: true,
-  itemType: "Longbow",
-  heavy: false,
-  light: false,
-  loading: false,
-  name: "Lightning Bolt",
-  quality: 2,
-  range: 240,
-  rarity: "Uncommon",
-  reach: false,
-  reqAttunement: true,
-  special: false,
-  twoHanded: true,
-  weight: 4,
-  wondrousItem: true,
-  attuned: false,
-  cost: 200,
-  cursed: false,
-  damageDiceCount: 2,
-  damageDiceType: 8,
-  description: "A bow the shoots lightning",
-};
-
-// const magicHelm: MagicArmor = {
-//   attuned: false,
-//   itemType: ArmorType.Helm,
-//   name: "Bone Helm",
-//   quality: 1,
-//   rarity: "Rare",
-//   reqAttunement: true,
-//   stealthDisadvantage: false,
-//   strReq: 0,
-//   weight: 2,
-//   wondrousItem: false,
-//   baseArmorClass: 10,
-//   cost: 400,
-//   cursed: true,
-//   description: "A helm that melds to the wearers head",
-// };
 
 export interface AdventureGear {
   name: string;
