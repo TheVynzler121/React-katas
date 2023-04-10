@@ -87,9 +87,10 @@ export enum ArmorType {
 }
 
 export interface Armor {
+  item: "armor";
   name: string;
   cost: number;
-  itemType: ArmorType;
+  armorType: ArmorType;
   baseArmorClass: number;
   strReq: number | undefined;
   stealthDisadvantage: boolean;
@@ -99,8 +100,9 @@ export interface Armor {
 export const damageDiceType = [4 , 6 , 8 , 10 , 12 , 20] as const;
 export type damageDiceType = typeof damageDiceType[number];
 export interface Weapon {
+  item: "weapon";
   name: string;
-  // cost: number;
+  cost: number;
   // damageDiceCount: number;
   // damageDiceType: damageDiceType; // this is a literal type
   // weight: number;
@@ -173,6 +175,7 @@ export interface MagicMeleeWeapon extends MeleeWeapon, MagicDetails {}
 export interface MagicRangedWeapon extends RangedWeapon, MagicDetails {}
 
 export interface MagicItem extends MagicDetails {
+  item: "magicItem";
   itemType: "Ring" | "Rod" | "Potion" | "Wand";
 }
 
@@ -188,6 +191,7 @@ export interface MagicDetails {
 }
 
 export interface AdventureGear {
+  item: "adventureGear";
   name: string;
   cost: number;
   weight: number;
@@ -199,6 +203,10 @@ export interface CharacterLocalStore {
   [key: string]: CharacterSheetState;
 }
 
-export interface ArmorLocalStore {
-  [key: string]: Armor; //think Dictionary<string, Armor>();
+export interface ItemLocalStore {
+  [key: string]: Item; //think Dictionary<string, Item>();
+}
+
+export interface WeaponLocalStore {
+  [key: string]: Weapon;
 }

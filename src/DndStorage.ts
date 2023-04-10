@@ -1,4 +1,4 @@
-import { Armor, ArmorLocalStore, CharacterLocalStore, CharacterSheetState, Weapon } from "./DndTypes";
+import { Item, Armor, ItemLocalStore, CharacterLocalStore, CharacterSheetState, Weapon, WeaponLocalStore } from "./DndTypes";
 
 export const getAllFromStore = () => {
   const characterSheetsString = localStorage.getItem("LOCAL_STORE_CharacterSheetState"); // sets a var to the string saved in local storage
@@ -24,32 +24,24 @@ export const saveToStore = (characterSheetState: CharacterSheetState) => {
   localStorage.setItem("LOCAL_STORE_CharacterSheetState", allCharactersString); //save the characters string with the provided key
 };
 
-export const getAllArmorFromStore = () => {
-  const armorDetails = localStorage.getItem("LOCAL_STORE_ArmorState");
-  if (armorDetails !== null) {
-    let armorDetailsState = JSON.parse(armorDetails) as ArmorLocalStore;
-    return armorDetailsState || {};
+export const getAllItemsFromStore = () => {
+  const allItemsString = localStorage.getItem("LOCAL_STORE_ItemState");
+  if (allItemsString !== null) {
+    let allItems = JSON.parse(allItemsString) as ItemLocalStore;
+    return allItems || {};
   }
   return {};
 };
 
-export const getArmorFromStore = (armorName: string) => {
-  let allArmor = getAllArmorFromStore();
-  return allArmor[armorName];
+export const getItemFromStore = (armorName: string) => {
+  let allItems = getAllItemsFromStore();
+  return allItems[armorName];
 };
 
-export const saveArmorToStore = (armorState: Armor) => {
-  let allArmor = getAllArmorFromStore();
-  allArmor[armorState.name] = armorState; //create or update the key with the new value
-  let armorDetails = JSON.stringify(allArmor);
-  localStorage.setItem("LOCAL_STORE_ArmorState", armorDetails);
+export const saveItemToStore = (item: Item) => {
+  let allItems = getAllItemsFromStore();
+  allItems[item.name] = item; //create or update the key with the new value
+  let allItemsString = JSON.stringify(allItems);
+  localStorage.setItem("LOCAL_STORE_ItemState", allItemsString);
 };
 
-export const getWeaponFromStore = () => {
-  
-};
-
-export const saveWeaponToStore = (weaponName: Weapon) => {
-  let weaponDetails = JSON.stringify(weaponName);
-  localStorage.setItem("LOCAL_STORE_WeaponState", weaponDetails);
-};
