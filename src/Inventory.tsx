@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Item,Armor, ArmorType, Weapon, damageDiceType } from "./DndTypes";
+import { Item,Armor, ArmorType, Weapon, damageDiceOptions } from "./DndTypes";
 import {
   getAllItemsFromStore,
   getItemFromStore,
@@ -7,6 +7,16 @@ import {
 } from "./DndStorage";
 import WeaponForm from "./Weapon";
 import ArmorForm from "./Armor";
+import { toOption } from "./DndHelpers";
+
+const groupBy = function(arr:any, prop:any) {
+  return arr.reduce(function(groups:any, item:any) {
+    const val = item[prop]
+    groups[val] = groups[val] || []
+    groups[val].push(item)
+    return groups
+  }, {})
+}
 
 export default function Inventory() {
   const [currentItem, setCurrentItem] = useState<Item|undefined>(undefined);
@@ -32,9 +42,13 @@ export default function Inventory() {
     setCurrentItem(undefined);
   };
 
-  console.log('currentItem', currentItem);
-  console.log('newArmor', newArmor);
-  console.log('newWeapon', newWeapon);
+  const allItems = Object.values(getAllItemsFromStore());
+  const itemsGroupedByItemType = groupBy(allItems, 'item');
+
+  const itemsToOptions = (items:Item[]) => {
+    return items.map(item=>item.name).map(toOption);
+  };
+
   return (
     <div>
       <select
@@ -48,9 +62,33 @@ export default function Inventory() {
         }}
       >
         <option>-----</option>
-        {Object.keys(getAllItemsFromStore()).map((itemName) => {
-          return <option key={itemName}>{itemName}</option>;
-        })}
+        { 
+        Object.values(getAllItemsFromStore())
+          .map((item:Item) => {
+            return <option key={item.name}>{item.name} {item.item}</option>
+          }) 
+        }
+      </select>
+      <select
+        key={'select' + currentItem?.name}
+        value={currentItem?.name}
+        onChange={(e) => {
+          const itemName = e.target.value;
+          if (itemName !== "-----") {
+            getItemFromStorehandler(itemName);
+          }
+        }}
+      >
+        <option>-----</option>
+        { Object.entries(itemsGroupedByItemType)
+          .map(([group, items]:[string,any]) => {
+            return (
+              <optgroup label={group}>
+                {itemsToOptions(items as Item[])}
+              </optgroup>
+            )
+          }
+        )}
       </select>
       <button onClick={onNewArmorHandler}>New Armor</button>
       <button onClick={onNewWeaponHandler}>New Weapon</button>

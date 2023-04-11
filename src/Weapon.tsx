@@ -1,7 +1,8 @@
 
 import React, { useState } from "react";
-import { Weapon } from "./DndTypes";
+import { Weapon, DamageDiceType, damageDiceOptions } from "./DndTypes";
 import { saveItemToStore } from "./DndStorage";
+import { toOption } from "./DndHelpers";
 
 export interface WeaponProps {
 	weapon: Weapon | undefined
@@ -12,7 +13,7 @@ export default function WeaponForm({weapon} : WeaponProps) {
 	const [weaponCost, setWeaponCost] = useState<number>(weapon?.cost || 0);
 
   // const [weapDmgDiceCount, setWeapDmgDiceCount] = useState<number>(0);
-  // const [weapDmgDiceType, setWeapDmgDiceType] = useState<damageDiceType>(damageDiceType[0]);
+  const [weapDmgDiceType, setWeapDmgDiceType] = useState<DamageDiceType>(4);
   // const [weapWeight, setWeapWeight] = useState<number>(0);
   // const [weapHeavy, setWeapHeavy] = useState<boolean>(false);
   // const [weapTwoHanded, setWeapTwoHanded] = useState<boolean>(false);
@@ -24,6 +25,7 @@ export default function WeaponForm({weapon} : WeaponProps) {
 		item: "weapon",
 		name: weaponName,
 		cost: weaponCost,
+    damageDiceType: weapDmgDiceType,
 		};
 		saveItemToStore(weaponState);
 	};
@@ -40,13 +42,19 @@ export default function WeaponForm({weapon} : WeaponProps) {
               <tr>
                 <td>
                   Cost:{" "}
-                  <input type="statName" value={weaponCost} onChange={(e) => setWeaponCost(parseInt(e.target.value))} />
+                  <input type="statName" value={weaponCost} onChange={(e) => setWeaponCost( parseInt( e.target.value)) } />
                 </td>
+              </tr>
+              <tr>
+                  Damage Dice Type: 
+                  <select value={weapDmgDiceType}
+                    onChange={(e) => setWeapDmgDiceType(parseInt(e.target.value) as DamageDiceType)}>
+                    {damageDiceOptions.map(toOption)}
+                  </select>
               </tr>
             </tbody>
           </table>
-
-          <button onClick={() => { saveWeaponToStoreHandler(); }}>
+          <button onClick={() => saveWeaponToStoreHandler()}>
             Save Weapon
           </button>
 	
@@ -57,18 +65,7 @@ export default function WeaponForm({weapon} : WeaponProps) {
                 <tr>
                   Damage Dice Count: <input type="statName" value={weapDmgDiceCount} onChange={(e) => setWeapDmgDiceCount(parseInt(e.target.value))}/>
                 </tr>
-                <tr>
-                  Damage Dice Type: <select value={weapDmgDiceType}
-                  onChange={(e) => setWeapDmgDiceType()))}>
-                    {Object.keys(weapDmgDiceType).map(dmgDiceType => {
-                      return (
-                        <option>
-                          {dmgDiceType}
-                        </option>
-                      )
-                    })}
-                  </select>
-                </tr>
+                
                 <tr>
                   Weight: <input type="statName" value={weapWeight} onChange={(e) => setWeapWeight(parseInt(e.target.value))}/>
                 </tr>

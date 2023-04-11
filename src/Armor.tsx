@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Armor, ArmorType } from "./DndTypes";
 import { saveItemToStore } from "./DndStorage";
+import { toOption } from "./DndHelpers";
 
 export interface ArmorProps {
   armor: Armor | undefined;
@@ -47,10 +48,8 @@ export default function ArmorForm({ armor }: ArmorProps) {
             <td>
               <select value={armorType} onChange={(e) => setArmorType(e.target.value as any)}>
                 {Object.keys(ArmorType)
-                  .filter((armrType) => !(parseInt(armrType) >= 0))
-                  .map((armrType) => {
-                    return <option key={armrType}>{armrType}</option>;
-                  })}
+                .filter((armrType) => !(parseInt(armrType) >= 0))
+                .map(toOption)}
               </select>
             </td>
           </tr>

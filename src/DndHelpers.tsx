@@ -1,3 +1,5 @@
+
+
 export const calculateBaseModifier = (stat: number) => {
     
     if(stat === 10 || stat === 11){
@@ -17,6 +19,8 @@ export const formatMod = (mod: number) => {
 
     return "";
 };
+
+export const toOption = (x:any) => <option key={x}> { x } </option>;
 
 
 export const add5 = (nums: number[]) => {

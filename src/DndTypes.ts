@@ -97,14 +97,14 @@ export interface Armor {
   weight: number;
 }
 
-export const damageDiceType = [4 , 6 , 8 , 10 , 12 , 20] as const;
-export type damageDiceType = typeof damageDiceType[number];
+export const damageDiceOptions = [4 , 6 , 8 , 10 , 12 , 20] as const;
+export type DamageDiceType = typeof damageDiceOptions[number];
 export interface Weapon {
   item: "weapon";
   name: string;
   cost: number;
   // damageDiceCount: number;
-  // damageDiceType: damageDiceType; // this is a literal type
+  damageDiceType: DamageDiceType; // this is a literal type
   // weight: number;
   // heavy: boolean;
   // twoHanded: boolean;
