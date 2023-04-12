@@ -103,9 +103,9 @@ export interface Weapon {
   item: "weapon";
   name: string;
   cost: number;
-  // damageDiceCount: number;
+  damageDiceCount: number;
   damageDiceType: DamageDiceType; // this is a literal type
-  // weight: number;
+  weight: number;
   // heavy: boolean;
   // twoHanded: boolean;
   // light: boolean;

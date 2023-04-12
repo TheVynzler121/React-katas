@@ -12,9 +12,9 @@ export default function WeaponForm({weapon} : WeaponProps) {
 	const [weaponName, setWeaponName] = useState<string>(weapon?.name || "");
 	const [weaponCost, setWeaponCost] = useState<number>(weapon?.cost || 0);
 
-  // const [weapDmgDiceCount, setWeapDmgDiceCount] = useState<number>(0);
-  const [weapDmgDiceType, setWeapDmgDiceType] = useState<DamageDiceType>(4);
-  // const [weapWeight, setWeapWeight] = useState<number>(0);
+  const [weaponDmgDiceCount, setWeapDmgDiceCount] = useState<number>(0);
+  const [weaponDmgDiceType, setWeapDmgDiceType] = useState<DamageDiceType>(4);
+  const [weaponWeight, setWeapWeight] = useState<number>(0);
   // const [weapHeavy, setWeapHeavy] = useState<boolean>(false);
   // const [weapTwoHanded, setWeapTwoHanded] = useState<boolean>(false);
   // const [weapLight, setWeapLight] = useState<boolean>(false);
@@ -25,7 +25,9 @@ export default function WeaponForm({weapon} : WeaponProps) {
 		item: "weapon",
 		name: weaponName,
 		cost: weaponCost,
-    damageDiceType: weapDmgDiceType,
+    damageDiceCount: weaponDmgDiceCount,
+    damageDiceType: weaponDmgDiceType,
+    weight: weaponWeight,
 		};
 		saveItemToStore(weaponState);
 	};
@@ -46,11 +48,23 @@ export default function WeaponForm({weapon} : WeaponProps) {
                 </td>
               </tr>
               <tr>
+                <td>
+                  Damage Dice Count: <input type="statName" value={weaponDmgDiceCount} onChange={(e) => setWeapDmgDiceCount(parseInt(e.target.value))}/>
+                </td>
+              </tr>
+              <tr>
+                <td>
                   Damage Dice Type: 
-                  <select value={weapDmgDiceType}
+                  <select value={weaponDmgDiceType}
                     onChange={(e) => setWeapDmgDiceType(parseInt(e.target.value) as DamageDiceType)}>
                     {damageDiceOptions.map(toOption)}
                   </select>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Weight: <input type="statName" value={weaponWeight} onChange={(e) => setWeapWeight(parseInt(e.target.value))}/>
+                </td>
               </tr>
             </tbody>
           </table>
@@ -62,13 +76,9 @@ export default function WeaponForm({weapon} : WeaponProps) {
 }
 
               /* 
-                <tr>
-                  Damage Dice Count: <input type="statName" value={weapDmgDiceCount} onChange={(e) => setWeapDmgDiceCount(parseInt(e.target.value))}/>
-                </tr>
                 
-                <tr>
-                  Weight: <input type="statName" value={weapWeight} onChange={(e) => setWeapWeight(parseInt(e.target.value))}/>
-                </tr>
+                
+                
                 <tr>
                   Heavy: <input type="checkbox" checked={weapHeavy} onChange={() => setWeapHeavy(!weapHeavy)}/>
                 </tr>
