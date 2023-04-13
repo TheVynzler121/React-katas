@@ -9,14 +9,21 @@ import WeaponForm from "./Weapon";
 import ArmorForm from "./Armor";
 import { toOption } from "./DndHelpers";
 
-const groupBy = function(arr:any, prop:any) {
-  return arr.reduce(function(groups:any, item:any) {
-    const val = item[prop]
-    groups[val] = groups[val] || []
-    groups[val].push(item)
+const groupBy = function(arr:any, prop:any) {  //function with array as any type, prop as any type as its parameters
+  return arr.reduce(function(groups:any, item:any) { // setting a 'key' and 'value'
+    const val = item[prop] //new variable with the index '(prop)' of item
+    groups[val] = groups[val] || [] // ??? groups[item[prop]] is truthy or empty?
+    groups[val].push(item) //add item to the end of groups[item[prop]]
     return groups
   }, {})
 }
+//groupBy(allItems, 'item')
+//allItems.reduce((groups, item){
+//  const value = item['item']
+//  groups[item['item']] = groups[item['item']] or Empty array?
+//  groups[item['item']].push(item)
+//}
+//)
 
 export default function Inventory() {
   const [currentItem, setCurrentItem] = useState<Item|undefined>(undefined);
