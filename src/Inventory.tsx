@@ -17,11 +17,11 @@ const groupBy = function(arr:any, prop:any) {  //function with array as any type
     return groups
   }, {})
 }
-//groupBy(allItems, 'item')
+//groupBy(allItems, 'armor')
 //allItems.reduce((groups, item){
-//  const value = item['item']
-//  groups[item['item']] = groups[item['item']] or Empty array?
-//  groups[item['item']].push(item)
+//  const value = item['armor']
+//  groups[item['armor']] = groups[item['armor']] or Empty array?
+//  groups[item['armor']].push(item)
 //}
 //)
 
