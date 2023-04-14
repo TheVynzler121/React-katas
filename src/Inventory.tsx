@@ -9,19 +9,19 @@ import WeaponForm from "./Weapon";
 import ArmorForm from "./Armor";
 import { toOption } from "./DndHelpers";
 
-const groupBy = function(arr:any, prop:any) {  //function with array as any type, prop as any type as its parameters
-  return arr.reduce(function(groups:any, item:any) { // setting a 'key' and 'value'
-    const val = item[prop] //new variable with the index '(prop)' of item
-    groups[val] = groups[val] || [] // ??? groups[item[prop]] is truthy or empty?
-    groups[val].push(item) //add item to the end of groups[item[prop]]
-    return groups
-  }, {})
+const groupBy = function(arr:any[], prop:any) {  //function with an array and prop (or "Key") as its parameters
+  return arr.reduce((groups:any, item:any) => { // the parameters for the reduce. i.e. ("sum", "num")
+    const val = item[prop] //new variable with the index ("Key") of item as its value
+    groups[val] = groups[val] || [] // edge case checking for a filled array or an empty one
+    groups[val].push(item) //add item to the end of groups['armor']
+    return groups // loop back to the start of the reduce with the new "sum"
+  }, {}) //the initial value, also known as Seed
 }
-//groupBy(allItems, 'armor')
-//allItems.reduce((groups, item){
-//  const value = item['armor']
-//  groups[item['armor']] = groups[item['armor']] or Empty array?
-//  groups[item['armor']].push(item)
+//groupBy(allItems("arr"), 'item'("prop"))
+//allItems.reduce((groups("sum"), item("num")){
+//  const value = "num"['item'] >>> value = 'armor'
+//  "sum"['armor'] = "sum"['armor'] or Empty array
+//  "sum"['armor'].push(item)
 //}
 //)
 
