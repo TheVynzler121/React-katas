@@ -106,10 +106,10 @@ export interface Weapon {
   damageDiceCount: number;
   damageDiceType: DamageDiceType; // this is a literal type
   weight: number;
-  // heavy: boolean;
-  // twoHanded: boolean;
-  // light: boolean;
-  // reach: boolean;
+  heavy: boolean;
+  twoHanded: boolean;
+  light: boolean;
+  reach: boolean;
 }
 
 
