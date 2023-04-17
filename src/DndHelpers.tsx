@@ -20,7 +20,7 @@ export const formatMod = (mod: number) => {
     return "";
 };
 
-export const toOption = (x:any) => <option key={x}> { x } </option>;
+export const toOption = (x:any) => <option key={x}> { x } </option>; //helper function to fill in options
 
 
 export const add5 = (nums: number[]) => {

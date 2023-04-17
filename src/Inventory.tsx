@@ -52,8 +52,8 @@ export default function Inventory() {
   const allItems = Object.values(getAllItemsFromStore());
   const itemsGroupedByItemType = groupBy(allItems, 'item');
 
-  const itemsToOptions = (items:Item[]) => {
-    return items.map(item=>item.name).map(toOption);
+  const itemsToOptions = (items:Item[]) => { //takes an array of "Item" type
+    return items.map(item=>item.name).map(toOption); //maps all the item name's as options
   };
 
   return (
@@ -70,9 +70,9 @@ export default function Inventory() {
       >
         <option>-----</option>
         { 
-        Object.values(getAllItemsFromStore())
-          .map((item:Item) => {
-            return <option key={item.name}>{item.name} {item.item}</option>
+        Object.values(getAllItemsFromStore()) //gets the values from getAllItemsFromStore
+          .map((item:Item) => { //maps the values as Item Type
+            return <option key={item.name}>{item.name} {item.item}</option> //renders the name of the item then its type i.e. "Weapon" 
           }) 
         }
       </select>
