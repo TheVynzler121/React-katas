@@ -45,24 +45,23 @@ test('count numbers greater than 5', () => {
 test('return most common number', () => {
 
     
-    const groupedNums = _.groupBy(numbers)
+    const groupedNums = _.groupBy(numbers);
 
-	const count1s = output[1].length;
-	const count2s = output[2].length;
-	const count3s = output[3].length;
-	const count4s = output[4].length;
 
-    let output = 0;
-    for (let i = 0; i < numbers.length; i++) {
-        let prevCount = 0;
-        if(groupedNums[i].length > prevCount){
-            prevCount = groupedNums[i].length
+    const output = groupedNums;
 
-        }
-        output = prevCount;
+	// const count1s = output[1].length;
+    // let output = 0;
+    // for (let i = 0; i < numbers.length; i++) {
+    //     let prevCount = 0;
+    //     if(groupedNums[i].length > prevCount){
+    //         prevCount = groupedNums[i].length
+
+    //     }
+    //     output = prevCount;
         
         
-    }
+    // }
 
     console.log(output);
 
