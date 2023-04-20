@@ -47,16 +47,21 @@ test('return most common number', () => {
     
     const groupedNums = _.groupBy(numbers);
     
-    for (let index = 0; index < numbers.length; index++) {
-        let key = groupedNums[index];
-        let value = groupedNums[key[index]];
-        if(){
-            
-        }
-        
-    }
+    const groupKeys = _.keysIn(groupedNums);
+    const groupValues = _.values(groupedNums);
 
-    console.log();
+
+    
+    
+    for (let index = 0; index < groupKeys.length; index++) {
+        const element = groupValues[index];
+        
+        console.log(element)
+
+    }
+    
+
+   
 
     expect(output).toEqual(3);
 });
