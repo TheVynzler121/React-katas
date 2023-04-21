@@ -45,23 +45,29 @@ test('count numbers greater than 5', () => {
 test('return most common number', () => {
 
     
-    const groupedNums = _.groupBy(numbers);
-    
-    const groupKeys = _.keysIn(groupedNums);
-    const groupValues = _.values(groupedNums);
+    const largestNumber = _.chain(numbers)
+                        .groupBy()
+                        .toPairs()
+                        .map(([key, numbers]) => [key, numbers.length] as [string, number])
+                        .orderBy(([_, count]) => count, ['desc'])
+                        .head()
+                        .head()
+                        .value();
 
+    console.log(largestNumber);
+    let output = parseInt(largestNumber.toString());
+    // let prevCount = 0;
+    // let prevCountKey = '';
 
-    
-    
-    for (let index = 0; index < groupKeys.length; index++) {
-        const element = groupValues[index];
+    // for (let index = 0; index < groupArr.length; index++) {
         
-        console.log(element)
-
-    }
+    //     if(mappedArr[index][1] > prevCount){
+    //         prevCount = mappedArr[index][1]
+    //         prevCountKey = mappedArr[index][0]
+    //     }
+    // }
     
-
-   
+    // output = parseInt(prevCountKey)
 
     expect(output).toEqual(3);
 });
