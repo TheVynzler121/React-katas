@@ -55,11 +55,11 @@ export function ContainsDupes(nums: number[]): boolean  {
 };
 
 export function ReverseString(input: string[]): string[] {
-    let reversedArray: any[] = [];
-    input.forEach(character => {
-        reversedArray.splice(0, 0, character);
-    });
-    return reversedArray;
+    let reversedString = [] as any;
+    input.forEach(letter => {
+        reversedString.splice(0, 0, letter)
+    })
+    return reversedString;
 };
 
 export function TwoSum(nums: number[], target: number): number[]{
