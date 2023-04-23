@@ -1,3 +1,4 @@
+import _ from "lodash";
 
 
 export const calculateBaseModifier = (stat: number) => {
@@ -90,19 +91,14 @@ export function PlusOne(digits: number[]): number[] {
 }
 
 export function SingleNumber(nums: number[]): number {
-    const countMap =  new Map<number,number>();
-    for (let i = 0; i < nums.length; i++) {
-        const element = nums[i];
-        const numsCount = (countMap.get(element) ?? 0) + 1;
-        countMap.set(element, numsCount);
-    }
+    if(nums.length === 1) return nums[0];
 
-    for (let [key, value] of countMap as any){
-        if(value === 1){
-            return key;
+    for (let i = 0; i < nums.length; i++) {
+        if(nums.indexOf(nums[i]) === nums.lastIndexOf(nums[i])){
+            return nums[i]
         }
     }
-    return 0;
+    return 0
 }
 
 export function LongestCommonPrefix(strs: string[]): string {
