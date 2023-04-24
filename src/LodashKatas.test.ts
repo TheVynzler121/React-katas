@@ -20,9 +20,9 @@ test('groupBy basics', () => {
 });
 
 test('groupBy is even', () => {
-	const isEven = (x:number) => x % 2 === 0;
+	const isEven = (x:number) => x % 2 === 0; // % = modulus or the division remainder
 
-	const output = _.groupBy(numbers, x => isEven(x) ? 'even' : 'odd');
+	const output = _.groupBy(numbers, x => isEven(x) ? 'even' : 'odd'); // ? = if true, : = else. known as ternary operator
 
     expect(output).toEqual({
 		'even': [2,4,2],
