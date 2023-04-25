@@ -42,16 +42,7 @@ export const reverseStringArray = (sArray: string[]) => {
 };
 
 export function ContainsDupes(nums: number[]): boolean  {
-    let countingArray = [] as any;
-    
-    for (let index = 0; index < nums.length; index++) {
-        const element = nums[index];
-        if(countingArray[element]){
-            return true;
-        }
-        countingArray[element] = 1;
-    }
-    return false;
+    return new Set(nums).size !== nums.length
 };
 
 export function ReverseString(input: string[]): string[] {
@@ -63,16 +54,15 @@ export function ReverseString(input: string[]): string[] {
 };
 
 export function TwoSum(nums: number[], target: number): number[]{
-    let loopLength = nums.length;
-    let retArray = [];
-    for (let index = 0; index < loopLength; index++) {
-        for (let index2 = index + 1; index < loopLength; index++) {
-            if(nums[index] + nums[index2] === target){
-                retArray.push(index, index2);
+    let arraySeed = []
+    for (let i = 0; i < nums.length - 1; i++) {
+        for (let j = i + 1; j < nums.length - 1; j++) {
+            if(nums[i] + nums[j] === target){
+                arraySeed.push(i, j)
             }
         }
     }
-    return retArray;
+    return arraySeed;
 }
 
 export function PlusOne(inputNums: number[]): number[] {
