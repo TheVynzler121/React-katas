@@ -69,14 +69,15 @@ export function PlusOne(inputNums: number[]): number[] {
     
     for (let i = inputNums.length - 1; i >= 0; i--) {
         if(inputNums[i] === 9){
-            inputNums[i] = 0;
-        }  else {
-            inputNums[i]++;
-            return inputNums;
+            inputNums[i] = 0
+        } else {
+            inputNums[i]++
+            return inputNums
         }
+        
     }
-    let firstOne = [1] as number[]
-    return firstOne.concat(inputNums)
+    let newOne = [1] as number[]
+    return newOne.concat(inputNums)
 }
 
 export function SingleNumber(nums: number[]): number {
