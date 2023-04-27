@@ -54,15 +54,15 @@ export function ReverseString(input: string[]): string[] {
 };
 
 export function TwoSum(nums: number[], target: number): number[]{
-    let arraySeed = []
-    for (let i = 0; i < nums.length - 1; i++) {
-        for (let j = i + 1; j < nums.length - 1; j++) {
-            if(nums[i] + nums[j] === target){
-                arraySeed.push(i, j)
-            }
+    let returnArray = [] as number []
+    for (let index1 = 0; index1 < nums.length - 1; index1++) {
+        for (let index2 = index1 + 1; index2 < nums.length - 1; index2++) {
+            if(nums[index1] + nums[index2] === target){
+                returnArray.push(index1,index2)
+            }   
         }
     }
-    return arraySeed;
+    return returnArray;
 }
 
 export function PlusOne(inputNums: number[]): number[] {
