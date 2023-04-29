@@ -46,11 +46,18 @@ export function ContainsDupes(nums: number[]): boolean  {
 };
 
 export function ReverseString(input: string[]): string[] {
-    let reversedString = [] as any;
-    input.forEach(letter => {
-        reversedString.splice(0, 0, letter)
-    })
-    return reversedString;
+    // let reversedString = [] as any;
+    // input.forEach(letter => {
+    //     reversedString.splice(0, 0, letter)
+    // })
+    // return reversedString;
+
+    let stringSeed = [] as string[];
+    for (let i = 0; i < input.length; i++) {
+        const element = input[i];
+        stringSeed.splice(0, 0, element);
+    }
+    return stringSeed;
 };
 
 export function TwoSum(nums: number[], target: number): number[]{
