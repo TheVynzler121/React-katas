@@ -71,18 +71,16 @@ export function TwoSum(nums: number[], target: number): number[]{
 }
 
 export function PlusOne(inputNums: number[]): number[] {
-    
-    for (let i = inputNums.length - 1; i >= 0; i--) {
-        if(inputNums[i] === 9){
-            inputNums[i] = 0
+    for (let index = inputNums.length - 1; index >= 0; index--) {
+        if(inputNums[index] === 9){
+            inputNums[index] = 0;
         } else {
-            inputNums[i]++
-            return inputNums
+            inputNums[index]++;
+            return inputNums;
         }
-        
     }
-    let newOne = [1] as number[]
-    return newOne.concat(inputNums)
+    let firstOne = [1] as number[];
+    return firstOne.concat(inputNums);
 }
 
 export function SingleNumber(nums: number[]): number {

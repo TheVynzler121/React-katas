@@ -202,7 +202,7 @@ function CharacterSheet(props: {
       )}
       <p>
         Proficiency Bonus:
-        {/* one tag close if there is nothing in between. See line 18 vs 30-33  */}
+        {/* one tag close if there is nothing in between*/}
         <input
           className="statInput"
           type="number"

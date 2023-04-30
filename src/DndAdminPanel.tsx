@@ -15,7 +15,7 @@ const defaultStat = {
 // load a specific character by name
 // save a loaded character
 
-const defaultSheet = {
+const defaultSheet = { //an interface with the default states of CharacterSheetState
   characterName: "",
   characterLevel: 0,
   characterClass: CharacterClass.Artificer,

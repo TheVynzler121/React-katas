@@ -26,7 +26,7 @@ function CharacterSkillPanel(props: {
     props.pushToRollResultHistory(rollResult);
   };
 
-  const profBonus = props.hasProf ? props.profBonus : 0;
+  const profBonus = props.hasProf ? props.profBonus : 0; //if props.hasProf is true then give its profBonus, else give 0
   const skillMod = calculateBaseModifier(props.characterStat.abilityScore) + profBonus;
 
   return (
