@@ -61,13 +61,16 @@ export function ReverseString(input: string[]): string[] {
 };
 
 export function TwoSum(nums: number[], target: number): number[]{
-    let numArray = [] as number[];
-    for (let i = 0; i < nums.length - 1; i++) {
-        for (let j = i + 1; j < nums.length - 1; j++) {
-            if(nums[i] + nums[j] === target) numArray.push(i,j);
+    let retArray = [] as number[];
+    let loopCount = nums.length - 1;
+    for (let index1 = 0; index1 < loopCount; index1++) {
+        for (let index2 = index1 + 1; index2 < loopCount; index2++) {
+            if(nums[index1] + nums[index2] === target){
+                retArray.push(index1, index2);
+            }
         }
     }
-    return numArray;
+    return retArray;
 }
 
 export function PlusOne(inputNums: number[]): number[] {
